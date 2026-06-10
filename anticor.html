@@ -1022,18 +1022,96 @@ function doLogin(){
   const u=document.getElementById('inp-login').value.trim();
   const p=document.getElementById('inp-pass').value.trim();
   const err=document.getElementById('login-err');
-  if(!u||!p){err.style.display='block';err.textContent='Введите логин и пароль';return}
-  if(u==='admin'&&p==='admin'||u.includes('@')){
-    document.getElementById('page-login').classList.remove('active');
-    document.getElementById('page-main').classList.add('active');
-    setTimeout(drawGraph,100);
+  const errT=document.getElementById('login-err-text');
+  if(!u||!p){errT.textContent='Введите логин и пароль';err.classList.add('show');return}
+  if((u==='admin'&&p==='admin')||u.includes('@')){
+    err.classList.remove('show');
+    const btn=document.querySelector('.login-btn');
+    if(btn){btn.innerHTML='Проверка доступа…';btn.style.opacity='.75';}
+    setTimeout(()=>{
+      if(btn){btn.innerHTML='Войти <span class="kbd">ENTER</span>';btn.style.opacity='1';}
+      document.getElementById('page-login').classList.remove('active');
+      document.getElementById('page-main').classList.add('active');
+      setTimeout(drawGraph,100);
+    },550);
   } else {
-    err.style.display='block';err.textContent='Неверный логин или пароль';
+    errT.textContent='Неверный логин или пароль';err.classList.add('show');
     document.getElementById('inp-pass').value='';
   }
 }
-document.getElementById('inp-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-document.getElementById('inp-login').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('inp-pass').focus()});
+
+/* show / hide password */
+const EYE_ON='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+const EYE_OFF='<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+function togglePass(){
+  const inp=document.getElementById('inp-pass');
+  const on=inp.type==='password';
+  inp.type=on?'text':'password';
+  document.getElementById('eye-svg').innerHTML=on?EYE_OFF:EYE_ON;
+  inp.focus();
+}
+
+/* Enter-key flow + Caps Lock detection */
+['inp-login','inp-pass'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){ id==='inp-login'?document.getElementById('inp-pass').focus():doLogin(); }
+  });
+  el.addEventListener('keyup',e=>{
+    const caps=e.getModifierState&&e.getModifierState('CapsLock');
+    document.getElementById('caps-warn').classList.toggle('show',!!caps);
+  });
+});
+
+/* ─── Государственная эмблема ҰҚК (8-конечная гранёная звезда + герб) ─── */
+function emblemSVG(){
+  const cx=120,cy=120;
+  const cream='#f3e4c4',rose='#dd909d';
+  const ringGray='#aab4c0',gold='#e7d6a6',goldDk='#cbb277',field='#c3e1ec',ink='#3b4756';
+  const rad=d=>d*Math.PI/180, P=(r,a)=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];
+  const fmt=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  function point(ang,Ro,baseR,half){
+    const tip=P(Ro,ang),L=P(baseR,ang-half),R=P(baseR,ang+half),C=[cx,cy];
+    return `<polygon points="${fmt([tip,L,C])}" fill="${rose}"/>`
+          +`<polygon points="${fmt([tip,R,C])}" fill="${cream}"/>`;
+  }
+  let star='';
+  for(let k=0;k<4;k++) star+=point(-45+90*k,72,30,20);   /* diagonal rays */
+  for(let k=0;k<4;k++) star+=point(-90+90*k,96,34,17);   /* cardinal rays (on top) */
+  let lat='';
+  for(let i=-5;i<=5;i++){const o=i*5;
+    lat+=`<line x1="${98+o}" y1="98" x2="${142+o}" y2="142" stroke="${goldDk}" stroke-width="1.3"/>`
+        +`<line x1="${98+o}" y1="142" x2="${142+o}" y2="98" stroke="${goldDk}" stroke-width="1.3"/>`;
+  }
+  return `<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <clipPath id="medclip"><circle cx="120" cy="120" r="25"/></clipPath>
+      <path id="arcTop" d="M16,120 A104,104 0 0 1 224,120"/>
+      <path id="arcBot" d="M224,120 A104,104 0 0 1 16,120"/>
+      <path id="mottoArc" d="M120,83 A37,37 0 1 1 119.9,83"/>
+    </defs>
+    <circle cx="120" cy="120" r="118" fill="${ringGray}"/>
+    <circle cx="120" cy="120" r="118" fill="none" stroke="${gold}" stroke-width="2.5"/>
+    <circle cx="120" cy="120" r="96" fill="${field}"/>
+    <circle cx="120" cy="120" r="96" fill="none" stroke="${gold}" stroke-width="2"/>
+    <text font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2.3" fill="${ink}"><textPath href="#arcTop" startOffset="50%" text-anchor="middle">ҚАЗАҚСТАН РЕСПУБЛИКАСЫ</textPath></text>
+    <text font-family="Inter,Arial,sans-serif" font-size="10.5" font-weight="600" letter-spacing="2" fill="${ink}"><textPath href="#arcBot" startOffset="50%" text-anchor="middle">ҰЛТТЫҚ ҚАУІПСІЗДІК КОМИТЕТІ</textPath></text>
+    <g fill="${gold}"><polygon points="14,120 22,113 30,120 22,127"/><polygon points="226,120 218,113 210,120 218,127"/></g>
+    ${star}
+    <circle cx="120" cy="120" r="44" fill="${field}" stroke="${gold}" stroke-width="2.5"/>
+    <text font-family="Inter,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1.2" fill="${ink}"><textPath href="#mottoArc" startOffset="0%">НАМЫС ✦ АЙБЫН ✦ ОТАН ✦</textPath></text>
+    <circle cx="120" cy="120" r="29" fill="${field}" stroke="${gold}" stroke-width="2"/>
+    <g clip-path="url(#medclip)">${lat}</g>
+    <circle cx="120" cy="120" r="25" fill="none" stroke="${gold}" stroke-width="1.4"/>
+    <circle cx="120" cy="120" r="3.5" fill="${goldDk}"/>
+  </svg>`;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const svg=emblemSVG();
+  const le=document.getElementById('login-emblem'); if(le) le.innerHTML=svg;
+  const se=document.getElementById('sidebar-emblem'); if(se) se.innerHTML=svg;
+  const li=document.getElementById('inp-login'); if(li) li.focus();
+});
 
 function doLogout(){
   document.getElementById('page-main').classList.remove('active');
