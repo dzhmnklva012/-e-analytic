@@ -4,311 +4,303 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Analytic</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Neutral dark palette */
-      --bg:        #0c0c0e;
-      --bg-2:      #111113;
-      --bg-3:      #161618;
-      --bg-4:      #1c1c1f;
-      --border:    rgba(255,255,255,0.07);
-      --border-h:  rgba(255,255,255,0.12);
-      --text-1:    #f4f4f5;
-      --text-2:    #a1a1aa;
-      --text-3:    #71717a;
-      --text-4:    #52525b;
+      --bg:      #0a0a0b;
+      --surface: #111114;
+      --card:    #16161a;
+      --raised:  #1c1c21;
+      --line:    rgba(255,255,255,0.06);
+      --line-h:  rgba(255,255,255,0.1);
 
-      /* Status — muted, readable */
-      --red-400:   #e05c5c; --red-500:   #c04040; --red-dim: rgba(192,64,64,0.12);
-      --amber-400: #d4904a; --amber-500: #b87030; --amber-dim: rgba(184,112,48,0.12);
-      --green-400: #4eaa6e; --green-500: #358054; --green-dim: rgba(53,128,84,0.12);
-      --blue-400:  #6b9ec8; --blue-500:  #4a7ea8; --blue-dim: rgba(74,126,168,0.12);
+      --t1: #f2f2f3;
+      --t2: #9898a3;
+      --t3: #5e5e6a;
+      --t4: #3a3a44;
 
-      --sidebar-w: 220px;
-      --topbar-h:  52px;
+      --red:     #d95f5f; --red-bg:   rgba(217,95,95,0.1);   --red-bd:   rgba(217,95,95,0.2);
+      --amber:   #cc8a3e; --amber-bg: rgba(204,138,62,0.1);  --amber-bd: rgba(204,138,62,0.2);
+      --green:   #4a9e6a; --green-bg: rgba(74,158,106,0.1);  --green-bd: rgba(74,158,106,0.2);
+      --blue:    #5b8fc4; --blue-bg:  rgba(91,143,196,0.1);  --blue-bd:  rgba(91,143,196,0.2);
+      --violet:  #826dba; --violet-bg:rgba(130,109,186,0.1); --violet-bd:rgba(130,109,186,0.2);
+
+      --r: 10px;
+      --sw: 232px;
+      --th: 56px;
     }
 
-    html, body { height: 100%; font-family: 'Inter', sans-serif; color: var(--text-1); -webkit-font-smoothing: antialiased; overflow: hidden; }
-
+    html, body { height: 100%; font-family: 'Inter', sans-serif; color: var(--t1); -webkit-font-smoothing: antialiased; overflow: hidden; }
     body { background: var(--bg); }
 
-    .app {
-      display: grid;
-      grid-template-rows: var(--topbar-h) 1fr;
-      grid-template-columns: var(--sidebar-w) 1fr;
-      height: 100vh;
-    }
+    /* ═══ APP SHELL ═══ */
+    .app { display: grid; grid-template-rows: var(--th) 1fr; grid-template-columns: var(--sw) 1fr; height: 100vh; }
 
-    /* ── TOPBAR ── */
-    .topbar {
-      grid-column: 1 / -1;
-      background: var(--bg-2);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 20px 0 0; z-index: 20;
-    }
-    .tb-brand {
-      width: var(--sidebar-w); height: 100%;
-      display: flex; align-items: center; gap: 10px;
-      padding: 0 18px; border-right: 1px solid var(--border); flex-shrink: 0;
-    }
-    .bmark { width: 26px; height: 26px; background: var(--bg-4); border: 1px solid var(--border-h); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-2); flex-shrink: 0; }
-    .bname { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--text-1); text-transform: uppercase; }
-    .bname span { color: var(--text-1); }
-    .tb-status { display: flex; align-items: center; gap: 7px; padding: 3px 10px 3px 8px; margin-left: 18px; background: var(--green-dim); border: 1px solid rgba(78,170,110,0.2); border-radius: 6px; }
-    .tb-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-400); animation: pulse-dot 2.5s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .tb-status-text { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-400); }
-    .tb-center { flex: 1; }
-    .tb-right { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-    .tb-btn { width: 32px; height: 32px; background: none; border: none; cursor: pointer; color: var(--text-4); display: flex; align-items: center; justify-content: center; border-radius: 7px; transition: background .15s, color .15s; }
-    .tb-btn:hover { background: var(--bg-4); color: var(--text-2); }
+    /* ═══ TOPBAR ═══ */
+    .topbar { grid-column: 1/-1; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 24px 0 0; z-index: 20; }
+
+    .tb-brand { width: var(--sw); height: 100%; display: flex; align-items: center; gap: 10px; padding: 0 20px; border-right: 1px solid var(--line); flex-shrink: 0; }
+    .bmark { width: 28px; height: 28px; background: var(--t1); border-radius: 7px; display: flex; align-items: center; justify-content: center; color: var(--bg); flex-shrink: 0; }
+    .bname { font-size: 13px; font-weight: 700; color: var(--t1); letter-spacing: -0.01em; }
+    .bname span { color: var(--t2); font-weight: 400; }
+
+    .tb-center { flex: 1; padding: 0 20px; }
+    .tb-status { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; background: var(--green-bg); border: 1px solid var(--green-bd); border-radius: 6px; }
+    .tb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .tb-status-text { font-size: 11px; font-weight: 500; color: var(--green); letter-spacing: 0.02em; }
+
+    .tb-right { display: flex; align-items: center; gap: 6px; }
+    .tb-btn { width: 34px; height: 34px; background: none; border: none; cursor: pointer; color: var(--t3); display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: background .15s, color .15s; }
+    .tb-btn:hover { background: var(--card); color: var(--t1); }
     .tb-notif { position: relative; }
-    .tb-notif-dot { position: absolute; top: 6px; right: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--red-400); border: 1.5px solid var(--bg-2); }
-    .tb-sep { width: 1px; height: 18px; background: var(--border); margin: 0 6px; }
-    .user-pill { display: flex; align-items: center; gap: 8px; padding: 4px 10px 4px 5px; border-radius: 8px; background: var(--bg-3); border: 1px solid var(--border); cursor: pointer; transition: background .15s; }
-    .user-pill:hover { background: var(--bg-4); }
-    .u-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--bg-4); border: 1px solid var(--border-h); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--text-2); flex-shrink: 0; }
-    .u-name { font-size: 12px; font-weight: 600; color: var(--text-1); }
-    .u-role { font-size: 10px; color: var(--text-4); }
+    .tb-notif-dot { position: absolute; top: 7px; right: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--red); border: 1.5px solid var(--surface); }
+    .tb-sep { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
 
-    /* ── SIDEBAR ── */
-    .sidebar { grid-column: 1; grid-row: 2; background: var(--bg-2); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
-    .nav-block { padding: 12px 8px 6px; }
-    .nav-group-label { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-4); padding: 0 8px; margin-bottom: 6px; }
-    .nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--text-3); cursor: pointer; transition: background .14s, color .14s; margin-bottom: 1px; text-decoration: none; border: 1px solid transparent; position: relative; }
-    .nav-item:hover { background: var(--bg-3); color: var(--text-2); }
-    .nav-item.active { background: var(--bg-4); color: var(--text-1); border-color: var(--border); }
-    .nav-item.active::before { content: ''; position: absolute; left: -1px; top: 7px; bottom: 7px; width: 2px; background: var(--text-1); border-radius: 0 2px 2px 0; opacity: 0.5; }
-    .nav-item svg { flex-shrink: 0; }
-    .nav-item.active svg { color: var(--text-1); }
-    .nav-item:not(.active) svg { color: var(--text-4); }
-    .nav-badge { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--text-4); background: var(--bg-3); border: 1px solid var(--border); padding: 1px 6px; border-radius: 6px; }
-    .nav-item.active .nav-badge { color: var(--text-2); background: var(--bg-4); }
-    .nav-sep { height: 1px; background: var(--border); margin: 6px 8px; }
-    .sidebar-scroll { flex: 1; overflow-y: auto; padding: 0 8px 8px; }
-    .sidebar-scroll::-webkit-scrollbar { width: 3px; }
-    .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .recent-hd { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-4); padding: 8px 8px 5px; }
-    .ri { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; cursor: pointer; transition: background .12s; }
-    .ri:hover { background: var(--bg-3); }
-    .ri-ico { color: var(--text-4); flex-shrink: 0; display: flex; }
-    .ri-main { font-size: 11px; font-weight: 500; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ri-sub  { font-size: 10px; color: var(--text-4); margin-top: 1px; }
-    .sb-foot { padding: 8px 8px 10px; border-top: 1px solid var(--border); }
-    .sb-foot-inner { display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 7px; cursor: pointer; transition: background .15s; }
-    .sb-foot-inner:hover { background: var(--bg-3); }
-    .fa { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-4); border: 1px solid var(--border-h); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-2); flex-shrink: 0; }
-    .fn { font-size: 12px; font-weight: 600; color: var(--text-2); }
-    .fr { font-size: 10px; color: var(--text-4); margin-top: 1px; }
-    .sb-foot-inner .lo { margin-left: auto; color: var(--text-4); display: flex; }
+    .user-pill { display: flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; background: var(--card); border: 1px solid var(--line-h); border-radius: 10px; cursor: pointer; transition: background .15s, border-color .15s; }
+    .user-pill:hover { background: var(--raised); border-color: var(--line-h); }
+    .u-av { width: 26px; height: 26px; border-radius: 8px; background: var(--raised); border: 1px solid var(--line-h); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--t2); flex-shrink: 0; }
+    .u-name { font-size: 12px; font-weight: 600; color: var(--t1); line-height: 1.3; }
+    .u-role { font-size: 10px; color: var(--t3); line-height: 1.2; }
 
-    /* ── MAIN ── */
+    /* ═══ SIDEBAR ═══ */
+    .sidebar { grid-column: 1; grid-row: 2; background: var(--surface); border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
+
+    .nav-section { padding: 16px 12px 8px; }
+    .nav-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t4); padding: 0 8px; margin-bottom: 4px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--t3); cursor: pointer; transition: all .15s; margin-bottom: 1px; text-decoration: none; border: none; position: relative; }
+    .nav-item:hover { background: var(--card); color: var(--t2); }
+    .nav-item.active { background: var(--card); color: var(--t1); }
+    .nav-item.active::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--t1); border-radius: 2px; opacity: 0.6; }
+    .nav-item svg { flex-shrink: 0; opacity: 0.5; }
+    .nav-item.active svg, .nav-item:hover svg { opacity: 1; }
+    .nav-badge { margin-left: auto; font-size: 10px; font-weight: 500; color: var(--t3); background: var(--raised); padding: 1px 7px; border-radius: 20px; }
+
+    .nav-sep { height: 1px; background: var(--line); margin: 4px 12px 8px; }
+
+    .sb-recents { flex: 1; overflow-y: auto; padding: 0 12px 12px; }
+    .sb-recents::-webkit-scrollbar { width: 3px; }
+    .sb-recents::-webkit-scrollbar-thumb { background: var(--line-h); border-radius: 3px; }
+    .recent-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t4); padding: 6px 8px 4px; }
+    .ri { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 7px; cursor: pointer; transition: background .12s; }
+    .ri:hover { background: var(--card); }
+    .ri-ico { color: var(--t4); flex-shrink: 0; display: flex; }
+    .ri-main { font-size: 12px; font-weight: 500; color: var(--t2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ri-sub  { font-size: 10px; color: var(--t4); }
+
+    .sb-user { padding: 12px; border-top: 1px solid var(--line); }
+    .sb-user-inner { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; cursor: pointer; transition: background .15s; }
+    .sb-user-inner:hover { background: var(--card); }
+    .sba { width: 32px; height: 32px; border-radius: 9px; background: var(--raised); border: 1px solid var(--line-h); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--t2); flex-shrink: 0; }
+    .sbn { font-size: 12px; font-weight: 600; color: var(--t2); }
+    .sbr { font-size: 11px; color: var(--t4); margin-top: 1px; }
+    .sb-lo { margin-left: auto; color: var(--t4); }
+
+    /* ═══ MAIN ═══ */
     .main { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
-
-    /* ── Shared section styles ── */
     .section-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-    .sec-scroll { flex: 1; overflow-y: auto; padding: 24px 32px 32px; display: flex; flex-direction: column; align-items: center; }
+
+    .sec-scroll { flex: 1; overflow-y: auto; padding: 28px 40px 40px; display: flex; flex-direction: column; align-items: center; gap: 0; }
     .sec-scroll::-webkit-scrollbar { width: 4px; }
-    .sec-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .sec-scroll > * { width: 100%; max-width: 960px; }
-    .sec-hd { padding: 24px 32px 18px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
-    .sec-hd > * { width: 100%; max-width: 960px; }
-    .sec-title { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-1); margin-bottom: 4px; }
-    .sec-sub { font-size: 13px; color: var(--text-3); }
+    .sec-scroll::-webkit-scrollbar-thumb { background: var(--line-h); border-radius: 4px; }
+    .sec-scroll > * { width: 100%; max-width: 980px; }
 
-    /* Shared card */
-    .glass-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; }
+    .page-hd { padding: 28px 40px 0; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .page-hd > * { width: 100%; max-width: 980px; }
+    .page-title { font-size: 20px; font-weight: 700; color: var(--t1); letter-spacing: -0.02em; margin-bottom: 2px; }
+    .page-sub { font-size: 13px; color: var(--t3); }
 
-    /* ── Badges ── */
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
-    .b-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-    .badge-red    { background: var(--red-dim);   border: 1px solid rgba(192,64,64,0.25);  color: var(--red-400); }
-    .badge-red    .b-dot { background: var(--red-400); }
-    .badge-amber  { background: var(--amber-dim); border: 1px solid rgba(184,112,48,0.25); color: var(--amber-400); }
-    .badge-amber  .b-dot { background: var(--amber-400); }
-    .badge-green  { background: var(--green-dim); border: 1px solid rgba(53,128,84,0.25);  color: var(--green-400); }
-    .badge-green  .b-dot { background: var(--green-400); }
-    .badge-cyan   { background: var(--blue-dim);  border: 1px solid rgba(74,126,168,0.25); color: var(--blue-400); }
-    .badge-violet { background: rgba(80,70,120,0.2); border: 1px solid rgba(100,90,160,0.25); color: #9b8fd4; }
+    /* ═══ SHARED CARD ═══ */
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); }
+    .card-hd { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+    .card-title { font-size: 12px; font-weight: 600; color: var(--t2); letter-spacing: 0.02em; }
+    .card-action { font-size: 12px; font-weight: 500; color: var(--t3); text-decoration: none; display: flex; align-items: center; gap: 4px; cursor: pointer; transition: color .15s; }
+    .card-action:hover { color: var(--t1); }
 
-    /* ═══════════════════ DASHBOARD ═══════════════════ */
-    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .kpi-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: border-color .2s; }
-    .kpi-card:hover { border-color: var(--border-h); }
-    .kpi-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; }
-    .kpi-card.cyan::after  { background: var(--blue-400); opacity: 0.4; }
-    .kpi-card.red::after   { background: var(--red-400);  opacity: 0.4; }
-    .kpi-card.amber::after { background: var(--amber-400);opacity: 0.4; }
-    .kpi-card.green::after { background: var(--green-400);opacity: 0.4; }
-    .kpi-top { display: flex; align-items: flex-start; justify-content: space-between; }
-    .kpi-label { font-size: 11px; font-weight: 500; color: var(--text-3); line-height: 1.4; }
-    .kpi-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-4); }
-    .kpi-icon.cyan  { color: var(--blue-400); }
-    .kpi-icon.red   { color: var(--red-400); }
-    .kpi-icon.amber { color: var(--amber-400); }
-    .kpi-icon.green { color: var(--green-400); }
-    .kpi-val { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; color: var(--text-1); }
-    .kpi-delta { font-size: 11px; color: var(--text-4); }
-    .kpi-delta .up { color: var(--green-400); }
-    .kpi-delta .dn { color: var(--red-400); }
+    /* ═══ BADGES ═══ */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 500; white-space: nowrap; }
+    .b-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .b-red    { background: var(--red-bg);    border: 1px solid var(--red-bd);    color: var(--red); }
+    .b-red    .b-dot { background: var(--red); }
+    .b-amber  { background: var(--amber-bg);  border: 1px solid var(--amber-bd);  color: var(--amber); }
+    .b-amber  .b-dot { background: var(--amber); }
+    .b-green  { background: var(--green-bg);  border: 1px solid var(--green-bd);  color: var(--green); }
+    .b-green  .b-dot { background: var(--green); }
+    .b-blue   { background: var(--blue-bg);   border: 1px solid var(--blue-bd);   color: var(--blue); }
+    .b-violet { background: var(--violet-bg); border: 1px solid var(--violet-bd); color: var(--violet); }
+    /* legacy aliases */
+    .badge-red    { background: var(--red-bg);    border: 1px solid var(--red-bd);    color: var(--red); }
+    .badge-red    .b-dot { background: var(--red); }
+    .badge-amber  { background: var(--amber-bg);  border: 1px solid var(--amber-bd);  color: var(--amber); }
+    .badge-amber  .b-dot { background: var(--amber); }
+    .badge-green  { background: var(--green-bg);  border: 1px solid var(--green-bd);  color: var(--green); }
+    .badge-green  .b-dot { background: var(--green); }
+    .badge-cyan   { background: var(--blue-bg);   border: 1px solid var(--blue-bd);   color: var(--blue); }
+    .badge-violet { background: var(--violet-bg); border: 1px solid var(--violet-bd); color: var(--violet); }
 
-    .dash-grid { display: grid; grid-template-columns: 1fr 320px; gap: 14px; }
-    .dash-left { display: flex; flex-direction: column; gap: 14px; }
-    .dash-right { display: flex; flex-direction: column; gap: 14px; }
+    /* ═══ EMPTY ═══ */
+    .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 32px; gap: 14px; text-align: center; }
+    .empty-ico { width: 48px; height: 48px; border-radius: 12px; background: var(--card); border: 1px solid var(--line-h); display: flex; align-items: center; justify-content: center; color: var(--t4); }
+    .empty-title { font-size: 14px; font-weight: 600; color: var(--t2); }
+    .empty-sub { font-size: 13px; color: var(--t4); max-width: 260px; line-height: 1.6; }
+    .empty-hint { font-size: 11px; color: var(--t4); display: flex; align-items: center; gap: 6px; }
+    .empty-hint kbd { font-family: inherit; padding: 2px 7px; background: var(--raised); border: 1px solid var(--line-h); border-radius: 5px; font-size: 10px; color: var(--t3); }
 
-    .modules-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .mod-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
-    .mod-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-    .mod-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-2); }
-    .mod-count { font-size: 11px; font-weight: 500; color: var(--text-3); }
-    .mod-bar-track { height: 3px; background: var(--bg-4); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
-    .mod-bar-fill  { height: 100%; border-radius: 4px; }
-    .fill-red    { background: var(--red-400); opacity: 0.7; }
-    .fill-amber  { background: var(--amber-400); opacity: 0.7; }
-    .fill-cyan   { background: var(--blue-400); opacity: 0.7; }
-    .fill-violet { background: #9b8fd4; opacity: 0.7; }
-    .mod-stats { display: flex; gap: 16px; }
-    .mod-stat { display: flex; flex-direction: column; gap: 2px; }
-    .mod-stat-val { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--text-1); }
-    .mod-stat-lbl { font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-4); }
+    /* ══════════ DASHBOARD ══════════ */
+    .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color .2s; position: relative; overflow: hidden; }
+    .kpi-card:hover { border-color: var(--line-h); }
+    .kpi-card::after { content: ''; position: absolute; inset-block-end: 0; inset-inline: 0; height: 1px; opacity: .5; }
+    .kpi-card.kc-blue::after  { background: var(--blue); }
+    .kpi-card.kc-red::after   { background: var(--red); }
+    .kpi-card.kc-amber::after { background: var(--amber); }
+    .kpi-card.kc-green::after { background: var(--green); }
 
-    .panel-hd { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 10px; border-bottom: 1px solid var(--border); }
-    .panel-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
-    .panel-link { font-size: 11px; font-weight: 500; color: var(--text-3); cursor: pointer; display: flex; align-items: center; gap: 4px; text-decoration: none; }
-    .panel-link:hover { color: var(--text-1); }
+    .kpi-row-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .kpi-lbl { font-size: 12px; color: var(--t3); font-weight: 500; line-height: 1.4; }
+    .kpi-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--raised); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .kpi-icon.kc-blue  { color: var(--blue); }
+    .kpi-icon.kc-red   { color: var(--red); }
+    .kpi-icon.kc-amber { color: var(--amber); }
+    .kpi-icon.kc-green { color: var(--green); }
 
-    .risk-table { width: 100%; }
-    .rt-head { display: grid; grid-template-columns: 28px 1fr 80px 90px 70px; gap: 0 10px; align-items: center; padding: 8px 16px; border-bottom: 1px solid var(--border); }
-    .rt-th { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-4); }
-    .rt-row { display: grid; grid-template-columns: 28px 1fr 80px 90px 70px; gap: 0 10px; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; cursor: pointer; }
+    .kpi-val { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; color: var(--t1); line-height: 1; font-variant-numeric: tabular-nums; }
+    .kpi-delta { font-size: 11px; color: var(--t4); }
+    .kpi-delta .up { color: var(--green); }
+    .kpi-delta .dn { color: var(--red); }
+
+    .dash-grid { display: grid; grid-template-columns: 1fr 300px; gap: 16px; }
+    .dash-left { display: flex; flex-direction: column; gap: 16px; }
+    .dash-right { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+
+    /* Modules */
+    .mods-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .mod-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; }
+    .mod-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .mod-name { font-size: 12px; font-weight: 600; color: var(--t2); }
+    .mod-cnt  { font-size: 11px; color: var(--t3); }
+    .bar-track { height: 3px; background: var(--raised); border-radius: 3px; overflow: hidden; margin-bottom: 14px; }
+    .bar-fill  { height: 100%; border-radius: 3px; opacity: .75; }
+    .bf-red    { background: var(--red); }
+    .bf-amber  { background: var(--amber); }
+    .bf-blue   { background: var(--blue); }
+    .bf-violet { background: var(--violet); }
+    .mod-stats { display: flex; gap: 20px; }
+    .ms-val { font-size: 17px; font-weight: 700; letter-spacing: -0.03em; color: var(--t1); font-variant-numeric: tabular-nums; }
+    .ms-lbl { font-size: 10px; color: var(--t4); margin-top: 1px; }
+
+    /* Risk table */
+    .rt-head { display: grid; grid-template-columns: 24px 1fr 76px 86px 72px; gap: 0 10px; padding: 10px 20px; border-bottom: 1px solid var(--line); }
+    .rt-th { font-size: 10px; font-weight: 500; color: var(--t4); }
+    .rt-row { display: grid; grid-template-columns: 24px 1fr 76px 86px 72px; gap: 0 10px; padding: 11px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; cursor: pointer; align-items: center; }
     .rt-row:last-child { border-bottom: none; }
-    .rt-row:hover { background: var(--bg-3); }
-    .rt-rank { font-size: 11px; font-weight: 500; color: var(--text-4); font-variant-numeric: tabular-nums; }
-    .rt-name { font-size: 12px; font-weight: 600; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rt-sub  { font-size: 10px; color: var(--text-4); margin-top: 1px; }
+    .rt-row:hover { background: var(--raised); }
+    .rt-rank { font-size: 11px; color: var(--t4); font-variant-numeric: tabular-nums; }
+    .rt-name { font-size: 13px; font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rt-sub  { font-size: 11px; color: var(--t4); margin-top: 2px; }
     .rt-score { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .rt-score.high { color: var(--red-400); }
-    .rt-score.mid  { color: var(--amber-400); }
-    .rt-score.low  { color: var(--green-400); }
-    .risk-bar { display: flex; align-items: center; gap: 6px; }
-    .risk-bar-track { flex: 1; height: 3px; background: var(--bg-4); border-radius: 4px; overflow: hidden; }
-    .risk-bar-fill { height: 100%; border-radius: 4px; }
+    .rt-score.high { color: var(--red); }
+    .rt-score.mid  { color: var(--amber); }
+    .rt-score.low  { color: var(--green); }
+    .rbar { display: flex; align-items: center; gap: 7px; }
+    .rbar-track { flex: 1; height: 3px; background: var(--raised); border-radius: 3px; overflow: hidden; }
+    .rbar-fill { height: 100%; border-radius: 3px; }
 
-    .feed { display: flex; flex-direction: column; }
-    .feed-item { display: flex; gap: 12px; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; }
+    /* Activity */
+    .feed { display: flex; flex-direction: column; overflow-y: auto; flex: 1; }
+    .feed::-webkit-scrollbar { width: 3px; }
+    .feed::-webkit-scrollbar-thumb { background: var(--line-h); border-radius: 3px; }
+    .feed-item { display: flex; gap: 12px; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; }
     .feed-item:last-child { border-bottom: none; }
-    .feed-item:hover { background: var(--bg-3); }
-    .feed-dot-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 5px; }
-    .feed-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .feed-line { flex: 1; width: 1px; background: var(--border); margin-top: 4px; }
-    .feed-body { flex: 1; min-width: 0; }
-    .feed-text { font-size: 12px; color: var(--text-3); line-height: 1.5; }
-    .feed-text strong { color: var(--text-1); font-weight: 600; }
-    .feed-time { font-size: 10px; color: var(--text-4); margin-top: 3px; }
+    .feed-item:hover { background: var(--raised); }
+    .feed-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 5px; flex-shrink: 0; }
+    .feed-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .feed-line { flex: 1; width: 1px; background: var(--line); margin-top: 5px; }
+    .feed-text { font-size: 12px; color: var(--t3); line-height: 1.55; }
+    .feed-text strong { color: var(--t1); font-weight: 600; }
+    .feed-time { font-size: 10px; color: var(--t4); margin-top: 3px; }
 
-    /* ═══════════════════ SEARCH ═══════════════════ */
+    /* ══════════ SEARCH ══════════ */
     #sec-search { align-items: center; }
-    #sec-search > * { width: 100%; max-width: 820px; }
-    .search-hero { padding: 26px 0 0; flex-shrink: 0; }
-    .hero-title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 6px; }
-    .hero-sub { font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
-    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
-    .tab { padding: 7px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-4); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s; user-select: none; }
-    .tab:hover { color: var(--text-2); }
-    .tab.active { color: var(--text-1); border-bottom-color: var(--text-2); }
-    .search-bar-wrap { padding: 16px 0 0; flex-shrink: 0; }
-    .search-row { display: flex; gap: 8px; align-items: center; }
-    .search-pill { flex: 1; display: flex; align-items: center; gap: 12px; background: var(--bg-2); border: 1px solid var(--border-h); border-radius: 8px; height: 44px; padding: 0 16px; transition: border-color .2s, box-shadow .2s; }
-    .search-pill:focus-within { border-color: rgba(255,255,255,0.25); box-shadow: 0 0 0 3px rgba(255,255,255,0.05); }
-    .search-pill .ic { color: var(--text-4); display: flex; flex-shrink: 0; }
-    .search-pill:focus-within .ic { color: var(--text-2); }
-    .search-pill input { flex: 1; background: none; border: none; outline: none; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-1); min-width: 0; }
-    .search-pill input::placeholder { color: var(--text-4); }
-    .kb-hint { font-size: 10px; color: var(--text-4); padding: 2px 6px; background: var(--bg-4); border: 1px solid var(--border); border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
-    .search-pill:focus-within .kb-hint { display: none; }
-    .sp-clear { background: none; border: none; cursor: pointer; color: var(--text-4); display: flex; padding: 2px; border-radius: 50%; }
-    .sp-clear:hover { color: var(--text-2); }
-    .btn-find { height: 44px; padding: 0 22px; border-radius: 8px; background: var(--text-1); border: none; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .15s; white-space: nowrap; }
-    .btn-find:hover { background: var(--text-2); }
-    .result-meta { display: none; padding: 12px 0 0; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .result-meta.show { display: flex; }
-    .rcount { font-size: 12px; color: var(--text-3); }
-    .rcount strong { color: var(--text-1); }
-    .filter-chips { display: flex; gap: 6px; }
-    .fchip { display: flex; align-items: center; gap: 5px; padding: 4px 12px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); cursor: pointer; transition: all .15s; }
-    .fchip:hover { border-color: var(--border-h); color: var(--text-1); background: var(--bg-4); }
-    .results { flex: 1; overflow-y: auto; padding: 14px 0 28px; }
-    .results::-webkit-scrollbar { width: 3px; }
-    .results::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .rg-section { margin-bottom: 16px; }
-    .rg-header { display: flex; align-items: center; gap: 10px; padding: 0 2px 10px; cursor: pointer; user-select: none; }
-    .rg-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
-    .rg-count { font-size: 10px; font-weight: 600; color: var(--text-2); background: var(--bg-4); border: 1px solid var(--border); padding: 1px 7px; border-radius: 6px; }
-    .rg-toggle { margin-left: auto; color: var(--text-4); display: flex; transition: transform .2s; }
-    .rg-section.collapsed .rg-toggle { transform: rotate(-90deg); }
-    .rg-section.collapsed .rg-body { display: none; }
-    .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 32px; gap: 12px; text-align: center; }
-    .empty-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--bg-3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-4); }
-    .empty-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
-    .empty-sub { font-size: 12px; color: var(--text-4); max-width: 280px; line-height: 1.7; }
-    .empty-shortcut { font-size: 10px; color: var(--text-4); display: flex; align-items: center; gap: 6px; }
-    .empty-shortcut kbd { font-family: inherit; padding: 2px 8px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; font-size: 10px; color: var(--text-3); }
-    .results-grid-wrap { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--bg-2); }
-    .results-grid { display: flex; flex-direction: column; }
-    .pcard { display: grid; grid-template-columns: 48px 1fr auto; gap: 0 14px; align-items: center; background: transparent; padding: 13px 16px; border-bottom: 1px solid var(--border); transition: background .15s; }
+    #sec-search > * { width: 100%; max-width: 800px; }
+    .search-wrap { padding: 28px 0 0; flex-shrink: 0; }
+    .search-title { font-size: 22px; font-weight: 700; color: var(--t1); letter-spacing: -0.02em; margin-bottom: 4px; }
+    .search-sub { font-size: 13px; color: var(--t3); margin-bottom: 24px; }
+
+    .search-tabs { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+    .stab { padding: 8px 16px; font-size: 12px; font-weight: 500; color: var(--t4); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+    .stab:hover { color: var(--t2); }
+    .stab.active { color: var(--t1); border-bottom-color: var(--t2); }
+
+    .search-row { display: flex; gap: 8px; }
+    .search-input-wrap { flex: 1; display: flex; align-items: center; gap: 12px; height: 46px; background: var(--card); border: 1px solid var(--line-h); border-radius: 10px; padding: 0 18px; transition: border-color .2s, box-shadow .2s; }
+    .search-input-wrap:focus-within { border-color: rgba(255,255,255,0.2); box-shadow: 0 0 0 3px rgba(255,255,255,0.04); }
+    .si-icon { color: var(--t4); display: flex; flex-shrink: 0; }
+    .search-input-wrap:focus-within .si-icon { color: var(--t2); }
+    .search-input-wrap input { flex: 1; background: none; border: none; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--t1); min-width: 0; }
+    .search-input-wrap input::placeholder { color: var(--t4); }
+    .si-hint { font-size: 10px; color: var(--t4); padding: 2px 7px; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; white-space: nowrap; }
+    .search-input-wrap:focus-within .si-hint { display: none; }
+    .si-clear { background: none; border: none; cursor: pointer; color: var(--t4); display: flex; padding: 2px; border-radius: 4px; }
+    .si-clear:hover { color: var(--t2); }
+    .btn-search { height: 46px; padding: 0 22px; border-radius: 10px; background: var(--t1); border: none; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--bg); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity .15s; white-space: nowrap; }
+    .btn-search:hover { opacity: .85; }
+
+    .result-bar { display: none; padding: 14px 0 0; align-items: center; justify-content: space-between; }
+    .result-bar.show { display: flex; }
+    .res-count { font-size: 12px; color: var(--t3); }
+    .res-count strong { color: var(--t1); font-weight: 600; }
+    .filter-row { display: flex; gap: 6px; }
+    .fchip { display: flex; align-items: center; gap: 5px; padding: 5px 12px; background: var(--card); border: 1px solid var(--line-h); border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--t3); cursor: pointer; transition: all .15s; }
+    .fchip:hover { color: var(--t1); border-color: var(--line-h); background: var(--raised); }
+
+    .results-area { flex: 1; overflow-y: auto; padding: 16px 0 32px; }
+    .results-area::-webkit-scrollbar { width: 3px; }
+    .results-area::-webkit-scrollbar-thumb { background: var(--line-h); border-radius: 3px; }
+
+    .rg { margin-bottom: 18px; }
+    .rg-hd { display: flex; align-items: center; gap: 10px; padding: 0 2px 10px; cursor: pointer; user-select: none; }
+    .rg-name { font-size: 11px; font-weight: 600; color: var(--t3); }
+    .rg-cnt { font-size: 10px; font-weight: 500; color: var(--t2); background: var(--raised); border: 1px solid var(--line-h); padding: 1px 8px; border-radius: 20px; }
+    .rg-chev { margin-left: auto; color: var(--t4); display: flex; transition: transform .2s; }
+    .rg.collapsed .rg-chev { transform: rotate(-90deg); }
+    .rg.collapsed .rg-body { display: none; }
+
+    .result-list { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+
+    .pcard { display: grid; grid-template-columns: 44px 1fr auto; gap: 0 14px; align-items: center; padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); transition: background .15s; cursor: pointer; }
     .pcard:last-child { border-bottom: none; }
-    .pcard:hover { background: var(--bg-3); cursor: pointer; }
-    .p-ava { width: 38px; height: 38px; border-radius: 8px; background: var(--bg-3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-4); flex-shrink: 0; }
-    .p-body { min-width: 0; }
-    .p-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
-    .p-name { font-size: 13px; font-weight: 700; color: var(--text-1); }
-    .p-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px 12px; }
-    .p-cell-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-4); margin-bottom: 2px; }
-    .p-cell-val { font-size: 11px; font-weight: 500; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
-    .p-cell-val.dim { color: var(--text-4); font-style: italic; }
-    .p-acts { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
-    .btn-more { padding: 5px 12px; border-radius: 6px; background: var(--bg-3); border: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all .15s; white-space: nowrap; }
-    .btn-more:hover { background: var(--bg-4); border-color: var(--border-h); color: var(--text-1); }
-    .ccard { display: grid; grid-template-columns: 38px 1fr auto; gap: 0 14px; align-items: center; padding: 13px 16px; border-bottom: 1px solid var(--border); transition: background .15s; background: transparent; }
+    .pcard:hover { background: var(--raised); }
+    .p-av { width: 38px; height: 38px; border-radius: 9px; background: var(--raised); border: 1px solid var(--line-h); display: flex; align-items: center; justify-content: center; color: var(--t4); flex-shrink: 0; }
+    .p-name { font-size: 13px; font-weight: 600; color: var(--t1); margin-bottom: 6px; }
+    .p-meta { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px 12px; }
+    .pm-lbl { font-size: 9px; font-weight: 500; color: var(--t4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+    .pm-val { font-size: 11px; color: var(--t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pm-val.dim { color: var(--t4); font-style: italic; }
+    .p-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .btn-detail { padding: 6px 14px; border-radius: 7px; background: var(--raised); border: 1px solid var(--line-h); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--t2); cursor: pointer; transition: all .15s; white-space: nowrap; }
+    .btn-detail:hover { background: rgba(255,255,255,0.08); color: var(--t1); }
+
+    .ccard { display: grid; grid-template-columns: 38px 1fr auto; gap: 0 14px; align-items: center; padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); transition: background .15s; cursor: pointer; }
     .ccard:last-child { border-bottom: none; }
-    .ccard:hover { background: var(--bg-3); cursor: pointer; }
-    .c-ico { width: 38px; height: 38px; border-radius: 8px; background: var(--bg-3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-3); flex-shrink: 0; }
-    .c-name { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
-    .c-meta { font-size: 11px; color: var(--text-3); display: flex; gap: 14px; flex-wrap: wrap; }
+    .ccard:hover { background: var(--raised); }
+    .c-av { width: 38px; height: 38px; border-radius: 9px; background: var(--raised); border: 1px solid var(--line-h); display: flex; align-items: center; justify-content: center; color: var(--t4); flex-shrink: 0; }
+    .c-name { font-size: 13px; font-weight: 600; color: var(--t1); margin-bottom: 4px; }
+    .c-meta { font-size: 11px; color: var(--t3); display: flex; gap: 14px; flex-wrap: wrap; }
 
-    /* ═══════════════════ HISTORY ═══════════════════ */
-    .hist-table { width: 100%; }
-    .ht-head { display: grid; grid-template-columns: 140px 1fr 100px 90px 80px; gap: 0 12px; padding: 10px 18px; border-bottom: 1px solid var(--border); }
-    .ht-th { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-4); }
-    .ht-row { display: grid; grid-template-columns: 140px 1fr 100px 90px 80px; gap: 0 12px; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; cursor: pointer; align-items: center; }
+    /* ══════════ HISTORY ══════════ */
+    .ht-head { display: grid; grid-template-columns: 150px 1fr 100px 90px 80px; gap: 0 12px; padding: 10px 20px; border-bottom: 1px solid var(--line); }
+    .ht-th { font-size: 10px; font-weight: 500; color: var(--t4); }
+    .ht-row { display: grid; grid-template-columns: 150px 1fr 100px 90px 80px; gap: 0 12px; padding: 13px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; cursor: pointer; align-items: center; }
     .ht-row:last-child { border-bottom: none; }
-    .ht-row:hover { background: var(--bg-3); }
-    .ht-date { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; }
-    .ht-query { font-size: 12px; font-weight: 600; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ht-result { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; }
-    .ht-act { display: flex; justify-content: flex-end; }
-    .ht-btn { padding: 4px 10px; border-radius: 5px; background: var(--bg-3); border: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: var(--text-3); cursor: pointer; transition: all .15s; }
-    .ht-btn:hover { border-color: var(--border-h); color: var(--text-1); background: var(--bg-4); }
-
-    /* ═══════════════════ EXTRACTS ═══════════════════ */
-    .ext-list { display: flex; flex-direction: column; }
-    .ext-row { display: grid; grid-template-columns: 38px 1fr 120px 100px 100px; gap: 0 14px; align-items: center; padding: 13px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background .15s; cursor: pointer; }
-    .ext-row:last-child { border-bottom: none; }
-    .ext-row:hover { background: var(--bg-3); }
-    .ext-ico { width: 34px; height: 34px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-3); border: 1px solid var(--border); }
-    .ext-ico.pdf  { color: var(--red-400); }
-    .ext-ico.xlsx { color: var(--green-400); }
-    .ext-ico.json { color: var(--blue-400); }
-    .ext-name { font-size: 12px; font-weight: 600; color: var(--text-1); }
-    .ext-sub  { font-size: 10px; color: var(--text-4); margin-top: 2px; }
-    .ext-date { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; }
-    .ext-size { font-size: 11px; color: var(--text-4); }
-    .ext-dl { padding: 5px 12px; border-radius: 6px; background: var(--bg-3); border: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: var(--text-3); cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-    .ext-dl:hover { border-color: var(--border-h); color: var(--text-1); background: var(--bg-4); }
+    .ht-row:hover { background: var(--raised); }
+    .ht-date { font-size: 12px; color: var(--t3); font-variant-numeric: tabular-nums; }
+    .ht-query { font-size: 13px; font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ht-count { font-size: 12px; color: var(--t3); }
+    .ht-btn { padding: 5px 12px; border-radius: 7px; background: var(--raised); border: 1px solid var(--line-h); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--t3); cursor: pointer; transition: all .15s; display: block; margin-left: auto; }
+    .ht-btn:hover { color: var(--t1); background: rgba(255,255,255,0.07); }
   </style>
 </head>
 <body>
@@ -318,59 +310,59 @@
   <header class="topbar">
     <div class="tb-brand">
       <div class="bmark">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
       </div>
-      <span class="bname">E&#8209;<span>ANALYTIC</span></span>
+      <span class="bname">E-Analytic <span>/ КАЗ</span></span>
     </div>
     <div class="tb-center">
       <div class="tb-status">
-        <div class="tb-status-dot"></div>
+        <div class="tb-dot"></div>
         <span class="tb-status-text">База активна</span>
       </div>
     </div>
     <div class="tb-right">
       <div class="tb-notif">
         <button class="tb-btn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </button>
         <div class="tb-notif-dot"></div>
       </div>
       <button class="tb-btn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
       <div class="tb-sep"></div>
       <div class="user-pill">
-        <div class="u-avatar">АС</div>
+        <div class="u-av">АС</div>
         <div><div class="u-name">Асылбек Сариев</div><div class="u-role">Аналитик</div></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.22);margin-left:4px"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--t4);margin-left:2px"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
     </div>
   </header>
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="nav-block">
-      <div class="nav-group-label">Навигация</div>
+    <div class="nav-section">
+      <div class="nav-label">Навигация</div>
       <a class="nav-item active" href="#" onclick="show('dashboard');return false;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Дашборд
       </a>
       <a class="nav-item" href="#" onclick="show('search');return false;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Поиск
       </a>
       <a class="nav-item" href="#" onclick="show('history');return false;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-3"/><polyline points="3 4 3 11 10 11"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-3"/><polyline points="3 4 3 11 10 11"/></svg>
         История проверок
         <span class="nav-badge">47</span>
       </a>
       <a class="nav-item" href="#" onclick="show('dossier');return false;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         Досье
         <span class="nav-badge">12</span>
       </a>
       <a class="nav-item" href="#" onclick="show('extracts');return false;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Выписки
         <span class="nav-badge">8</span>
       </a>
@@ -378,8 +370,8 @@
 
     <div class="nav-sep"></div>
 
-    <div class="sidebar-scroll">
-      <div class="recent-hd">Недавние запросы</div>
+    <div class="sb-recents">
+      <div class="recent-label">Недавние</div>
       <div class="ri"><span class="ri-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><div><div class="ri-main">000203302201</div><div class="ri-sub">ИНН · 04.05.2025</div></div></div>
       <div class="ri"><span class="ri-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><div><div class="ri-main">Романова Жоскул</div><div class="ri-sub">Имя · 22.04.2025</div></div></div>
       <div class="ri"><span class="ri-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><div><div class="ri-main">+7 777 777 77 77</div><div class="ri-sub">Телефон · 18.04.2025</div></div></div>
@@ -387,11 +379,11 @@
       <div class="ri"><span class="ri-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><div><div class="ri-main">Ким Рома</div><div class="ri-sub">Имя · 07.04.2025</div></div></div>
     </div>
 
-    <div class="sb-foot">
-      <div class="sb-foot-inner">
-        <div class="fa">АС</div>
-        <div><div class="fn">Асылбек Сариев</div><div class="fr">Аналитик · 1 уровень</div></div>
-        <span class="lo"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+    <div class="sb-user">
+      <div class="sb-user-inner">
+        <div class="sba">АС</div>
+        <div><div class="sbn">Асылбек Сариев</div><div class="sbr">Аналитик · 1 уровень</div></div>
+        <span class="sb-lo"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
       </div>
     </div>
   </aside>
@@ -399,195 +391,176 @@
   <!-- MAIN -->
   <main class="main" id="main">
 
-    <!-- ════════════ DASHBOARD ════════════ -->
+    <!-- ══ DASHBOARD ══ -->
     <div id="sec-dashboard" class="section-inner">
       <div class="sec-scroll">
-
-        <!-- KPI Row -->
+        <!-- KPI -->
         <div class="kpi-row">
-          <div class="kpi-card cyan">
-            <div class="kpi-top">
-              <div class="kpi-label">Проверено объектов</div>
-              <div class="kpi-icon cyan">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
+          <div class="kpi-card kc-blue">
+            <div class="kpi-row-top">
+              <div class="kpi-lbl">Проверено объектов</div>
+              <div class="kpi-icon kc-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             </div>
-            <div class="kpi-val cyan">18 294</div>
-            <div class="kpi-delta">За сегодня: <span class="up">+124</span></div>
+            <div class="kpi-val">18 294</div>
+            <div class="kpi-delta">Сегодня <span class="up">+124</span></div>
           </div>
-          <div class="kpi-card red">
-            <div class="kpi-top">
-              <div class="kpi-label">Высокий риск</div>
-              <div class="kpi-icon red">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </div>
+          <div class="kpi-card kc-red">
+            <div class="kpi-row-top">
+              <div class="kpi-lbl">Высокий риск</div>
+              <div class="kpi-icon kc-red"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
             </div>
-            <div class="kpi-val red">2 047</div>
-            <div class="kpi-delta">Рост: <span class="dn">+31 за неделю</span></div>
+            <div class="kpi-val">2 047</div>
+            <div class="kpi-delta">За неделю <span class="dn">+31</span></div>
           </div>
-          <div class="kpi-card amber">
-            <div class="kpi-top">
-              <div class="kpi-label">Новые сигналы</div>
-              <div class="kpi-icon amber">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              </div>
+          <div class="kpi-card kc-amber">
+            <div class="kpi-row-top">
+              <div class="kpi-lbl">Новые сигналы</div>
+              <div class="kpi-icon kc-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
             </div>
-            <div class="kpi-val amber">384</div>
-            <div class="kpi-delta">За сутки: <span class="dn">+48</span></div>
+            <div class="kpi-val">384</div>
+            <div class="kpi-delta">За сутки <span class="dn">+48</span></div>
           </div>
-          <div class="kpi-card green">
-            <div class="kpi-top">
-              <div class="kpi-label">Активные дела</div>
-              <div class="kpi-icon green">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              </div>
+          <div class="kpi-card kc-green">
+            <div class="kpi-row-top">
+              <div class="kpi-lbl">Активные дела</div>
+              <div class="kpi-icon kc-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             </div>
-            <div class="kpi-val green">91</div>
-            <div class="kpi-delta">Закрыто за месяц: <span class="up">+17</span></div>
+            <div class="kpi-val">91</div>
+            <div class="kpi-delta">Закрыто за месяц <span class="up">+17</span></div>
           </div>
         </div>
 
-        <!-- Dashboard grid -->
         <div class="dash-grid">
-          <!-- Left -->
           <div class="dash-left">
-
             <!-- Modules -->
             <div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:10px;">Риск по модулям</div>
-              <div class="modules-row">
+              <p style="font-size:11px;font-weight:600;color:var(--t3);margin-bottom:10px;letter-spacing:0.04em;">Риск по модулям</p>
+              <div class="mods-grid">
                 <div class="mod-card">
-                  <div class="mod-header"><span class="mod-name">Закупки</span><span class="mod-count">847 объектов</span></div>
-                  <div class="mod-bar-track"><div class="mod-bar-fill fill-red" style="width:78%"></div></div>
+                  <div class="mod-head"><span class="mod-name">Закупки</span><span class="mod-cnt">847 объектов</span></div>
+                  <div class="bar-track"><div class="bar-fill bf-red" style="width:78%"></div></div>
                   <div class="mod-stats">
-                    <div class="mod-stat"><div class="mod-stat-val">654</div><div class="mod-stat-lbl">Высокий</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">128</div><div class="mod-stat-lbl">Средний</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">65</div><div class="mod-stat-lbl">Низкий</div></div>
+                    <div><div class="ms-val">654</div><div class="ms-lbl">Высокий</div></div>
+                    <div><div class="ms-val">128</div><div class="ms-lbl">Средний</div></div>
+                    <div><div class="ms-val">65</div><div class="ms-lbl">Низкий</div></div>
                   </div>
                 </div>
                 <div class="mod-card">
-                  <div class="mod-header"><span class="mod-name">ЭСФ</span><span class="mod-count">1 203 объекта</span></div>
-                  <div class="mod-bar-track"><div class="mod-bar-fill fill-amber" style="width:54%"></div></div>
+                  <div class="mod-head"><span class="mod-name">ЭСФ</span><span class="mod-cnt">1 203 объекта</span></div>
+                  <div class="bar-track"><div class="bar-fill bf-amber" style="width:54%"></div></div>
                   <div class="mod-stats">
-                    <div class="mod-stat"><div class="mod-stat-val" >312</div><div class="mod-stat-lbl">Высокий</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">541</div><div class="mod-stat-lbl">Средний</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">350</div><div class="mod-stat-lbl">Низкий</div></div>
+                    <div><div class="ms-val">312</div><div class="ms-lbl">Высокий</div></div>
+                    <div><div class="ms-val">541</div><div class="ms-lbl">Средний</div></div>
+                    <div><div class="ms-val">350</div><div class="ms-lbl">Низкий</div></div>
                   </div>
                 </div>
                 <div class="mod-card">
-                  <div class="mod-header"><span class="mod-name">ВЭД</span><span class="mod-count">389 объектов</span></div>
-                  <div class="mod-bar-track"><div class="mod-bar-fill fill-cyan" style="width:42%"></div></div>
+                  <div class="mod-head"><span class="mod-name">ВЭД</span><span class="mod-cnt">389 объектов</span></div>
+                  <div class="bar-track"><div class="bar-fill bf-blue" style="width:42%"></div></div>
                   <div class="mod-stats">
-                    <div class="mod-stat"><div class="mod-stat-val" >89</div><div class="mod-stat-lbl">Высокий</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">174</div><div class="mod-stat-lbl">Средний</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">126</div><div class="mod-stat-lbl">Низкий</div></div>
+                    <div><div class="ms-val">89</div><div class="ms-lbl">Высокий</div></div>
+                    <div><div class="ms-val">174</div><div class="ms-lbl">Средний</div></div>
+                    <div><div class="ms-val">126</div><div class="ms-lbl">Низкий</div></div>
                   </div>
                 </div>
                 <div class="mod-card">
-                  <div class="mod-header"><span class="mod-name">Банки</span><span class="mod-count">602 объекта</span></div>
-                  <div class="mod-bar-track"><div class="mod-bar-fill fill-violet" style="width:61%"></div></div>
+                  <div class="mod-head"><span class="mod-name">Банки</span><span class="mod-cnt">602 объекта</span></div>
+                  <div class="bar-track"><div class="bar-fill bf-violet" style="width:61%"></div></div>
                   <div class="mod-stats">
-                    <div class="mod-stat"><div class="mod-stat-val" >247</div><div class="mod-stat-lbl">Высокий</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">198</div><div class="mod-stat-lbl">Средний</div></div>
-                    <div class="mod-stat"><div class="mod-stat-val">157</div><div class="mod-stat-lbl">Низкий</div></div>
+                    <div><div class="ms-val">247</div><div class="ms-lbl">Высокий</div></div>
+                    <div><div class="ms-val">198</div><div class="ms-lbl">Средний</div></div>
+                    <div><div class="ms-val">157</div><div class="ms-lbl">Низкий</div></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Top risk entities -->
-            <div class="glass-card">
-              <div class="panel-hd">
-                <span class="panel-title">Топ объектов по риску</span>
-                <a class="panel-link" href="#" onclick="show('search');return false;">
-                  Все объекты
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                </a>
+            <!-- Top risk table -->
+            <div class="card">
+              <div class="card-hd">
+                <span class="card-title">Топ объектов по риску</span>
+                <a class="card-action" href="#" onclick="show('search');return false;">Все <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
               </div>
-              <div class="risk-table">
-                <div class="rt-head">
-                  <div class="rt-th">#</div>
-                  <div class="rt-th">Объект</div>
-                  <div class="rt-th">Модуль</div>
-                  <div class="rt-th">Риск-балл</div>
-                  <div class="rt-th">Статус</div>
-                </div>
-                <div class="rt-row">
-                  <div class="rt-rank">1</div>
-                  <div><div class="rt-name">Жумабик Средзабие</div><div class="rt-sub">ИНН 000203302201</div></div>
-                  <div><span class="badge badge-cyan">Закупки</span></div>
-                  <div class="risk-bar"><div class="risk-bar-track"><div class="risk-bar-fill fill-red" style="width:97%"></div></div><span class="rt-score high">97</span></div>
-                  <div><span class="badge badge-red"><span class="b-dot"></span>Судим</span></div>
-                </div>
-                <div class="rt-row">
-                  <div class="rt-rank">2</div>
-                  <div><div class="rt-name">ТОО «АртФаро Трейд»</div><div class="rt-sub">БИН 180440007931</div></div>
-                  <div><span class="badge badge-amber">ЭСФ</span></div>
-                  <div class="risk-bar"><div class="risk-bar-track"><div class="risk-bar-fill fill-red" style="width:91%"></div></div><span class="rt-score high">91</span></div>
-                  <div><span class="badge badge-amber"><span class="b-dot"></span>В розыске</span></div>
-                </div>
-                <div class="rt-row">
-                  <div class="rt-rank">3</div>
-                  <div><div class="rt-name">Апраль Саудырлы</div><div class="rt-sub">ИНН 930203100305</div></div>
-                  <div><span class="badge badge-violet">Банки</span></div>
-                  <div class="risk-bar"><div class="risk-bar-track"><div class="risk-bar-fill fill-red" style="width:88%"></div></div><span class="rt-score high">88</span></div>
-                  <div><span class="badge badge-red"><span class="b-dot"></span>Активен</span></div>
-                </div>
-                <div class="rt-row">
-                  <div class="rt-rank">4</div>
-                  <div><div class="rt-name">ИП Сейткали Ержан</div><div class="rt-sub">ИНН 880714300144</div></div>
-                  <div><span class="badge badge-cyan">ВЭД</span></div>
-                  <div class="risk-bar"><div class="risk-bar-track"><div class="risk-bar-fill fill-amber" style="width:72%"></div></div><span class="rt-score mid">72</span></div>
-                  <div><span class="badge badge-amber"><span class="b-dot"></span>Проверка</span></div>
-                </div>
-                <div class="rt-row">
-                  <div class="rt-rank">5</div>
-                  <div><div class="rt-name">Романова Жоскул</div><div class="rt-sub">ИНН 921105400128</div></div>
-                  <div><span class="badge badge-amber">ЭСФ</span></div>
-                  <div class="risk-bar"><div class="risk-bar-track"><div class="risk-bar-fill fill-amber" style="width:64%"></div></div><span class="rt-score mid">64</span></div>
-                  <div><span class="badge badge-green"><span class="b-dot"></span>Наблюд.</span></div>
-                </div>
+              <div class="rt-head">
+                <div class="rt-th">#</div>
+                <div class="rt-th">Объект</div>
+                <div class="rt-th">Модуль</div>
+                <div class="rt-th">Балл</div>
+                <div class="rt-th">Статус</div>
+              </div>
+              <div class="rt-row">
+                <div class="rt-rank">1</div>
+                <div><div class="rt-name">Жумабик Средзабие</div><div class="rt-sub">ИНН 000203302201</div></div>
+                <div><span class="badge b-blue">Закупки</span></div>
+                <div class="rbar"><div class="rbar-track"><div class="rbar-fill bf-red" style="width:97%"></div></div><span class="rt-score high">97</span></div>
+                <div><span class="badge b-red"><span class="b-dot"></span>Судим</span></div>
+              </div>
+              <div class="rt-row">
+                <div class="rt-rank">2</div>
+                <div><div class="rt-name">ТОО «АртФаро Трейд»</div><div class="rt-sub">БИН 180440007931</div></div>
+                <div><span class="badge b-amber">ЭСФ</span></div>
+                <div class="rbar"><div class="rbar-track"><div class="rbar-fill bf-red" style="width:91%"></div></div><span class="rt-score high">91</span></div>
+                <div><span class="badge b-amber"><span class="b-dot"></span>В розыске</span></div>
+              </div>
+              <div class="rt-row">
+                <div class="rt-rank">3</div>
+                <div><div class="rt-name">Апраль Саудырлы</div><div class="rt-sub">ИНН 930203100305</div></div>
+                <div><span class="badge b-violet">Банки</span></div>
+                <div class="rbar"><div class="rbar-track"><div class="rbar-fill bf-red" style="width:88%"></div></div><span class="rt-score high">88</span></div>
+                <div><span class="badge b-red"><span class="b-dot"></span>Активен</span></div>
+              </div>
+              <div class="rt-row">
+                <div class="rt-rank">4</div>
+                <div><div class="rt-name">ИП Сейткали Ержан</div><div class="rt-sub">ИНН 880714300144</div></div>
+                <div><span class="badge b-blue">ВЭД</span></div>
+                <div class="rbar"><div class="rbar-track"><div class="rbar-fill bf-amber" style="width:72%"></div></div><span class="rt-score mid">72</span></div>
+                <div><span class="badge b-amber"><span class="b-dot"></span>Проверка</span></div>
+              </div>
+              <div class="rt-row">
+                <div class="rt-rank">5</div>
+                <div><div class="rt-name">Романова Жоскул</div><div class="rt-sub">ИНН 921105400128</div></div>
+                <div><span class="badge b-amber">ЭСФ</span></div>
+                <div class="rbar"><div class="rbar-track"><div class="rbar-fill bf-amber" style="width:64%"></div></div><span class="rt-score mid">64</span></div>
+                <div><span class="badge b-green"><span class="b-dot"></span>Наблюд.</span></div>
               </div>
             </div>
           </div>
 
-          <!-- Right — Activity feed -->
+          <!-- Activity -->
           <div class="dash-right">
-            <div class="glass-card" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
-              <div class="panel-hd" style="flex-shrink:0;">
-                <span class="panel-title">Активность</span>
-                <span style="font-size:10px;color:rgba(255,255,255,0.2);">Сегодня</span>
+            <div class="card" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;">
+              <div class="card-hd" style="flex-shrink:0">
+                <span class="card-title">Активность</span>
+                <span style="font-size:11px;color:var(--t4)">Сегодня</span>
               </div>
-              <div style="overflow-y:auto;flex:1;" class="sec-scroll" style="padding:0">
-                <div class="feed">
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--red-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Новый сигнал по <strong>ТОО АртФаро Трейд</strong> — подозрительная транзакция 4.7 млн ₸</div><div class="feed-time">14:32</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--blue-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Выписка сформирована по запросу <strong>ИНН 000203302201</strong></div><div class="feed-time">13:18</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--amber-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Обновлено досье <strong>Жумабик Средзабие</strong> — добавлены 2 связанные компании</div><div class="feed-time">12:55</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--green-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Дело #2047 закрыто — <strong>Апраль Саудырлы</strong> передан в прокуратуру</div><div class="feed-time">11:40</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--red-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Риск-балл <strong>ИП Сейткали</strong> повышен до 72 по итогам анализа ВЭД</div><div class="feed-time">10:22</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--blue-400)"></div><div class="feed-line"></div></div>
-                    <div class="feed-body"><div class="feed-text">Выполнено 47 проверок за смену</div><div class="feed-time">09:00</div></div>
-                  </div>
-                  <div class="feed-item">
-                    <div class="feed-dot-wrap"><div class="feed-dot" style="background:var(--amber-400)"></div></div>
-                    <div class="feed-body"><div class="feed-text">Плановый отчёт за апрель выгружен в <strong>Выписки</strong></div><div class="feed-time">08:15</div></div>
-                  </div>
+              <div class="feed">
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--red)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Новый сигнал по <strong>ТОО АртФаро Трейд</strong> — подозрительная транзакция 4.7 млн ₸</div><div class="feed-time">14:32</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--blue)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Выписка сформирована по <strong>ИНН 000203302201</strong></div><div class="feed-time">13:18</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--amber)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Обновлено досье <strong>Жумабик Средзабие</strong> — добавлены 2 связанные компании</div><div class="feed-time">12:55</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--green)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Дело #2047 закрыто — <strong>Апраль Саудырлы</strong> передан в прокуратуру</div><div class="feed-time">11:40</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--red)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Риск-балл <strong>ИП Сейткали</strong> повышен до 72 по итогам анализа ВЭД</div><div class="feed-time">10:22</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--blue)"></div><div class="feed-line"></div></div>
+                  <div><div class="feed-text">Выполнено 47 проверок за смену</div><div class="feed-time">09:00</div></div>
+                </div>
+                <div class="feed-item">
+                  <div class="feed-dot-col"><div class="feed-dot" style="background:var(--amber)"></div></div>
+                  <div><div class="feed-text">Плановый отчёт за апрель выгружен в <strong>Выписки</strong></div><div class="feed-time">08:15</div></div>
                 </div>
               </div>
             </div>
@@ -596,258 +569,192 @@
       </div>
     </div>
 
-    <!-- ════════════ SEARCH ════════════ -->
+    <!-- ══ SEARCH ══ -->
     <div id="sec-search" class="section-inner" style="display:none;align-items:center;">
-      <div class="search-hero" style="padding:26px 0 0;flex-shrink:0;max-width:820px;width:100%">
-        <h1 class="hero-title">Глобальный поиск</h1>
-        <p class="hero-sub">Поиск физических и юридических лиц по ИНН, имени, телефону, почте или никнейму</p>
-        <div class="tabs">
-          <div class="tab active" onclick="setTab(this,'Введите ИНН для поиска...')">ИНН</div>
-          <div class="tab" onclick="setTab(this,'Введите имя или название...')">Имя / Название</div>
-          <div class="tab" onclick="setTab(this,'Введите номер телефона...')">Телефон</div>
-          <div class="tab" onclick="setTab(this,'Введите адрес почты...')">Почта</div>
-          <div class="tab" onclick="setTab(this,'Введите никнейм...')">Никнейм</div>
+      <div class="search-wrap" style="max-width:800px;width:100%">
+        <div class="search-title">Глобальный поиск</div>
+        <div class="search-sub">Поиск по ИНН, имени, телефону, почте или никнейму</div>
+        <div class="search-tabs">
+          <div class="stab active" onclick="setTab(this,'Введите ИНН...')">ИНН</div>
+          <div class="stab" onclick="setTab(this,'Введите имя или название...')">Имя / Название</div>
+          <div class="stab" onclick="setTab(this,'Введите телефон...')">Телефон</div>
+          <div class="stab" onclick="setTab(this,'Введите почту...')">Почта</div>
+          <div class="stab" onclick="setTab(this,'Введите никнейм...')">Никнейм</div>
         </div>
       </div>
 
-      <div class="search-bar-wrap" style="max-width:820px;width:100%">
-        <div class="search-row">
-          <div class="search-pill">
-            <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-            <input type="text" id="q" placeholder="Введите ИНН для поиска..." />
-            <span class="kb-hint">/ для фокуса</span>
-            <button class="sp-clear" id="sp-clear" style="display:none" onclick="clearQ()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <button class="btn-find" onclick="doSearch()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            Найти
-          </button>
+      <div class="search-row" style="max-width:800px;width:100%">
+        <div class="search-input-wrap">
+          <span class="si-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <input type="text" id="q" placeholder="Введите ИНН..." />
+          <span class="si-hint">/ для фокуса</span>
+          <button class="si-clear" id="sp-clear" style="display:none" onclick="clearQ()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
+        <button class="btn-search" onclick="doSearch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Найти
+        </button>
+      </div>
+
+      <div class="result-bar" id="rmeta" style="max-width:800px;width:100%">
+        <div class="res-count">Найдено: <strong id="rnum">5</strong> · Запрос: <strong id="rq"></strong></div>
+        <div class="filter-row">
+          <div class="fchip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Фильтр</div>
+          <div class="fchip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Сортировка</div>
         </div>
       </div>
 
-      <div class="result-meta" id="rmeta" style="max-width:820px;width:100%">
-        <div class="rcount">Найдено: <strong id="rnum">5</strong> &nbsp;·&nbsp; Запрос: <strong id="rq"></strong></div>
-        <div class="filter-chips">
-          <div class="fchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Фильтр</div>
-          <div class="fchip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Сортировка</div>
-        </div>
-      </div>
-
-      <div class="results" style="max-width:820px;width:100%">
+      <div class="results-area" style="max-width:800px;width:100%">
         <div class="empty" id="empty">
-          <div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-          <div class="empty-title">Введите запрос</div>
+          <div class="empty-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="empty-title">Введите запрос для поиска</div>
           <div class="empty-sub">ИНН, имя, телефон, почту или никнейм — система найдёт связанные записи</div>
-          <div class="empty-shortcut"><kbd>/</kbd> для быстрого фокуса · <kbd>Enter</kbd> для поиска</div>
+          <div class="empty-hint"><kbd>/</kbd> для фокуса · <kbd>Enter</kbd> для поиска</div>
         </div>
 
-        <div id="rlist" style="display:none;">
-          <!-- Group: Физические лица -->
-          <div class="rg-section">
-            <div class="rg-header" onclick="toggleGroup(this.parentElement)">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.2)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span class="rg-label">Физические лица</span>
-              <span class="rg-count">3</span>
-              <span class="rg-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div id="rlist" style="display:none">
+          <!-- Физические лица -->
+          <div class="rg">
+            <div class="rg-hd" onclick="toggleRg(this.parentElement)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--t4)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span class="rg-name">Физические лица</span>
+              <span class="rg-cnt">3</span>
+              <span class="rg-chev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
             </div>
-            <div class="rg-body results-grid-wrap">
-              <div class="results-grid">
-                <div class="pcard">
-                  <div class="p-ava"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                  <div class="p-body">
-                    <div class="p-top"><span class="p-name">Жумабик Средзабие</span><span class="badge badge-red"><span class="b-dot"></span>Судим</span><span class="badge badge-red"><span class="b-dot"></span>Коррупция</span></div>
-                    <div class="p-row">
-                      <div><div class="p-cell-label">ИНН</div><div class="p-cell-val">000203302201</div></div>
-                      <div><div class="p-cell-label">Телефон</div><div class="p-cell-val">+7 727 77 77 77</div></div>
-                      <div><div class="p-cell-label">Telegram</div><div class="p-cell-val">@user1701</div></div>
-                      <div><div class="p-cell-label">Риск-балл</div><div class="p-cell-val" style="color:var(--red-400)">97</div></div>
-                      <div><div class="p-cell-label">Досье</div><div class="p-cell-val"><span class="badge badge-red">Есть</span></div></div>
-                    </div>
+            <div class="rg-body result-list">
+              <div class="pcard">
+                <div class="p-av"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div>
+                  <div class="p-name">Жумабик Средзабие <span class="badge b-red" style="margin-left:6px"><span class="b-dot"></span>Судим</span> <span class="badge b-red"><span class="b-dot"></span>Коррупция</span></div>
+                  <div class="p-meta">
+                    <div><div class="pm-lbl">ИНН</div><div class="pm-val">000203302201</div></div>
+                    <div><div class="pm-lbl">Телефон</div><div class="pm-val">+7 727 77 77 77</div></div>
+                    <div><div class="pm-lbl">Telegram</div><div class="pm-val">@user1701</div></div>
+                    <div><div class="pm-lbl">Риск-балл</div><div class="pm-val" style="color:var(--red);font-weight:600">97</div></div>
+                    <div><div class="pm-lbl">Досье</div><div class="pm-val"><span class="badge b-red">Есть</span></div></div>
                   </div>
-                  <div class="p-acts"><button class="btn-more">Подробнее</button></div>
                 </div>
-                <div class="pcard">
-                  <div class="p-ava"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                  <div class="p-body">
-                    <div class="p-top"><span class="p-name">Апраль Саудырлы</span><span class="badge badge-red"><span class="b-dot"></span>Судим</span><span class="badge badge-amber"><span class="b-dot"></span>В розыске</span></div>
-                    <div class="p-row">
-                      <div><div class="p-cell-label">ИНН</div><div class="p-cell-val">930203100305</div></div>
-                      <div><div class="p-cell-label">Телефон</div><div class="p-cell-val">+7 999 000 01 00</div></div>
-                      <div><div class="p-cell-label">Telegram</div><div class="p-cell-val dim">Не указан</div></div>
-                      <div><div class="p-cell-label">Риск-балл</div><div class="p-cell-val" style="color:var(--red-400)">88</div></div>
-                      <div><div class="p-cell-label">Досье</div><div class="p-cell-val"><span class="badge badge-red">Есть</span></div></div>
-                    </div>
+                <div class="p-actions"><button class="btn-detail">Подробнее</button></div>
+              </div>
+              <div class="pcard">
+                <div class="p-av"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div>
+                  <div class="p-name">Апраль Саудырлы <span class="badge b-red" style="margin-left:6px"><span class="b-dot"></span>Судим</span> <span class="badge b-amber"><span class="b-dot"></span>В розыске</span></div>
+                  <div class="p-meta">
+                    <div><div class="pm-lbl">ИНН</div><div class="pm-val">930203100305</div></div>
+                    <div><div class="pm-lbl">Телефон</div><div class="pm-val">+7 999 000 01 00</div></div>
+                    <div><div class="pm-lbl">Telegram</div><div class="pm-val dim">Не указан</div></div>
+                    <div><div class="pm-lbl">Риск-балл</div><div class="pm-val" style="color:var(--red);font-weight:600">88</div></div>
+                    <div><div class="pm-lbl">Досье</div><div class="pm-val"><span class="badge b-red">Есть</span></div></div>
                   </div>
-                  <div class="p-acts"><button class="btn-more">Подробнее</button></div>
                 </div>
-                <div class="pcard">
-                  <div class="p-ava"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                  <div class="p-body">
-                    <div class="p-top"><span class="p-name">Понедельник Дуйсенбаев</span><span class="badge badge-green"><span class="b-dot"></span>Без риска</span></div>
-                    <div class="p-row">
-                      <div><div class="p-cell-label">ИНН</div><div class="p-cell-val">860903302291</div></div>
-                      <div><div class="p-cell-label">Телефон</div><div class="p-cell-val">+7 777 111 22 33</div></div>
-                      <div><div class="p-cell-label">Telegram</div><div class="p-cell-val">@dune_OS</div></div>
-                      <div><div class="p-cell-label">Риск-балл</div><div class="p-cell-val" style="color:var(--green-400)">12</div></div>
-                      <div><div class="p-cell-label">Досье</div><div class="p-cell-val dim">Нет</div></div>
-                    </div>
+                <div class="p-actions"><button class="btn-detail">Подробнее</button></div>
+              </div>
+              <div class="pcard">
+                <div class="p-av"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div>
+                  <div class="p-name">Понедельник Дуйсенбаев <span class="badge b-green" style="margin-left:6px"><span class="b-dot"></span>Без риска</span></div>
+                  <div class="p-meta">
+                    <div><div class="pm-lbl">ИНН</div><div class="pm-val">860903302291</div></div>
+                    <div><div class="pm-lbl">Телефон</div><div class="pm-val">+7 777 111 22 33</div></div>
+                    <div><div class="pm-lbl">Telegram</div><div class="pm-val">@dune_OS</div></div>
+                    <div><div class="pm-lbl">Риск-балл</div><div class="pm-val" style="color:var(--green);font-weight:600">12</div></div>
+                    <div><div class="pm-lbl">Досье</div><div class="pm-val dim">Нет</div></div>
                   </div>
-                  <div class="p-acts"><button class="btn-more">Подробнее</button></div>
                 </div>
+                <div class="p-actions"><button class="btn-detail">Подробнее</button></div>
               </div>
             </div>
           </div>
 
-          <!-- Group: Юридические лица -->
-          <div class="rg-section">
-            <div class="rg-header" onclick="toggleGroup(this.parentElement)">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.2)"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-              <span class="rg-label">Юридические лица</span>
-              <span class="rg-count">2</span>
-              <span class="rg-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <!-- Юридические лица -->
+          <div class="rg">
+            <div class="rg-hd" onclick="toggleRg(this.parentElement)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--t4)"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              <span class="rg-name">Юридические лица</span>
+              <span class="rg-cnt">2</span>
+              <span class="rg-chev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
             </div>
-            <div class="rg-body results-grid-wrap">
-              <div class="results-grid">
-                <div class="ccard">
-                  <div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-                  <div>
-                    <div class="c-name">ТОО «АртФаро Трейд»</div>
-                    <div class="c-meta">
-                      <span><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> БИН 180440007931</span>
-                      <span>Торговля · Алматы</span>
-                      <span style="color:var(--red-400);font-weight:600">Риск: 91</span>
-                    </div>
-                  </div>
-                  <div class="p-acts"><button class="btn-more">Подробнее</button></div>
-                </div>
-                <div class="ccard">
-                  <div class="c-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-                  <div>
-                    <div class="c-name">ИП Сейткали Ержан</div>
-                    <div class="c-meta">
-                      <span>ИНН 880714300144</span>
-                      <span>ВЭД · Нур-Султан</span>
-                      <span style="color:var(--amber-400)">Риск: 72</span>
-                    </div>
-                  </div>
-                  <div class="p-acts"><button class="btn-more">Подробнее</button></div>
-                </div>
+            <div class="rg-body result-list">
+              <div class="ccard">
+                <div class="c-av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                <div><div class="c-name">ТОО «АртФаро Трейд»</div><div class="c-meta"><span>БИН 180440007931</span><span>Торговля · Алматы</span><span style="color:var(--red);font-weight:600">Риск: 91</span></div></div>
+                <div class="p-actions"><button class="btn-detail">Подробнее</button></div>
+              </div>
+              <div class="ccard">
+                <div class="c-av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                <div><div class="c-name">ИП Сейткали Ержан</div><div class="c-meta"><span>ИНН 880714300144</span><span>ВЭД · Астана</span><span style="color:var(--amber);font-weight:600">Риск: 72</span></div></div>
+                <div class="p-actions"><button class="btn-detail">Подробнее</button></div>
               </div>
             </div>
           </div>
 
-          <!-- Group: Связанные объекты -->
-          <div class="rg-section collapsed">
-            <div class="rg-header" onclick="toggleGroup(this.parentElement)">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.2)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              <span class="rg-label">Связанные объекты</span>
-              <span class="rg-count">8</span>
-              <span class="rg-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          <!-- Связанные -->
+          <div class="rg collapsed">
+            <div class="rg-hd" onclick="toggleRg(this.parentElement)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--t4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="rg-name">Связанные объекты</span>
+              <span class="rg-cnt">8</span>
+              <span class="rg-chev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
             </div>
-            <div class="rg-body results-grid-wrap">
-              <div style="padding:16px 18px;font-size:12px;color:rgba(255,255,255,0.3);text-align:center;">8 связанных объектов — раскройте для просмотра</div>
+            <div class="rg-body result-list">
+              <div style="padding:18px 20px;font-size:12px;color:var(--t4);text-align:center">8 связанных объектов — раскройте для просмотра</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ════════════ HISTORY ════════════ -->
+    <!-- ══ HISTORY ══ -->
     <div id="sec-history" class="section-inner" style="display:none;">
-      <div class="sec-hd">
-        <div class="sec-title">История проверок</div>
-        <div class="sec-sub">Журнал всех выполненных запросов и проверок</div>
+      <div class="page-hd">
+        <div class="page-title">История проверок</div>
+        <div class="page-sub">Журнал всех выполненных запросов и проверок</div>
       </div>
       <div class="sec-scroll">
-        <div class="glass-card">
-          <div class="hist-table">
-            <div class="ht-head">
-              <div class="ht-th">Дата и время</div>
-              <div class="ht-th">Запрос</div>
-              <div class="ht-th">Тип</div>
-              <div class="ht-th">Результатов</div>
-              <div class="ht-th"></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">04.05.2025 &nbsp;14:32</div>
-              <div><div class="ht-query">000203302201</div></div>
-              <div><span class="badge badge-cyan">ИНН</span></div>
-              <div class="ht-result">3 объекта</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">22.04.2025 &nbsp;13:18</div>
-              <div><div class="ht-query">Романова Жоскул</div></div>
-              <div><span class="badge badge-violet">Имя</span></div>
-              <div class="ht-result">1 объект</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">18.04.2025 &nbsp;10:05</div>
-              <div><div class="ht-query">+7 777 777 77 77</div></div>
-              <div><span class="badge badge-green">Телефон</span></div>
-              <div class="ht-result">2 объекта</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">15.04.2025 &nbsp;09:44</div>
-              <div><div class="ht-query">ArtFaro Banul</div></div>
-              <div><span class="badge badge-amber">Никнейм</span></div>
-              <div class="ht-result">1 объект</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">10.04.2025 &nbsp;16:21</div>
-              <div><div class="ht-query">+7 449 000 00 68</div></div>
-              <div><span class="badge badge-green">Телефон</span></div>
-              <div class="ht-result">0 объектов</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">07.04.2025 &nbsp;11:03</div>
-              <div><div class="ht-query">Ким Рома</div></div>
-              <div><span class="badge badge-violet">Имя</span></div>
-              <div class="ht-result">4 объекта</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
-            <div class="ht-row">
-              <div class="ht-date">02.04.2025 &nbsp;08:30</div>
-              <div><div class="ht-query">860903302291</div></div>
-              <div><span class="badge badge-cyan">ИНН</span></div>
-              <div class="ht-result">1 объект</div>
-              <div class="ht-act"><button class="ht-btn">Повторить</button></div>
-            </div>
+        <div class="card">
+          <div class="ht-head">
+            <div class="ht-th">Дата и время</div>
+            <div class="ht-th">Запрос</div>
+            <div class="ht-th">Тип</div>
+            <div class="ht-th">Результатов</div>
+            <div class="ht-th"></div>
           </div>
+          <div class="ht-row"><div class="ht-date">04.05.2025 14:32</div><div class="ht-query">000203302201</div><div><span class="badge b-blue">ИНН</span></div><div class="ht-count">3 объекта</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">22.04.2025 13:18</div><div class="ht-query">Романова Жоскул</div><div><span class="badge b-violet">Имя</span></div><div class="ht-count">1 объект</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">18.04.2025 10:05</div><div class="ht-query">+7 777 777 77 77</div><div><span class="badge b-green">Телефон</span></div><div class="ht-count">2 объекта</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">15.04.2025 09:44</div><div class="ht-query">ArtFaro Banul</div><div><span class="badge b-amber">Никнейм</span></div><div class="ht-count">1 объект</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">10.04.2025 16:21</div><div class="ht-query">+7 449 000 00 68</div><div><span class="badge b-green">Телефон</span></div><div class="ht-count">0 объектов</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">07.04.2025 11:03</div><div class="ht-query">Ким Рома</div><div><span class="badge b-violet">Имя</span></div><div class="ht-count">4 объекта</div><div><button class="ht-btn">Повторить</button></div></div>
+          <div class="ht-row"><div class="ht-date">02.04.2025 08:30</div><div class="ht-query">860903302291</div><div><span class="badge b-blue">ИНН</span></div><div class="ht-count">1 объект</div><div><button class="ht-btn">Повторить</button></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ════════════ DOSSIER ════════════ -->
+    <!-- ══ DOSSIER ══ -->
     <div id="sec-dossier" class="section-inner" style="display:none;">
-      <div class="sec-hd">
-        <div class="sec-title">Досье</div>
-        <div class="sec-sub">Сформированные досье на физических и юридических лиц</div>
+      <div class="page-hd">
+        <div class="page-title">Досье</div>
+        <div class="page-sub">Сформированные досье на физических и юридических лиц</div>
       </div>
       <div class="sec-scroll">
         <div class="empty">
-          <div class="empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="empty-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
           <div class="empty-title">Досье отсутствуют</div>
           <div class="empty-sub">Нет сформированных досье. Создайте из страницы поиска.</div>
         </div>
       </div>
     </div>
 
-    <!-- ════════════ EXTRACTS ════════════ -->
+    <!-- ══ EXTRACTS ══ -->
     <div id="sec-extracts" class="section-inner" style="display:none;">
-      <div class="sec-hd">
-        <div class="sec-title">Выписки</div>
-        <div class="sec-sub">Сформированные выписки и экспортированные отчёты</div>
+      <div class="page-hd">
+        <div class="page-title">Выписки</div>
+        <div class="page-sub">Сформированные выписки и экспортированные отчёты</div>
       </div>
       <div class="sec-scroll">
         <div class="empty">
-          <div class="empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+          <div class="empty-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
           <div class="empty-title">Выписки отсутствуют</div>
           <div class="empty-sub">Нет сохранённых выписок. Экспортируйте из результатов поиска.</div>
         </div>
@@ -859,29 +766,27 @@
 
 <script>
   const SECTIONS = {dashboard:'sec-dashboard',search:'sec-search',history:'sec-history',dossier:'sec-dossier',extracts:'sec-extracts'};
-  const NAV_KEYS = Object.keys(SECTIONS);
+  const KEYS = Object.keys(SECTIONS);
 
   function show(key) {
-    Object.values(SECTIONS).forEach(id => {
-      const el = document.getElementById(id);
+    KEYS.forEach(k => {
+      const el = document.getElementById(SECTIONS[k]);
       el.style.display = 'none';
       el.style.alignItems = '';
     });
     const sec = document.getElementById(SECTIONS[key]);
     sec.style.display = 'flex';
     if (key === 'search') sec.style.alignItems = 'center';
-    document.querySelectorAll('.nav-item').forEach((el,i) => el.classList.toggle('active', NAV_KEYS[i] === key));
+    document.querySelectorAll('.nav-item').forEach((el,i) => el.classList.toggle('active', KEYS[i] === key));
   }
 
   function setTab(el, ph) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
     document.getElementById('q').placeholder = ph;
   }
 
-  function toggleGroup(section) {
-    section.classList.toggle('collapsed');
-  }
+  function toggleRg(el) { el.classList.toggle('collapsed'); }
 
   const qEl = document.getElementById('q');
   const clrBtn = document.getElementById('sp-clear');
