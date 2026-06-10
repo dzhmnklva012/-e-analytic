@@ -186,6 +186,14 @@
 
     .pill input::placeholder { color: var(--slate-600); }
 
+    .pill input:-webkit-autofill,
+    .pill input:-webkit-autofill:hover,
+    .pill input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px #0d1520 inset;
+      -webkit-text-fill-color: var(--slate-100);
+      caret-color: var(--slate-100);
+    }
+
     .btn-eye {
       background: none;
       border: none;
