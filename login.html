@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Analytic — Вход в систему</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-100: #f1f5f9;
+
+      --blue-950: #172554;
+      --blue-900: #1e3a8a;
+      --blue-800: #1e40af;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-300: #93c5fd;
+
+      --navy-bg:   #0d1b2e;
+      --navy-mid:  #0a1628;
+      --navy-dark: #06101e;
+
+      --red-400: #f87171;
+      --red-500: #ef4444;
+      --green-500: #22c55e;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════
+       SPLIT LAYOUT
+    ══════════════════════════════ */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+    }
+
+    /* ══════════════════════════════
+       LEFT — FORM
+    ══════════════════════════════ */
+    .left {
+      background:
+        radial-gradient(ellipse 80% 70% at 20% 90%, rgba(29,78,216,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 5%, rgba(30,58,138,0.18) 0%, transparent 55%),
+        var(--slate-950);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 56px 60px;
+      position: relative;
+    }
+
+    /* brand top-left */
+    .brand {
+      position: absolute;
+      top: 32px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--blue-600);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--slate-300);
+    }
+
+    .brand-name span { color: var(--blue-400); }
+
+    /* form panel */
+    .form-wrap {
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .form-head {
+      margin-bottom: 32px;
+    }
+
+    .form-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-400);
+      margin-bottom: 10px;
+    }
+
+    .form-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--slate-100);
+      letter-spacing: -0.02em;
+      margin-bottom: 7px;
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: var(--slate-500);
+      line-height: 1.55;
+    }
+
+    /* alert */
+    .alert {
+      display: none;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(239,68,68,0.25);
+      border-left: 3px solid var(--red-500);
+      background: rgba(239,68,68,0.07);
+      border-radius: 12px;
+      padding: 11px 14px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--red-400);
+    }
+    .alert.show { display: flex; }
+
+    /* pill input */
+    .field { margin-bottom: 12px; }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      background: rgba(30,41,59,0.7);
+      border: 1px solid var(--slate-700);
+      border-radius: 999px;
+      height: 52px;
+      padding: 0 20px;
+      gap: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .pill:focus-within {
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.14);
+    }
+
+    .pill.err {
+      border-color: var(--red-500);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    }
+
+    .pill .ic { color: var(--slate-500); display: flex; flex-shrink: 0; }
+
+    .pill input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--slate-100);
+      min-width: 0;
+    }
+
+    .pill input::placeholder { color: var(--slate-600); }
+
+    .btn-eye {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--slate-500);
+      padding: 4px;
+      display: flex;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .btn-eye:hover { color: var(--slate-300); }
+
+    .ferr {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+      padding-left: 20px;
+      font-size: 12px;
+      color: var(--red-400);
+    }
+    .ferr.show { display: flex; }
+
+    /* opts */
+    .opts {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 22px;
+      padding: 0 4px;
+    }
+
+    .chk {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chk input { display: none; }
+
+    .chk-box {
+      width: 17px;
+      height: 17px;
+      border: 1.5px solid var(--slate-600);
+      border-radius: 5px;
+      background: rgba(30,41,59,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .chk input:checked ~ .chk-box {
+      background: var(--blue-600);
+      border-color: var(--blue-600);
+    }
+
+    .chk-tick { display: none; }
+    .chk input:checked ~ .chk-box .chk-tick { display: block; }
+
+    .chk span:last-of-type { font-size: 13px; color: var(--slate-400); }
+
+    .link-fgt {
+      font-size: 13px;
+      color: var(--blue-400);
+      text-decoration: none;
+    }
+    .link-fgt:hover { color: var(--blue-300); }
+
+    /* submit */
+    .btn-login {
+      width: 100%;
+      height: 52px;
+      border-radius: 999px;
+      background: var(--slate-100);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--slate-900);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      margin-bottom: 20px;
+    }
+
+    .btn-login:hover {
+      background: #fff;
+      box-shadow: 0 4px 28px rgba(255,255,255,0.12);
+    }
+
+    .btn-login:active { transform: scale(0.985); }
+
+    /* sec notice */
+    .sec {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+    }
+
+    .sec svg { color: var(--slate-600); flex-shrink: 0; margin-top: 1px; }
+
+    .sec p { font-size: 12px; color: var(--slate-600); line-height: 1.55; }
+
+    /* bottom footer */
+    .left-foot {
+      position: absolute;
+      bottom: 24px;
+      left: 40px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .foot-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--slate-600);
+    }
+
+    .dot-g {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green-500);
+    }
+
+    .foot-copy { font-size: 12px; color: var(--slate-700); }
+
+    /* ══════════════════════════════
+       RIGHT — DECORATIVE PANEL
+    ══════════════════════════════ */
+    .right {
+      position: relative;
+      background: var(--navy-bg);
+      overflow: hidden;
+    }
+
+    /* binary canvas fills the panel */
+    #binary-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* corner brackets */
+    .corner {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      z-index: 3;
+    }
+
+    .corner svg { width: 100%; height: 100%; }
+
+    .corner-tl { top: 20px;    left: 20px; }
+    .corner-tr { top: 20px;    right: 20px; transform: scaleX(-1); }
+    .corner-bl { bottom: 20px; left: 20px;  transform: scaleY(-1); }
+    .corner-br { bottom: 20px; right: 20px; transform: scale(-1,-1); }
+
+    /* center seal */
+    .seal-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      gap: 28px;
+    }
+
+    .seal-svg {
+      width: 260px;
+      height: 260px;
+      opacity: 0.35;
+    }
+
+    .seal-caption {
+      text-align: center;
+    }
+
+    .seal-caption .line1 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(148,163,184,0.4);
+      margin-bottom: 4px;
+    }
+
+    .seal-caption .line2 {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(148,163,184,0.25);
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ══ LEFT — FORM ══ -->
+  <div class="left">
+
+    <!-- Brand -->
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6"  y1="20" x2="6"  y2="14"/>
+          <line x1="2"  y1="20" x2="22" y2="20"/>
+        </svg>
+      </div>
+      <span class="brand-name">E&#8209;<span>ANALYTIC</span></span>
+    </div>
+
+    <!-- Form -->
+    <div class="form-wrap">
+
+      <div class="form-head">
+        <div class="form-eyebrow">Государственная система</div>
+        <h1 class="form-title">Вход в систему</h1>
+        <p class="form-sub">Аналитическая платформа противодействия коррупции.<br>Введите учётные данные для продолжения.</p>
+      </div>
+
+      <div class="alert" id="js-alert">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Неверный логин или пароль. Попробуйте ещё раз.
+      </div>
+
+      <form id="form" novalidate>
+
+        <div class="field">
+          <div class="pill" id="pill-u">
+            <span class="ic">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            <input type="text" id="username" placeholder="Логин" autocomplete="username" autocapitalize="off" />
+          </div>
+          <div class="ferr" id="err-u">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Введите логин
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="pill" id="pill-p">
+            <span class="ic">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="password" placeholder="Пароль" autocomplete="current-password" />
+            <button type="button" class="btn-eye" id="btn-eye" aria-label="Показать пароль">
+              <svg id="eye-svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="ferr" id="err-p">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Введите пароль
+          </div>
+        </div>
+
+        <div class="opts">
+          <label class="chk">
+            <input type="checkbox" id="remember" />
+            <span class="chk-box">
+              <span class="chk-tick">
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="2 6 5 9 10 3"/>
+                </svg>
+              </span>
+            </span>
+            <span>Запомнить меня</span>
+          </label>
+          <a href="#" class="link-fgt">Забыли пароль?</a>
+        </div>
+
+        <button type="submit" class="btn-login">
+          Войти
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+        </button>
+
+        <div class="sec">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <p>Только для авторизованных сотрудников. Все действия фиксируются и подлежат контролю.</p>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="left-foot">
+      <div class="foot-status">
+        <span class="dot-g"></span>
+        Система в сети &nbsp;·&nbsp; TLS 1.3
+      </div>
+      <div class="foot-copy">© 2024 E-Analytic</div>
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT — DECORATIVE ══ -->
+  <div class="right">
+
+    <canvas id="binary-canvas"></canvas>
+
+    <!-- Corner brackets -->
+    <div class="corner corner-tl">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 14 L1 1 L14 1" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </div>
+    <div class="corner corner-tr">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 14 L1 1 L14 1" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </div>
+    <div class="corner corner-bl">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 14 L1 1 L14 1" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </div>
+    <div class="corner corner-br">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 14 L1 1 L14 1" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </div>
+
+    <!-- Seal -->
+    <div class="seal-wrap">
+      <svg class="seal-svg" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="130" cy="130" r="124" stroke="#94a3b8" stroke-width="1"/>
+        <circle cx="130" cy="130" r="116" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="3 4"/>
+
+        <!-- Ring text path -->
+        <defs>
+          <path id="top-arc" d="M 18,130 A 112,112 0 0 1 242,130"/>
+          <path id="bot-arc" d="M 242,130 A 112,112 0 0 1 18,130"/>
+        </defs>
+        <text font-family="Inter, sans-serif" font-size="10.5" font-weight="600" letter-spacing="5" fill="#94a3b8">
+          <textPath href="#top-arc" startOffset="8%">ҚАЗАҚСТАН РЕСПУБЛИКАСЫ</textPath>
+        </text>
+        <text font-family="Inter, sans-serif" font-size="9.5" font-weight="500" letter-spacing="3.5" fill="#94a3b8">
+          <textPath href="#bot-arc" startOffset="3%">ҰЛТТЫҚ ҚАУІПСІЗДІК КОМИТЕТІ</textPath>
+        </text>
+
+        <!-- Bullet dots on ring -->
+        <circle cx="130" cy="18"  r="3" fill="#94a3b8"/>
+        <circle cx="130" cy="242" r="3" fill="#94a3b8"/>
+
+        <!-- 8-pointed star -->
+        <g transform="translate(130,130)">
+          <!-- Main star points -->
+          <polygon points="0,-82 10,-10 82,0 10,10 0,82 -10,10 -82,0 -10,-10"
+                   fill="#1e3a5f" stroke="#4a6fa0" stroke-width="1"/>
+          <!-- Diagonal star points (rotated 45°) -->
+          <polygon points="0,-82 10,-10 82,0 10,10 0,82 -10,10 -82,0 -10,-10"
+                   fill="#162d4a" stroke="#3a5a80" stroke-width="0.8"
+                   transform="rotate(45) scale(0.72)"/>
+
+          <!-- Inner circle -->
+          <circle r="38" fill="#0f1e35" stroke="#4a6fa0" stroke-width="1"/>
+          <circle r="30" fill="none" stroke="#3a5070" stroke-width="0.6" stroke-dasharray="2 3"/>
+
+          <!-- Cross-hatch globe pattern -->
+          <circle r="22" fill="none" stroke="#4a6fa0" stroke-width="0.8"/>
+          <ellipse rx="22" ry="10" fill="none" stroke="#4a6fa0" stroke-width="0.6"/>
+          <ellipse rx="22" ry="10" fill="none" stroke="#4a6fa0" stroke-width="0.6" transform="rotate(60)"/>
+          <ellipse rx="22" ry="10" fill="none" stroke="#4a6fa0" stroke-width="0.6" transform="rotate(120)"/>
+          <line x1="-22" y1="0" x2="22" y2="0" stroke="#4a6fa0" stroke-width="0.6"/>
+          <line x1="0" y1="-22" x2="0" y2="22" stroke="#4a6fa0" stroke-width="0.6"/>
+
+          <!-- Small center dot -->
+          <circle r="4" fill="#5a7aaa"/>
+          <circle r="2" fill="#7a9aca"/>
+        </g>
+      </svg>
+
+      <div class="seal-caption">
+        <div class="line1">Аналитическая платформа</div>
+        <div class="line2">Агентство по противодействию коррупции</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  /* ── Binary canvas ── */
+  (function() {
+    const canvas = document.getElementById('binary-canvas');
+    const parent = canvas.parentElement;
+
+    function resize() {
+      canvas.width  = parent.offsetWidth;
+      canvas.height = parent.offsetHeight;
+      draw();
+    }
+
+    function draw() {
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = '11px monospace';
+      ctx.fillStyle = 'rgba(74, 107, 150, 0.28)';
+
+      const colW = 18, rowH = 20;
+      const cols = Math.ceil(W / colW);
+      const rows = Math.ceil(H / rowH);
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          /* vary opacity so center is lighter (seal area) */
+          const dx = (c / cols) - 0.5;
+          const dy = (r / rows) - 0.5;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const alpha = dist < 0.28 ? 0.12 : 0.28;
+          ctx.fillStyle = `rgba(74,107,150,${alpha})`;
+          ctx.fillText(Math.random() > 0.5 ? '1' : '0', c * colW, r * rowH + rowH);
+        }
+      }
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+
+  /* ── Form logic ── */
+  const pwInput = document.getElementById('password');
+  const pillP   = document.getElementById('pill-p');
+  const pillU   = document.getElementById('pill-u');
+  const btnEye  = document.getElementById('btn-eye');
+  const eyeSvg  = document.getElementById('eye-svg');
+  const form    = document.getElementById('form');
+  const unInput = document.getElementById('username');
+  const errU    = document.getElementById('err-u');
+  const errP    = document.getElementById('err-p');
+  const alertEl = document.getElementById('js-alert');
+
+  const EYE_ON  = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  const EYE_OFF = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+
+  btnEye.addEventListener('click', () => {
+    const show = pwInput.type === 'password';
+    pwInput.type = show ? 'text' : 'password';
+    eyeSvg.innerHTML = show ? EYE_OFF : EYE_ON;
+  });
+
+  function clear(pill, errEl) {
+    pill.classList.remove('err');
+    errEl.classList.remove('show');
+  }
+
+  unInput.addEventListener('input', () => { clear(pillU, errU); alertEl.classList.remove('show'); });
+  pwInput.addEventListener('input', () => { clear(pillP, errP); alertEl.classList.remove('show'); });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = true;
+    if (!unInput.value.trim()) { pillU.classList.add('err'); errU.classList.add('show'); ok = false; }
+    if (!pwInput.value)        { pillP.classList.add('err'); errP.classList.add('show'); ok = false; }
+    if (!ok) return;
+    alertEl.classList.add('show');
+    pillP.classList.add('err');
+  });
+</script>
+</body>
+</html>
