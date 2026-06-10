@@ -757,6 +757,13 @@
     { email: '22874@eanalytic.kz', password: '22874' }
   ];
 
+  document.getElementById('btn-demo').addEventListener('click', () => {
+    const btn = document.getElementById('btn-demo');
+    btn.textContent = 'Вход...';
+    btn.disabled = true;
+    setTimeout(() => { window.location.href = 'main.html'; }, 500);
+  });
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     let ok = true;
