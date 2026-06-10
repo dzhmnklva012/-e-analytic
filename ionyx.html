@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IONYX — Build Intelligent Systems. Not Just Software.</title>
+  <meta name="description" content="IONYX designs and deploys AI-powered systems that automate operations, increase revenue, and turn businesses into scalable digital machines." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Surfaces */
+      --bg:        #05060c;
+      --bg-2:      #080a14;
+      --panel:     rgba(255,255,255,0.022);
+      --card:      rgba(255,255,255,0.035);
+      --card-h:    rgba(255,255,255,0.06);
+      --border:    rgba(255,255,255,0.08);
+      --border-h:  rgba(255,255,255,0.16);
+
+      /* Text */
+      --text:      #f5f6fc;
+      --dim:       rgba(255,255,255,0.62);
+      --mute:      rgba(255,255,255,0.38);
+      --faint:     rgba(255,255,255,0.22);
+
+      /* Accent — periwinkle / indigo / violet */
+      --accent:        #7c83ff;
+      --accent-bright: #5d7bff;
+      --violet:        #a78bfa;
+      --indigo:        #6366f1;
+      --grad:    linear-gradient(135deg, #5d7bff 0%, #7c83ff 45%, #a78bfa 100%);
+      --grad-soft: linear-gradient(135deg, rgba(93,123,255,0.22), rgba(167,139,250,0.18));
+      --glow:    rgba(110,120,255,0.45);
+
+      --maxw: 1180px;
+      --radius: 18px;
+      --ease: cubic-bezier(.22,.61,.36,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Ambient background glows */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 55% at 80% -5%,  rgba(99,102,241,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 5% 25%,   rgba(124,131,255,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse 90% 60% at 50% 110%, rgba(167,139,250,0.12) 0%, transparent 55%);
+    }
+
+    h1, h2, h3, .display { font-family: 'Clash Display', 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* Eyebrow pill */
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 100px;
+      background: var(--card); border: 1px solid var(--border);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--glow); }
+
+    /* ───────────────────── NAV ───────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(6,7,14,0.72);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid var(--accent);
+      position: relative; box-shadow: 0 0 14px var(--glow);
+    }
+    .brand-mark::after {
+      content: ''; position: absolute; inset: 5px; border-radius: 50%;
+      background: var(--grad); opacity: .85;
+    }
+    .brand-name { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: 0.22em; }
+
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mute); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 13px 24px; border-radius: 100px; cursor: pointer;
+      border: 1px solid var(--border-h);
+      color: var(--text); white-space: nowrap;
+      transition: transform .2s var(--ease), box-shadow .25s, border-color .2s, background .25s;
+    }
+    .btn-ghost {
+      background: linear-gradient(180deg, rgba(124,131,255,0.16), rgba(124,131,255,0.05));
+      border-color: rgba(124,131,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 0 var(--glow);
+    }
+    .btn-ghost:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 0 26px var(--glow); transform: translateY(-1px); }
+    .btn-solid {
+      background: var(--grad); border-color: transparent; color: #fff;
+      box-shadow: 0 8px 30px -8px var(--glow);
+    }
+    .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -8px var(--glow); }
+
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
+
+    /* ───────────────────── HERO ───────────────────── */
+    .hero { position: relative; padding-top: 150px; padding-bottom: 90px; overflow: hidden; }
+    .hero-deco-1 {
+      position: absolute; top: 0; left: 0; width: 360px; height: 360px;
+      background: linear-gradient(135deg, rgba(124,131,255,0.12), transparent 70%);
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 40px; }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 76px); line-height: 0.98; font-weight: 600;
+      margin: 22px 0 22px; letter-spacing: -0.02em;
+    }
+    .hero p.lead { font-size: 16px; color: var(--dim); max-width: 430px; line-height: 1.65; margin-bottom: 34px; }
+
+    /* Sphere */
+    .sphere-wrap { position: relative; display: flex; align-items: center; justify-content: center; min-height: 440px; }
+    .sphere-glow {
+      position: absolute; width: 420px; height: 420px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,131,255,0.25) 0%, rgba(99,102,241,0.08) 40%, transparent 68%);
+      filter: blur(8px);
+    }
+    #sphere { position: relative; z-index: 1; width: 460px; height: 460px; max-width: 100%; }
+
+    /* ───────────────────── SECTION SHELL ───────────────────── */
+    section { position: relative; }
+    .sec { padding: 96px 0; }
+    .sec-head { margin-bottom: 54px; }
+    .sec-head h2 { font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; }
+
+    /* ───────────────────── TRUST & IMPACT ───────────────────── */
+    .trust-top { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin: 30px 0 48px; }
+    .trust-claim { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; line-height: 1.15; display: flex; align-items: center; gap: 20px; }
+    .trust-claim .arrow { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-h), transparent); position: relative; min-width: 50px; }
+    .trust-claim .arrow::after { content: '→'; position: absolute; right: 0; top: -11px; color: var(--mute); font-size: 16px; }
+    .trust-note { font-size: 16px; color: var(--dim); line-height: 1.55; text-align: right; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .stat-card {
+      position: relative; padding: 22px 20px 24px; border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(124,131,255,0.05));
+      border: 1px solid var(--border); overflow: hidden;
+      transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
+    }
+    .stat-card::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 50%;
+      background: radial-gradient(ellipse 70% 100% at 50% 130%, rgba(124,131,255,0.28), transparent 70%);
+      pointer-events: none;
+    }
+    .stat-card:hover { transform: translateY(-5px); border-color: var(--border-h); box-shadow: 0 18px 40px -20px var(--glow); }
+    .stat-ico {
+      width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--violet); margin-bottom: 44px;
+    }
+    .stat-val { position: relative; font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; line-height: 1.35; }
+    .stat-lbl { position: relative; font-size: 13px; color: var(--mute); margin-top: 2px; }
+
+    .big-statement { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-top: 60px; }
+    .big-statement h3 { font-size: clamp(26px, 3.6vw, 44px); line-height: 1.08; max-width: 760px; }
+    .big-statement h3 em { font-style: normal; color: var(--violet); }
+    .asterisk { font-size: 64px; color: var(--mute); line-height: 1; flex-shrink: 0; animation: spin 18s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ───────────────────── WHAT WE BUILD ───────────────────── */
+    .build-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .build-card {
+      position: relative; padding: 30px 28px; border-radius: 16px;
+      background: var(--card); border: 1px solid var(--border); overflow: hidden;
+      transition: transform .3s var(--ease), border-color .3s, background .3s;
+    }
+    .build-card:hover { transform: translateY(-4px); border-color: var(--border-h); background: var(--card-h); }
+    .build-card .num { font-family: 'Clash Display', sans-serif; font-size: 13px; color: var(--accent); letter-spacing: 0.1em; }
+    .build-card h3 { font-size: 21px; margin: 14px 0 10px; }
+    .build-card p { font-size: 14px; color: var(--dim); line-height: 1.65; }
+    .build-card .b-ico {
+      position: absolute; top: 28px; right: 28px; width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--grad-soft); border: 1px solid var(--border); color: var(--violet);
+    }
+
+    /* ───────────────────── HOW IT WORKS ───────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border); }
+    .step { padding: 32px 24px 32px 0; border-right: 1px solid var(--border); position: relative; }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step .s-num {
+      font-family: 'Clash Display', sans-serif; font-size: 13px; font-weight: 600;
+      width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-h); color: var(--accent); margin-bottom: 20px;
+    }
+    .step h3 { font-size: 19px; margin-bottom: 10px; }
+    .step p { font-size: 14px; color: var(--dim); line-height: 1.6; padding-right: 18px; }
+
+    /* ───────────────────── WHY IONYX ───────────────────── */
+    .why-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; margin-bottom: 44px; }
+    .why-top h2 { font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; }
+    .why-top .why-sub { text-align: right; font-size: 16px; color: var(--dim); line-height: 1.6; max-width: 320px; }
+    .why-sub .accent { color: var(--violet); }
+
+    .why-panel {
+      display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 18px;
+      background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px; overflow: hidden;
+    }
+    .why-tabs { display: flex; flex-direction: column; gap: 8px; }
+    .why-tab {
+      text-align: left; width: 100%; cursor: pointer;
+      padding: 18px 20px; border-radius: 12px; font-family: 'Clash Display', sans-serif;
+      font-size: 16px; font-weight: 500; color: var(--mute);
+      background: rgba(255,255,255,0.02); border: 1px solid transparent;
+      transition: all .25s var(--ease);
+    }
+    .why-tab:hover { color: var(--dim); background: rgba(255,255,255,0.04); }
+    .why-tab.active {
+      color: var(--text); background: linear-gradient(180deg, rgba(124,131,255,0.16), rgba(124,131,255,0.04));
+      border-color: rgba(124,131,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .why-display { position: relative; border-radius: 12px; overflow: hidden; min-height: 360px; display: flex; flex-direction: column; }
+    .why-visual {
+      flex: 1; min-height: 200px; position: relative;
+      background:
+        radial-gradient(ellipse at 30% 70%, rgba(167,139,250,0.4), transparent 55%),
+        radial-gradient(ellipse at 70% 40%, rgba(93,123,255,0.35), transparent 55%),
+        linear-gradient(135deg, #0d1020, #161a30);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .why-visual .scene { display: flex; gap: 26px; align-items: flex-end; filter: drop-shadow(0 0 24px rgba(167,139,250,0.5)); }
+    .why-visual .holo {
+      width: 70px; height: 110px; border-radius: 50% 50% 12px 12px / 30% 30% 12px 12px;
+      background: linear-gradient(180deg, rgba(167,139,250,0.7), rgba(93,123,255,0.15));
+      border: 1px solid rgba(255,255,255,0.25); position: relative; opacity: .9;
+      animation: float 4s ease-in-out infinite;
+    }
+    .why-visual .holo:nth-child(2) { height: 140px; animation-delay: -1.3s; }
+    .why-visual .holo:nth-child(3) { height: 90px; animation-delay: -2.6s; }
+    .why-visual .holo::after {
+      content: ''; position: absolute; left: -14px; right: -14px; bottom: -10px; height: 14px;
+      background: radial-gradient(ellipse, rgba(167,139,250,0.7), transparent 70%); border-radius: 50%;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .why-grid-overlay {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px; mask-image: linear-gradient(180deg, transparent, #000 60%);
+    }
+    .why-caption { padding: 24px 26px 26px; background: rgba(8,10,20,0.6); }
+    .why-caption h3 { font-size: 20px; margin-bottom: 10px; }
+    .why-caption p { font-size: 14px; color: var(--dim); line-height: 1.65; }
+
+    /* ───────────────────── TESTIMONIALS ───────────────────── */
+    .tst-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .tst-card { padding: 28px 26px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); transition: transform .3s var(--ease), border-color .3s; }
+    .tst-card:hover { transform: translateY(-4px); border-color: var(--border-h); }
+    .tst-stars { color: var(--violet); font-size: 13px; letter-spacing: 3px; margin-bottom: 16px; }
+    .tst-card p { font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 22px; }
+    .tst-who { display: flex; align-items: center; gap: 12px; }
+    .tst-ava { width: 40px; height: 40px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; }
+    .tst-name { font-size: 14px; font-weight: 600; }
+    .tst-role { font-size: 12px; color: var(--mute); }
+
+    /* ───────────────────── CTA + FOOTER ───────────────────── */
+    .footer { position: relative; margin-top: 40px; border-top: 1px solid var(--border); overflow: hidden; }
+    .cta {
+      position: relative;
+      background: linear-gradient(110deg, #4f46e5 0%, #6366f1 35%, #1a1d3a 75%, transparent 100%);
+      padding: 56px 0;
+    }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+    .cta h2 { font-size: clamp(28px, 4vw, 46px); line-height: 1.05; }
+    .cta-right { text-align: right; }
+    .cta-right p { font-family: 'Clash Display', sans-serif; font-size: 22px; line-height: 1.2; margin-bottom: 18px; }
+
+    /* Marquee */
+    .marquee { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 26px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .marquee-track { display: flex; gap: 60px; width: max-content; animation: marquee 28s linear infinite; }
+    .marquee-track span { font-family: 'Clash Display', sans-serif; font-size: 26px; font-weight: 600; color: var(--faint); white-space: nowrap; }
+    .marquee-track span.lit { color: var(--accent-bright); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .wordmark {
+      text-align: center; font-family: 'Clash Display', sans-serif; font-weight: 700;
+      font-size: clamp(72px, 20vw, 280px); line-height: 1; letter-spacing: 0.04em;
+      padding: 30px 0 10px;
+      background: linear-gradient(180deg, #fff 0%, #aab0d8 38%, #4a4f72 55%, #c9cde8 70%, #2a2d44 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+      filter: drop-shadow(0 4px 30px rgba(124,131,255,0.18));
+      user-select: none;
+    }
+    .foot-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 36px; padding: 6px 0 34px; }
+    .foot-nav a { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); transition: color .2s; }
+    .foot-nav a:hover { color: var(--text); }
+    .foot-bar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; border-top: 1px solid var(--border); font-size: 12px; color: var(--mute); letter-spacing: 0.04em; }
+    .foot-bar .legal { display: flex; gap: 28px; }
+    .foot-bar .legal a { color: var(--mute); transition: color .2s; }
+    .foot-bar .legal a:hover { color: var(--text); }
+
+    /* ───────────────────── REVEAL ───────────────────── */
+    [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    [data-reveal].in { opacity: 1; transform: none; }
+
+    /* ───────────────────── RESPONSIVE ───────────────────── */
+    @media (max-width: 920px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; gap: 4px; position: absolute; top: 72px; left: 0; right: 0;
+        background: rgba(6,7,14,0.96); backdrop-filter: blur(16px); padding: 16px 28px 24px; border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open a { padding: 12px 0; }
+      .nav .btn-ghost { display: none; }
+      .nav-toggle { display: flex; }
+
+      .hero-grid { grid-template-columns: 1fr; }
+      .sphere-wrap { min-height: 320px; order: -1; }
+      #sphere { width: 320px; height: 320px; }
+      .sphere-glow { width: 300px; height: 300px; }
+
+      .trust-top { grid-template-columns: 1fr; }
+      .trust-note { text-align: left; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .big-statement { flex-direction: column; align-items: flex-start; }
+      .asterisk { font-size: 48px; }
+
+      .build-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 0; }
+      .step:last-child { border-bottom: none; }
+
+      .why-top { flex-direction: column; gap: 16px; }
+      .why-top .why-sub { text-align: left; }
+      .why-panel { grid-template-columns: 1fr; }
+
+      .tst-grid { grid-template-columns: 1fr; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+      .cta-right { text-align: left; }
+      .foot-bar { flex-direction: column; gap: 14px; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      .container { padding: 0 18px; }
+      .sec { padding: 64px 0; }
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───── NAV ───── -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark"></span>
+        <span class="brand-name">IONYX</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About Us</a>
+        <a href="#build">What We Build</a>
+        <a href="#works">How Ionyx Works</a>
+        <a href="#why">Why Ionyx</a>
+        <a href="#blog">Blog</a>
+      </div>
+      <a href="#cta" class="btn btn-ghost">Contact Us</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ───── HERO ───── -->
+  <header class="hero" id="top">
+    <div class="hero-deco-1"></div>
+    <div class="container hero-grid">
+      <div data-reveal>
+        <span class="pill"><span class="dot"></span>Build My AI System</span>
+        <h1>Build Intelligent<br>Systems. Not<br>Just Software.</h1>
+        <p class="lead">We design and deploy AI-powered systems that automate operations, increase revenue, and turn businesses into scalable digital machines.</p>
+        <a href="#cta" class="btn btn-ghost">Book a Strategy Call</a>
+      </div>
+      <div class="sphere-wrap" data-reveal>
+        <div class="sphere-glow"></div>
+        <canvas id="sphere" width="460" height="460"></canvas>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───── TRUST & IMPACT ───── -->
+  <section class="sec" id="about">
+    <div class="container">
+      <div data-reveal><span class="pill">About</span></div>
+      <div class="sec-head" data-reveal><h2>Trust &amp; Impact</h2></div>
+
+      <div class="trust-top">
+        <div class="trust-claim" data-reveal>
+          <span>Real Systems.<br>Real Impact.</span>
+          <span class="arrow"></span>
+        </div>
+        <div class="trust-note" data-reveal>We don't experiment with AI.<br>We engineer production-ready intelligence.</div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card" data-reveal>
+          <div class="stat-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <div class="stat-val">40% Average</div>
+          <div class="stat-lbl">Workflow Automation</div>
+        </div>
+        <div class="stat-card" data-reveal>
+          <div class="stat-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="stat-val">3x Faster</div>
+          <div class="stat-lbl">Operational Output</div>
+        </div>
+        <div class="stat-card" data-reveal>
+          <div class="stat-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg>
+          </div>
+          <div class="stat-val">24/7 AI Execution</div>
+          <div class="stat-lbl">&amp; Overhead</div>
+        </div>
+        <div class="stat-card" data-reveal>
+          <div class="stat-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="stat-val">Enterprise-Level</div>
+          <div class="stat-lbl">Security &amp; Scalability</div>
+        </div>
+      </div>
+
+      <div class="big-statement">
+        <h3 data-reveal>Ionyx Builds AI Systems That<br>Don't Just Assist — <em>They Operate.</em></h3>
+        <div class="asterisk" data-reveal>✳</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── WHAT WE BUILD ───── -->
+  <section class="sec" id="build">
+    <div class="container">
+      <div data-reveal><span class="pill">What We Build</span></div>
+      <div class="sec-head" data-reveal><h2>Systems That Run the Business.</h2></div>
+      <div class="build-grid">
+        <div class="build-card" data-reveal>
+          <span class="b-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <div class="num">01</div>
+          <h3>AI Automation Systems</h3>
+          <p>End-to-end workflows that replace manual operations — from intake to fulfillment — running autonomously around the clock.</p>
+        </div>
+        <div class="build-card" data-reveal>
+          <span class="b-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M9 2v4M15 2v4M9 14h6M9 17h3"/></svg></span>
+          <div class="num">02</div>
+          <h3>Intelligent Agents</h3>
+          <p>Goal-driven agents that reason, plan, and act across your tools — handling support, research, and decisions on their own.</p>
+        </div>
+        <div class="build-card" data-reveal>
+          <span class="b-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+          <div class="num">03</div>
+          <h3>Data &amp; RAG Pipelines</h3>
+          <p>Unified knowledge layers that turn scattered data into grounded, citable answers your systems can act on with confidence.</p>
+        </div>
+        <div class="build-card" data-reveal>
+          <span class="b-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5"/><path d="M12 2v10M8 7l4-5 4 5"/></svg></span>
+          <div class="num">04</div>
+          <h3>Custom AI Integrations</h3>
+          <p>We embed intelligence directly into your stack — CRM, ERP, and internal tools — so AI works where your team already does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── HOW IONYX WORKS ───── -->
+  <section class="sec" id="works">
+    <div class="container">
+      <div data-reveal><span class="pill">How Ionyx Works</span></div>
+      <div class="sec-head" data-reveal><h2>From Strategy to System.</h2></div>
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="s-num">01</div>
+          <h3>Discovery</h3>
+          <p>We map your operations, bottlenecks, and revenue levers to find where AI creates real leverage.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="s-num">02</div>
+          <h3>Architecture</h3>
+          <p>We design a system around your exact model — data, tools, and workflows — not a generic template.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="s-num">03</div>
+          <h3>Build &amp; Train</h3>
+          <p>We build, evaluate, and fine-tune until the system performs reliably against your real-world cases.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="s-num">04</div>
+          <h3>Deploy &amp; Scale</h3>
+          <p>We ship to production, monitor performance, and expand the system as your business grows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── WHY IONYX ───── -->
+  <section class="sec" id="why">
+    <div class="container">
+      <div data-reveal><span class="pill">Why Ionyx</span></div>
+      <div class="why-top">
+        <h2 data-reveal>We Build Systems.<br>Others Build Tools.</h2>
+        <div class="why-sub" data-reveal>Most agencies deliver automation tools.<br><span class="accent">We deliver intelligent ecosystems.</span></div>
+      </div>
+
+      <div class="why-panel" data-reveal>
+        <div class="why-tabs" id="whyTabs">
+          <button class="why-tab active" data-tab="0">Custom-Built Architecture</button>
+          <button class="why-tab" data-tab="1">Strategy-First Approach</button>
+          <button class="why-tab" data-tab="2">Business-Focused AI</button>
+          <button class="why-tab" data-tab="3">Long-Term Partnership Model</button>
+          <button class="why-tab" data-tab="4">Performance-Driven Execution</button>
+        </div>
+        <div class="why-display">
+          <div class="why-visual">
+            <div class="why-grid-overlay"></div>
+            <div class="scene"><div class="holo"></div><div class="holo"></div><div class="holo"></div></div>
+          </div>
+          <div class="why-caption">
+            <h3 id="whyTitle">Custom-Built Architecture</h3>
+            <p id="whyText">We design every AI system around your exact business model and workflows. No generic setups or reused frameworks. Our architecture integrates cleanly with your tools, data, and operations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── TESTIMONIALS ───── -->
+  <section class="sec" id="blog">
+    <div class="container">
+      <div data-reveal><span class="pill">Testimonials</span></div>
+      <div class="sec-head" data-reveal><h2>Operators, Not Spectators.</h2></div>
+      <div class="tst-grid">
+        <div class="tst-card" data-reveal>
+          <div class="tst-stars">★★★★★</div>
+          <p>"Ionyx didn't hand us a chatbot. They rebuilt our entire intake operation into a system that runs itself. 40% of the work just disappeared."</p>
+          <div class="tst-who"><div class="tst-ava">MR</div><div><div class="tst-name">Maya Reuben</div><div class="tst-role">COO, Northwind Logistics</div></div></div>
+        </div>
+        <div class="tst-card" data-reveal>
+          <div class="tst-stars">★★★★★</div>
+          <p>"The architecture was built around our business — not the other way around. It plugged into our stack and started producing output in weeks."</p>
+          <div class="tst-who"><div class="tst-ava">DC</div><div><div class="tst-name">Daniel Cho</div><div class="tst-role">Founder, Lattice AI</div></div></div>
+        </div>
+        <div class="tst-card" data-reveal>
+          <div class="tst-stars">★★★★★</div>
+          <p>"We stopped managing tasks and started managing systems. That shift alone changed how the whole company operates day to day."</p>
+          <div class="tst-who"><div class="tst-ava">SL</div><div><div class="tst-name">Sara Lindqvist</div><div class="tst-role">VP Ops, Veconsidra</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── CTA + FOOTER ───── -->
+  <footer class="footer" id="cta">
+    <div class="cta">
+      <div class="container cta-inner">
+        <h2 data-reveal>Ready to Build Your<br>AI Advantage?</h2>
+        <div class="cta-right" data-reveal>
+          <p>Stop managing tasks.<br>Start managing systems.</p>
+          <a href="#" class="btn btn-solid">Start My AI Transformation</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Engineering Intelligent Businesses</span>
+        <span class="lit">Engineering Intelligent Businesses</span>
+        <span>Engineering Intelligent Businesses</span>
+        <span>Engineering Intelligent Businesses</span>
+        <span class="lit">Engineering Intelligent Businesses</span>
+        <span>Engineering Intelligent Businesses</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="wordmark">IONYX</div>
+      <nav class="foot-nav">
+        <a href="#about">Trust &amp; Impact</a>
+        <a href="#build">What We Build</a>
+        <a href="#works">How Ionyx Works</a>
+        <a href="#why">Why Ionyx</a>
+        <a href="#blog">Testimonials</a>
+      </nav>
+      <div class="foot-bar">
+        <span>© 2026 IONYX. ALL RIGHTS RESERVED.</span>
+        <div class="legal"><a href="#">Privacy Policy</a><a href="#">Cookie Policy</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav: scrolled state + mobile toggle ── */
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const navLinks = document.getElementById('navLinks');
+    document.getElementById('navToggle').addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    /* ── Reveal on scroll ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      io.observe(el);
+    });
+
+    /* ── Why Ionyx tabs ── */
+    const WHY = [
+      { t: 'Custom-Built Architecture', d: "We design every AI system around your exact business model and workflows. No generic setups or reused frameworks. Our architecture integrates cleanly with your tools, data, and operations." },
+      { t: 'Strategy-First Approach',   d: "Before a single line is written, we map the outcome. Every system starts with the business result we're engineering toward — not the technology we happen to like." },
+      { t: 'Business-Focused AI',       d: "We optimize for revenue, margin, and throughput — not demos. The intelligence we ship is measured against the metrics that actually move your business." },
+      { t: 'Long-Term Partnership Model', d: "We don't disappear at handoff. We monitor, retrain, and evolve your systems as your operations change, so performance compounds instead of decaying." },
+      { t: 'Performance-Driven Execution', d: "Every system is evaluated against real-world cases before it ships, and continuously after. If it doesn't outperform the manual baseline, it isn't done." },
+    ];
+    const tabs = document.querySelectorAll('.why-tab');
+    const whyTitle = document.getElementById('whyTitle');
+    const whyText = document.getElementById('whyText');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const i = +tab.dataset.tab;
+      whyTitle.textContent = WHY[i].t;
+      whyText.textContent = WHY[i].d;
+    }));
+
+    /* ── Particle sphere (Fibonacci lattice, rotating) ── */
+    (function () {
+      const canvas = document.getElementById('sphere');
+      const ctx = canvas.getContext('2d');
+      let W, H, R, cx, cy, dpr;
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const css = canvas.getBoundingClientRect();
+        W = css.width; H = css.height;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        R = Math.min(W, H) * 0.42; cx = W / 2; cy = H / 2;
+      }
+
+      const N = 900;
+      const pts = [];
+      const golden = Math.PI * (3 - Math.sqrt(5));
+      for (let i = 0; i < N; i++) {
+        const y = 1 - (i / (N - 1)) * 2;
+        const r = Math.sqrt(1 - y * y);
+        const th = golden * i;
+        pts.push({ x: Math.cos(th) * r, y, z: Math.sin(th) * r });
+      }
+
+      let ax = 0, ay = 0;
+      function frame() {
+        ay += 0.0032; ax += 0.0011;
+        ctx.clearRect(0, 0, W, H);
+        const cosY = Math.cos(ay), sinY = Math.sin(ay);
+        const cosX = Math.cos(ax), sinX = Math.sin(ax);
+
+        for (const p of pts) {
+          // rotate Y then X
+          let x = p.x * cosY - p.z * sinY;
+          let z = p.x * sinY + p.z * cosY;
+          let y = p.y * cosX - z * sinX;
+          z = p.y * sinX + z * cosX;
+
+          const persp = 1 / (2 - z);          // z in [-1,1]
+          const sx = cx + x * R * persp * 1.7;
+          const sy = cy + y * R * persp * 1.7;
+          const depth = (z + 1) / 2;            // 0 back .. 1 front
+          const size = 0.5 + depth * 1.8;
+          const alpha = 0.12 + depth * 0.78;
+          // periwinkle -> violet by depth
+          const g = Math.round(120 + depth * 60);
+          const b = Math.round(220 + depth * 35);
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(' + (110 + Math.round(depth*50)) + ',' + g + ',' + b + ',' + alpha + ')';
+          ctx.arc(sx, sy, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(frame);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      frame();
+    })();
+  </script>
+</body>
+</html>
