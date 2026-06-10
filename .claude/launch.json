@@ -12,6 +12,12 @@
       "runtimeExecutable": "powershell",
       "runtimeArgs": ["-NoProfile", "-Command", "$h=New-Object Net.HttpListener;$h.Prefixes.Add('http://localhost:3100/');$h.Start();while($h.IsListening){$c=$h.GetContext();$p=$c.Request.Url.LocalPath;if($p -eq '/' -or $p -eq ''){$f='C:\\Users\\Avrora\\Desktop\\Adata\\anticor.html'}else{$f='C:\\Users\\Avrora\\Desktop\\Adata'+$p};if(Test-Path $f){$ext=[IO.Path]::GetExtension($f);$mt=if($ext -eq '.html'){'text/html'}elseif($ext -eq '.css'){'text/css'}elseif($ext -eq '.js'){'application/javascript'}else{'application/octet-stream'};$c.Response.ContentType=$mt;$b=[IO.File]::ReadAllBytes($f);$c.Response.ContentLength64=$b.Length;$c.Response.OutputStream.Write($b,0,$b.Length)}else{$c.Response.StatusCode=404};$c.Response.Close()}"],
       "port": 3100
+    },
+    {
+      "name": "pdf-preview",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "$h=New-Object Net.HttpListener;$h.Prefixes.Add('http://localhost:3200/');$h.Start();while($h.IsListening){$c=$h.GetContext();$f='C:\\Users\\Avrora\\Desktop\\Adata\\ea-style.pdf';if(Test-Path $f){$c.Response.ContentType='application/pdf';$b=[IO.File]::ReadAllBytes($f);$c.Response.ContentLength64=$b.Length;$c.Response.OutputStream.Write($b,0,$b.Length)}else{$c.Response.StatusCode=404};$c.Response.Close()}"],
+      "port": 3200
     }
   ]
 }
