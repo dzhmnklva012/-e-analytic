@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AntiCor — Система анализа коррупционных угроз</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg0:#080c14;--bg1:#0d1320;--bg2:#111827;--bg3:#1a2234;--bg4:#1e2a3d;
+  --border:#1f2d45;--border2:#2a3f5f;
+  --text1:#e2e8f0;--text2:#94a3b8;--text3:#4a5e7a;
+  --cyan:#22d3ee;--cyan2:#0891b2;--cyan-dim:#0e4a5c;
+  --red:#f87171;--red2:#991b1b;--red-dim:#3b0f0f;
+  --amber:#fbbf24;--amber-dim:#3d2800;
+  --green:#4ade80;--green-dim:#0f3020;
+  --purple:#a78bfa;--purple-dim:#2d1f5e;
+  --radius:8px;--radius2:12px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg0);color:var(--text1);font-size:14px;min-height:100vh;overflow-x:hidden}
+
+/* ─── PAGES ─── */
+.page{display:none;min-height:100vh}
+.page.active{display:flex}
+
+/* ─── LOGIN ─── */
+#page-login{align-items:center;justify-content:center;flex-direction:column;background:var(--bg0);position:relative;overflow:hidden}
+#page-login::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,#0a1f3620 0%,transparent 70%)}
+.login-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;opacity:.3}
+.login-box{position:relative;width:420px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius2);padding:48px 40px;display:flex;flex-direction:column;align-items:center;gap:0}
+.login-logo{width:120px;height:120px;margin-bottom:28px;filter:drop-shadow(0 0 16px #22d3ee18)}
+.login-title{font-size:18px;font-weight:600;letter-spacing:.04em;color:var(--text1);text-align:center;margin-bottom:4px}
+.login-sub{font-size:12px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:36px}
+.login-field{width:100%;margin-bottom:16px;display:flex;flex-direction:column;gap:6px}
+.login-field label{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
+.login-field input{width:100%;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text1);font-size:14px;font-family:inherit;padding:11px 14px;outline:none;transition:.2s}
+.login-field input:focus{border-color:var(--cyan2);box-shadow:0 0 0 3px #22d3ee14}
+.login-btn{width:100%;margin-top:8px;padding:13px;background:var(--cyan2);border:none;border-radius:var(--radius);color:#fff;font-size:14px;font-weight:600;font-family:inherit;letter-spacing:.06em;cursor:pointer;transition:.2s}
+.login-btn:hover{background:var(--cyan);color:#000}
+.login-err{font-size:12px;color:var(--red);margin-top:8px;display:none}
+.login-badge{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+
+/* ─── SHELL ─── */
+#page-main{flex-direction:row}
+.sidebar{width:220px;min-height:100vh;background:var(--bg1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-logo{padding:20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-logo img{width:36px;height:36px}
+.sidebar-logo-text{display:flex;flex-direction:column}
+.sidebar-logo-text span:first-child{font-size:13px;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.sidebar-logo-text span:last-child{font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
+.nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius);color:var(--text2);cursor:pointer;transition:.15s;font-size:13px;font-weight:500;text-decoration:none;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--bg3);color:var(--text1)}
+.nav-item.active{background:var(--cyan-dim);color:var(--cyan);border-left:2px solid var(--cyan);padding-left:10px}
+.nav-item svg{width:16px;height:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--red2);color:var(--red);font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600}
+.sidebar-user{padding:14px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--cyan-dim);border:1px solid var(--cyan2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--cyan);flex-shrink:0}
+.user-info{flex:1;overflow:hidden}
+.user-info .name{font-size:12px;font-weight:600;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-info .role{font-size:10px;color:var(--text3);white-space:nowrap}
+.logout-btn{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:4px;transition:.15s}
+.logout-btn:hover{color:var(--red)}
+
+/* ─── CONTENT ─── */
+.content{flex:1;overflow-y:auto;background:var(--bg0)}
+.topbar{height:56px;background:var(--bg1);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:10}
+.topbar-title{font-size:15px;font-weight:600;color:var(--text1);flex:1}
+.search-wrap{flex:1;max-width:440px;position:relative}
+.search-wrap input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text1);font-size:13px;font-family:inherit;padding:8px 12px 8px 36px;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:var(--cyan2)}
+.search-wrap .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{background:none;border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center;transition:.15s;position:relative}
+.icon-btn:hover{border-color:var(--border2);color:var(--text1);background:var(--bg3)}
+.icon-btn .dot{position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--red);border-radius:50%;border:1px solid var(--bg1)}
+
+.panel{padding:24px;display:none}
+.panel.active{display:block}
+
+/* ─── DASHBOARD ─── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:18px 20px}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.stat-val{font-size:26px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.stat-delta{font-size:11px;display:flex;align-items:center;gap:4px}
+.delta-up{color:var(--red)}
+.delta-dn{color:var(--green)}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.1em}
+.section-link{font-size:12px;color:var(--cyan);cursor:pointer;background:none;border:none;font-family:inherit;transition:.15s}
+.section-link:hover{color:var(--text1)}
+
+.alerts-list{display:flex;flex-direction:column;gap:8px}
+.alert-item{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:.15s}
+.alert-item:hover{background:var(--bg3)}
+.alert-item.warn{border-left-color:var(--amber)}
+.alert-item.info{border-left-color:var(--cyan)}
+.alert-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.tag-red{background:var(--red-dim);color:var(--red)}
+.tag-amber{background:var(--amber-dim);color:var(--amber)}
+.tag-cyan{background:var(--cyan-dim);color:var(--cyan)}
+.tag-green{background:var(--green-dim);color:var(--green)}
+.tag-purple{background:var(--purple-dim);color:var(--purple)}
+.alert-text{flex:1;font-size:13px;color:var(--text1)}
+.alert-text span{color:var(--text2);font-size:12px;display:block;margin-top:2px}
+.alert-time{font-size:11px;color:var(--text3);white-space:nowrap}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.card-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:18px}
+
+/* ─── TABLE ─── */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text1);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg3)}
+.data-table tr{cursor:pointer}
+.risk-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.risk-high{background:var(--red-dim);color:var(--red)}
+.risk-med{background:var(--amber-dim);color:var(--amber)}
+.risk-low{background:var(--green-dim);color:var(--green)}
+
+/* ─── ENTITY CARD ─── */
+.entity-header{display:flex;align-items:flex-start;gap:20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:24px;margin-bottom:16px}
+.entity-avatar{width:64px;height:64px;border-radius:50%;background:var(--purple-dim);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--purple);flex-shrink:0}
+.entity-meta{flex:1}
+.entity-name{font-size:20px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.entity-sub{font-size:13px;color:var(--text2);margin-bottom:12px}
+.entity-tags{display:flex;gap:6px;flex-wrap:wrap}
+.risk-score-wrap{text-align:right}
+.risk-score{font-size:44px;font-weight:800;color:var(--red);line-height:1}
+.risk-score.med{color:var(--amber)}
+.risk-score.low{color:var(--green)}
+.risk-score-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+
+.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+
+.ai-box{background:var(--bg2);border:1px solid var(--cyan-dim);border-left:3px solid var(--cyan);border-radius:var(--radius2);padding:18px;margin-bottom:16px}
+.ai-box-head{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ai-box-text{font-size:13px;color:var(--text1);line-height:1.7}
+.ai-factors{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.ai-factor{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2)}
+.factor-bar-wrap{flex:1;background:var(--bg3);border-radius:4px;height:5px;overflow:hidden}
+.factor-bar{height:100%;border-radius:4px;background:var(--cyan)}
+.factor-val{font-size:11px;color:var(--text3);min-width:28px;text-align:right}
+
+/* ─── GRAPH ─── */
+.graph-container{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;position:relative}
+.graph-toolbar{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.graph-canvas{width:100%;height:480px;position:relative;overflow:hidden}
+.graph-node{position:absolute;cursor:pointer;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s}
+.gnode-circle{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;border:2px solid;transition:.2s;z-index:2;position:relative}
+.gnode-label{font-size:10px;color:var(--text2);text-align:center;max-width:80px;line-height:1.2;background:var(--bg1);padding:2px 5px;border-radius:4px;white-space:nowrap}
+.graph-node:hover .gnode-circle{transform:scale(1.15)}
+.graph-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ─── RISK MODULE ─── */
+.risk-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+.risk-mod-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:18px}
+.rmod-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.rmod-name{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.08em}
+.rmod-score{font-size:22px;font-weight:800}
+.gauge-wrap{margin-bottom:12px}
+.gauge-bar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.gauge-fill{height:100%;border-radius:3px}
+.gauge-sub{font-size:11px;color:var(--text3)}
+.signals{display:flex;flex-direction:column;gap:4px}
+.signal-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.signal-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* ─── SEARCH ─── */
+.search-results{display:flex;flex-direction:column;gap:10px}
+.search-result-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:.15s}
+.search-result-card:hover{border-color:var(--border2);background:var(--bg3)}
+.sr-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.sr-info{flex:1}
+.sr-name{font-size:14px;font-weight:600;color:var(--text1);margin-bottom:2px}
+.sr-sub{font-size:12px;color:var(--text2)}
+.sr-right{text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+
+/* ─── NOTIFICATIONS ─── */
+.notif-list{display:flex;flex-direction:column;gap:8px}
+.notif-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:.15s}
+.notif-item:hover{background:var(--bg3)}
+.notif-item.unread{border-left:3px solid var(--cyan)}
+.notif-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-body{flex:1}
+.notif-title{font-size:13px;font-weight:600;color:var(--text1);margin-bottom:3px}
+.notif-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.notif-time{font-size:11px;color:var(--text3);margin-top:4px}
+
+/* ─── AUDIT ─── */
+.audit-timeline{display:flex;flex-direction:column;gap:0}
+.audit-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.audit-item:last-child{border-bottom:none}
+.audit-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.audit-dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);flex-shrink:0;margin-top:4px}
+.audit-line{width:1px;flex:1;background:var(--border);margin-top:4px}
+.audit-body{flex:1}
+.audit-who{font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:2px}
+.audit-action{font-size:13px;color:var(--text1)}
+.audit-detail{font-size:11px;color:var(--text3);margin-top:3px}
+.audit-time{font-size:11px;color:var(--text3);white-space:nowrap;padding-top:4px}
+
+/* ─── MISC ─── */
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-size:12px;padding:6px 14px;cursor:pointer;font-family:inherit;transition:.15s}
+.filter-btn:hover,.filter-btn.active{background:var(--cyan-dim);border-color:var(--cyan2);color:var(--cyan)}
+.empty{text-align:center;color:var(--text3);font-size:13px;padding:40px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);margin-bottom:16px}
+.breadcrumb .sep{color:var(--border2)}
+.breadcrumb .cur{color:var(--text1)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;transition:.15s;border:none}
+.btn-primary{background:var(--cyan2);color:#fff}
+.btn-primary:hover{background:var(--cyan);color:#000}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text1)}
+.scroll-x{overflow-x:auto}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     AUTH PAGE
+════════════════════════════════════════════ -->
+<div id="page-login" class="page active">
+  <div class="login-grid"></div>
+  <span class="login-badge">Казахстан Республикасы · ҰҚК · Ақпараттық жүйе</span>
+  <div class="login-box">
+    <!-- Kazakhstan NSC emblem rendered as SVG from image data -->
+    <img class="login-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='98' fill='%23b0bec5' stroke='%2390a4ae' stroke-width='2'/%3E%3Ccircle cx='100' cy='100' r='86' fill='%23b2cfe0'/%3E%3Cpolygon points='100,20 108,44 134,44 113,58 121,82 100,68 79,82 87,58 66,44 92,44' fill='%23d4a0aa'/%3E%3Cpolygon points='100,20 108,44 134,44 113,58 121,82 100,68 79,82 87,58 66,44 92,44' fill='%23c87080' opacity='.4'/%3E%3Cpolygon points='180,100 156,108 156,134 142,113 118,121 132,100 118,79 142,87 156,66 156,92' fill='%23d4a0aa'/%3E%3Cpolygon points='20,100 44,108 44,134 58,113 82,121 68,100 82,79 58,87 44,66 44,92' fill='%23d4a0aa'/%3E%3Cpolygon points='100,180 108,156 134,156 113,142 121,118 100,132 79,118 87,142 66,156 92,156' fill='%23d4a0aa'/%3E%3Cpolygon points='148,38 140,62 162,70 148,52 162,62 148,38' fill='%23d4a0aa' opacity='.6'/%3E%3Cpolygon points='52,38 60,62 38,70 52,52 38,62 52,38' fill='%23d4a0aa' opacity='.6'/%3E%3Cpolygon points='148,162 140,138 162,130 148,148 162,138 148,162' fill='%23d4a0aa' opacity='.6'/%3E%3Cpolygon points='52,162 60,138 38,130 52,148 38,138 52,162' fill='%23d4a0aa' opacity='.6'/%3E%3Ccircle cx='100' cy='100' r='40' fill='%23b0bec5' stroke='%23e0e8ef' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='100' r='33' fill='%23b2cfe0' stroke='%23e0e8ef' stroke-width='1'/%3E%3Cline x1='80' y1='80' x2='120' y2='120' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='120' y1='80' x2='80' y2='120' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='100' y1='70' x2='100' y2='130' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='70' y1='100' x2='130' y2='100' stroke='%23e8d5a0' stroke-width='2'/%3E%3Ccircle cx='100' cy='100' r='14' fill='none' stroke='%23e8d5a0' stroke-width='1.5' stroke-dasharray='3,2'/%3E%3C/svg%3E" alt="ҰҚК"/>
+
+    <div class="login-title">ANTICOR ANALYTICS</div>
+    <div class="login-sub">Система анализа коррупционных угроз</div>
+
+    <div class="login-field">
+      <label>Логин</label>
+      <input type="text" id="inp-login" placeholder="username@gov.kz" autocomplete="username"/>
+    </div>
+    <div class="login-field">
+      <label>Пароль</label>
+      <input type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+    <div class="login-err" id="login-err">Неверный логин или пароль</div>
+    <button class="login-btn" onclick="doLogin()">ВОЙТИ</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MAIN SHELL
+════════════════════════════════════════════ -->
+<div id="page-main" class="page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='98' fill='%23b0bec5'/%3E%3Ccircle cx='100' cy='100' r='86' fill='%23b2cfe0'/%3E%3Cpolygon points='100,20 108,44 134,44 113,58 121,82 100,68 79,82 87,58 66,44 92,44' fill='%23c87080'/%3E%3Cpolygon points='180,100 156,108 156,134 142,113 118,121 132,100 118,79 142,87 156,66 156,92' fill='%23d4a0aa'/%3E%3Cpolygon points='20,100 44,108 44,134 58,113 82,121 68,100 82,79 58,87 44,66 44,92' fill='%23d4a0aa'/%3E%3Cpolygon points='100,180 108,156 134,156 113,142 121,118 100,132 79,118 87,142 66,156 92,156' fill='%23d4a0aa'/%3E%3Ccircle cx='100' cy='100' r='38' fill='%23b0bec5' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='80' y1='80' x2='120' y2='120' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='120' y1='80' x2='80' y2='120' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='100' y1='70' x2='100' y2='130' stroke='%23e8d5a0' stroke-width='2'/%3E%3Cline x1='70' y1='100' x2='130' y2='100' stroke='%23e8d5a0' stroke-width='2'/%3E%3C/svg%3E" alt=""/>
+      <div class="sidebar-logo-text">
+        <span>ANTICOR</span>
+        <span>аналитика угроз</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" onclick="showPanel('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Дашборд
+        <span class="nav-badge">3</span>
+      </button>
+      <button class="nav-item" onclick="showPanel('search',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Поиск субъектов
+      </button>
+      <button class="nav-item" onclick="showPanel('entity',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Карточка субъекта
+      </button>
+      <button class="nav-item" onclick="showPanel('graph',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        Граф связей
+      </button>
+      <button class="nav-item" onclick="showPanel('risk',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Модуль рисков
+      </button>
+      <button class="nav-item" onclick="showPanel('notif',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Уведомления
+        <span class="nav-badge">7</span>
+      </button>
+      <button class="nav-item" onclick="showPanel('reports',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Отчёты
+      </button>
+      <button class="nav-item" onclick="showPanel('audit',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Журнал аудита
+      </button>
+      <button class="nav-item" onclick="showPanel('roles',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Роли и доступ
+      </button>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">АМ</div>
+      <div class="user-info">
+        <div class="name">Асанов М.К.</div>
+        <div class="role">Аналитик I уровня</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="Выйти">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Дашборд</div>
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="text" placeholder="Поиск по ИИН, БИН, имени, компании..." onkeydown="if(event.key==='Enter'){showPanel('search',document.querySelector('.nav-item:nth-child(2)'));document.getElementById('search-input').value=this.value}"/>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="showPanel('notif',document.querySelector('.nav-item:nth-child(6)'))">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <button class="icon-btn" title="Экспорт">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── DASHBOARD ─── -->
+    <div id="panel-dashboard" class="panel active">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Субъектов под наблюдением
+          </div>
+          <div class="stat-val">2 847</div>
+          <div class="stat-delta delta-up">▲ +34 за 7 дней</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            Высокий риск
+          </div>
+          <div class="stat-val" style="color:var(--red)">312</div>
+          <div class="stat-delta delta-up">▲ +12 за неделю</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Транзакций проверено
+          </div>
+          <div class="stat-val">1.2М</div>
+          <div class="stat-delta delta-dn">▼ норма</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+            Открытых дел
+          </div>
+          <div class="stat-val" style="color:var(--amber)">89</div>
+          <div class="stat-delta delta-up">▲ +3 новых</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <span class="section-title">Критические уведомления</span>
+        <button class="section-link" onclick="showPanel('notif',document.querySelector('.nav-item:nth-child(6)'))">все уведомления →</button>
+      </div>
+      <div class="alerts-list">
+        <div class="alert-item" onclick="showPanel('entity',document.querySelector('.nav-item:nth-child(3)'))">
+          <span class="alert-tag tag-red">КРИТИЧНО</span>
+          <div class="alert-text">Подозрительный закуп на 890 млн ₸ — ТОО «ГрандСтройИнвест»
+            <span>Превышение рыночной цены на 340% · ESF-расхождение · аффилированный победитель</span>
+          </div>
+          <span class="alert-time">09:14</span>
+        </div>
+        <div class="alert-item warn">
+          <span class="alert-tag tag-amber">ВЫСОКИЙ</span>
+          <div class="alert-text">Нетипичный банковский перевод — Джаксыбеков А.Р.
+            <span>3 транзакции по 49.9 млн ₸ за 48 ч · структурирование</span>
+          </div>
+          <span class="alert-time">08:42</span>
+        </div>
+        <div class="alert-item warn">
+          <span class="alert-tag tag-amber">ВЫСОКИЙ</span>
+          <div class="alert-text">Импортная операция без таможенного декларирования — ИП Назаров
+            <span>Груз: электроника · $2.1M · отклонение от задекларированной суммы</span>
+          </div>
+          <span class="alert-time">07:55</span>
+        </div>
+        <div class="alert-item info">
+          <span class="alert-tag tag-cyan">ИНФО</span>
+          <div class="alert-text">Обновлены данные ЭСФ — 124 новых поставщика добавлены в мониторинг
+            <span>Плановая синхронизация с КГД РК</span>
+          </div>
+          <span class="alert-time">06:00</span>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:20px">
+        <div class="card-box">
+          <div class="section-head" style="margin-bottom:12px">
+            <span class="section-title">Топ рискованных субъектов</span>
+          </div>
+          <div class="scroll-x">
+            <table class="data-table">
+              <thead><tr>
+                <th>Субъект</th><th>Тип</th><th>Риск</th><th>Балл</th>
+              </tr></thead>
+              <tbody>
+                <tr onclick="showPanel('entity',document.querySelector('.nav-item:nth-child(3)'))">
+                  <td><b style="color:var(--text1)">ТОО «ГрандСтройИнвест»</b><br><span style="font-size:11px;color:var(--text3)">БИН 190840021780</span></td>
+                  <td><span class="alert-tag tag-purple">ЮЛ</span></td>
+                  <td><span class="risk-pill risk-high">● Высокий</span></td>
+                  <td><b style="color:var(--red)">94</b></td>
+                </tr>
+                <tr onclick="showPanel('entity',document.querySelector('.nav-item:nth-child(3)'))">
+                  <td><b style="color:var(--text1)">Джаксыбеков А.Р.</b><br><span style="font-size:11px;color:var(--text3)">ИИН 850612301245</span></td>
+                  <td><span class="alert-tag tag-cyan">ФЛ</span></td>
+                  <td><span class="risk-pill risk-high">● Высокий</span></td>
+                  <td><b style="color:var(--red)">87</b></td>
+                </tr>
+                <tr>
+                  <td><b style="color:var(--text1)">ТОО «ПримаТрейд»</b><br><span style="font-size:11px;color:var(--text3)">БИН 110540012345</span></td>
+                  <td><span class="alert-tag tag-purple">ЮЛ</span></td>
+                  <td><span class="risk-pill risk-med">● Средний</span></td>
+                  <td><b style="color:var(--amber)">62</b></td>
+                </tr>
+                <tr>
+                  <td><b style="color:var(--text1)">Сейткали Б.Т.</b><br><span style="font-size:11px;color:var(--text3)">ИИН 791104512344</span></td>
+                  <td><span class="alert-tag tag-cyan">ФЛ</span></td>
+                  <td><span class="risk-pill risk-med">● Средний</span></td>
+                  <td><b style="color:var(--amber)">58</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-box">
+          <div class="section-head" style="margin-bottom:12px">
+            <span class="section-title">Активность по модулям</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">Закупки (ЕИС)</span><span style="color:var(--red);font-weight:600">312 аномалий</span></div>
+              <div class="gauge-bar"><div class="gauge-fill" style="width:78%;background:var(--red)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">Банковские транзакции</span><span style="color:var(--amber);font-weight:600">89 флагов</span></div>
+              <div class="gauge-bar"><div class="gauge-fill" style="width:52%;background:var(--amber)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">ЭСФ / НДС</span><span style="color:var(--amber);font-weight:600">44 расхождения</span></div>
+              <div class="gauge-bar"><div class="gauge-fill" style="width:34%;background:var(--amber)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">Импорт/экспорт</span><span style="color:var(--cyan);font-weight:600">17 проверок</span></div>
+              <div class="gauge-bar"><div class="gauge-fill" style="width:21%;background:var(--cyan)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span style="color:var(--text2)">Физические лица</span><span style="color:var(--green);font-weight:600">норма</span></div>
+              <div class="gauge-bar"><div class="gauge-fill" style="width:12%;background:var(--green)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SEARCH ─── -->
+    <div id="panel-search" class="panel">
+      <div class="filter-row">
+        <button class="filter-btn active">Все</button>
+        <button class="filter-btn">Физические лица</button>
+        <button class="filter-btn">Юридические лица</button>
+        <button class="filter-btn">ИП</button>
+        <button class="filter-btn">Высокий риск</button>
+        <button class="filter-btn">Под наблюдением</button>
+      </div>
+      <div style="margin-bottom:16px">
+        <div class="search-wrap" style="max-width:100%">
+          <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+          <input id="search-input" type="text" placeholder="ИИН, БИН, имя, компания, адрес..." value="ГрандСтрой" style="font-size:14px;padding:11px 14px 11px 38px"/>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:12px">Найдено: 4 результата</div>
+      <div class="search-results">
+        <div class="search-result-card" onclick="showPanel('entity',document.querySelector('.nav-item:nth-child(3)'))">
+          <div class="sr-avatar" style="background:var(--purple-dim);color:var(--purple)">ГС</div>
+          <div class="sr-info">
+            <div class="sr-name">ТОО «ГрандСтройИнвест»</div>
+            <div class="sr-sub">БИН 190840021780 · Алматы, ул. Абая 12 · Строительство</div>
+          </div>
+          <div class="sr-right">
+            <span class="risk-pill risk-high">● Высокий</span>
+            <span style="font-size:22px;font-weight:800;color:var(--red)">94</span>
+          </div>
+        </div>
+        <div class="search-result-card">
+          <div class="sr-avatar" style="background:var(--cyan-dim);color:var(--cyan)">ГС</div>
+          <div class="sr-info">
+            <div class="sr-name">ТОО «ГрандСтройГрупп»</div>
+            <div class="sr-sub">БИН 150340018921 · Нур-Султан · Строительство</div>
+          </div>
+          <div class="sr-right">
+            <span class="risk-pill risk-med">● Средний</span>
+            <span style="font-size:22px;font-weight:800;color:var(--amber)">61</span>
+          </div>
+        </div>
+        <div class="search-result-card">
+          <div class="sr-avatar" style="background:var(--green-dim);color:var(--green)">ГС</div>
+          <div class="sr-info">
+            <div class="sr-name">ИП «ГрандСтрой-Сервис»</div>
+            <div class="sr-sub">ИИН 880901401230 · Шымкент</div>
+          </div>
+          <div class="sr-right">
+            <span class="risk-pill risk-low">● Низкий</span>
+            <span style="font-size:22px;font-weight:800;color:var(--green)">18</span>
+          </div>
+        </div>
+        <div class="search-result-card">
+          <div class="sr-avatar" style="background:var(--amber-dim);color:var(--amber)">БК</div>
+          <div class="sr-info">
+            <div class="sr-name">Бекмухамбетов К.С. (директор ТОО «ГрандСтройИнвест»)</div>
+            <div class="sr-sub">ИИН 801120201345 · аффилированное физическое лицо</div>
+          </div>
+          <div class="sr-right">
+            <span class="risk-pill risk-high">● Высокий</span>
+            <span style="font-size:22px;font-weight:800;color:var(--red)">79</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ENTITY CARD ─── -->
+    <div id="panel-entity" class="panel">
+      <div class="breadcrumb">
+        <span>Поиск</span><span class="sep">›</span><span class="cur">ТОО «ГрандСтройИнвест»</span>
+      </div>
+      <div class="entity-header">
+        <div class="entity-avatar">ГС</div>
+        <div class="entity-meta">
+          <div class="entity-name">ТОО «ГрандСтройИнвест»</div>
+          <div class="entity-sub">БИН 190840021780 · Алматы, ул. Абая 12 · ОКЭД 41 — Строительство</div>
+          <div class="entity-tags">
+            <span class="alert-tag tag-red">Госзакупки</span>
+            <span class="alert-tag tag-amber">Аффилированность</span>
+            <span class="alert-tag tag-purple">ЭСФ-расхождение</span>
+            <span class="alert-tag tag-cyan">Мониторинг</span>
+          </div>
+        </div>
+        <div class="risk-score-wrap">
+          <div class="risk-score">94</div>
+          <div class="risk-score-label">Индекс риска</div>
+          <div style="margin-top:8px"><span class="risk-pill risk-high">● Критический</span></div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="card-box" style="padding:14px">
+          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Реквизиты</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Рук-ль:</span><span>Бекмухамбетов К.С.</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Дата рег.:</span><span>14.08.2019</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">УК:</span><span>100 000 ₸</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Сотр.:</span><span>12 чел.</span></div>
+          </div>
+        </div>
+        <div class="card-box" style="padding:14px">
+          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Закупки (ЕИС)</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Всего контр.:</span><span>14</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Сумма:</span><span style="color:var(--red)">2.7 млрд ₸</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Один постав.:</span><span style="color:var(--amber)">11 из 14</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Жалоб:</span><span>3</span></div>
+          </div>
+        </div>
+        <div class="card-box" style="padding:14px">
+          <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Банк / ЭСФ</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Оборот 12м:</span><span>1.1 млрд ₸</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">ЭСФ выд.:</span><span>890 млн ₸</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Расхождение:</span><span style="color:var(--red)">210 млн ₸</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text3)">Нал. снятие:</span><span style="color:var(--amber)">340 млн ₸</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-box">
+        <div class="ai-box-head">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>
+          Заключение ИИ-модели
+        </div>
+        <div class="ai-box-text">
+          Субъект демонстрирует множественные признаки коррупционных схем: <b style="color:var(--red)">78.6%</b> государственных контрактов получены без конкуренции, итоговая стоимость завышена на <b style="color:var(--red)">340%</b> от рыночного уровня. Директор компании аффилирован с сотрудником закупочного органа-заказчика (3-я степень родства). Зафиксировано структурирование налично-денежных операций ниже порога отчётности (49.9 млн ₸ × 7). Сеть из 5 связанных ЮЛ используется для перераспределения выручки.
+        </div>
+        <div class="ai-factors">
+          <div class="ai-factor"><span style="min-width:140px;color:var(--text2)">Закупочный риск</span><div class="factor-bar-wrap"><div class="factor-bar" style="width:94%;background:var(--red)"></div></div><span class="factor-val" style="color:var(--red)">94%</span></div>
+          <div class="ai-factor"><span style="min-width:140px;color:var(--text2)">Аффилированность</span><div class="factor-bar-wrap"><div class="factor-bar" style="width:88%;background:var(--red)"></div></div><span class="factor-val" style="color:var(--red)">88%</span></div>
+          <div class="ai-factor"><span style="min-width:140px;color:var(--text2)">ЭСФ-аномалии</span><div class="factor-bar-wrap"><div class="factor-bar" style="width:76%;background:var(--amber)"></div></div><span class="factor-val" style="color:var(--amber)">76%</span></div>
+          <div class="ai-factor"><span style="min-width:140px;color:var(--text2)">Структурирование</span><div class="factor-bar-wrap"><div class="factor-bar" style="width:82%;background:var(--amber)"></div></div><span class="factor-val" style="color:var(--amber)">82%</span></div>
+          <div class="ai-factor"><span style="min-width:140px;color:var(--text2)">Сетевой риск</span><div class="factor-bar-wrap"><div class="factor-bar" style="width:65%;background:var(--cyan)"></div></div><span class="factor-val" style="color:var(--cyan)">65%</span></div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <span class="section-title">Источники данных</span>
+        <button class="btn btn-ghost" onclick="showPanel('graph',document.querySelector('.nav-item:nth-child(4)'))">Открыть граф связей →</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <span class="alert-tag tag-cyan">ЕИС (госзакупки)</span>
+        <span class="alert-tag tag-cyan">КГД РК (ЭСФ)</span>
+        <span class="alert-tag tag-cyan">Банковские API</span>
+        <span class="alert-tag tag-cyan">КТЖ (таможня)</span>
+        <span class="alert-tag tag-cyan">МЮ РК (рег. данные)</span>
+        <span class="alert-tag tag-amber">ЦКБ (кредитное бюро)</span>
+      </div>
+
+      <div class="scroll-x">
+        <table class="data-table" style="background:var(--bg2);border-radius:var(--radius);overflow:hidden">
+          <thead><tr>
+            <th>Дата</th><th>Модуль</th><th>Событие</th><th>Сумма</th><th>Флаг</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>2024-11-03</td><td><span class="alert-tag tag-purple">Закупки</span></td><td>Контракт №2024-ЕИС-88120 подписан (1 участник)</td><td style="color:var(--red)">890 млн ₸</td><td><span class="risk-pill risk-high">● Критич.</span></td></tr>
+            <tr><td>2024-10-28</td><td><span class="alert-tag tag-cyan">Банк</span></td><td>7 снятий наличных по 49.9 млн ₸ за 48ч</td><td style="color:var(--amber)">349 млн ₸</td><td><span class="risk-pill risk-high">● Высок.</span></td></tr>
+            <tr><td>2024-10-15</td><td><span class="alert-tag tag-cyan">ЭСФ</span></td><td>Расхождение выставленных и полученных ЭСФ</td><td style="color:var(--amber)">210 млн ₸</td><td><span class="risk-pill risk-med">● Средн.</span></td></tr>
+            <tr><td>2024-09-02</td><td><span class="alert-tag tag-purple">Закупки</span></td><td>Контракт №2024-ЕИС-71040 (аффил. заказчик)</td><td>420 млн ₸</td><td><span class="risk-pill risk-high">● Высок.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── GRAPH ─── -->
+    <div id="panel-graph" class="panel">
+      <div class="graph-container">
+        <div class="graph-toolbar">
+          <span class="section-title" style="margin-bottom:0">Граф связей — ТОО «ГрандСтройИнвест»</span>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <span style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block"></span>Высокий риск</span>
+            <span style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block"></span>Средний</span>
+            <span style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--cyan);display:inline-block"></span>Связь</span>
+          </div>
+        </div>
+        <div class="graph-canvas" id="graph-canvas">
+          <svg class="graph-svg" id="graph-svg"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── RISK MODULE ─── -->
+    <div id="panel-risk" class="panel">
+      <div class="section-head">
+        <span class="section-title">Модуль рисков — детализация</span>
+        <div style="display:flex;gap:8px">
+          <button class="filter-btn active">Все субъекты</button>
+          <button class="filter-btn">Только критичные</button>
+        </div>
+      </div>
+      <div class="risk-modules">
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">Закупки / ЕИС</span><span class="rmod-score" style="color:var(--red)">94</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:94%;background:var(--red)"></div></div>
+            <div class="gauge-sub">312 аномалий из 1 840 закупок</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Один поставщик: 78%</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Завышение цены: 184 случая</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Аффилированность: 43 случая</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Дробление лотов: 29 случаев</div>
+          </div>
+        </div>
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">Банк / транзакции</span><span class="rmod-score" style="color:var(--amber)">72</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:72%;background:var(--amber)"></div></div>
+            <div class="gauge-sub">89 флагов из 14 520 операций</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Структурирование: 12</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Нетипичные суммы: 34</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Транзиты: 18</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--cyan)"></span>Новые контрагенты: 25</div>
+          </div>
+        </div>
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">ЭСФ / НДС</span><span class="rmod-score" style="color:var(--amber)">65</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:65%;background:var(--amber)"></div></div>
+            <div class="gauge-sub">44 расхождения</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Зеркальные ЭСФ: 8</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Несуществующий товар: 12</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>НДС к возврату: 24</div>
+          </div>
+        </div>
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">Импорт / экспорт</span><span class="rmod-score" style="color:var(--cyan)">38</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:38%;background:var(--cyan)"></div></div>
+            <div class="gauge-sub">17 проверок · 3 задержания</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Занижение ТС: 6</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--cyan)"></span>Перекл. кодов ТН ВЭД: 4</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--cyan)"></span>Без декларирования: 7</div>
+          </div>
+        </div>
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">Физические лица</span><span class="rmod-score" style="color:var(--amber)">58</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:58%;background:var(--amber)"></div></div>
+            <div class="gauge-sub">Проверено 234 должностных лица</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Несоответствие доходов: 18</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Аффилир. госслужащих: 9</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--cyan)"></span>ПЕП-статус: 7</div>
+          </div>
+        </div>
+        <div class="risk-mod-card">
+          <div class="rmod-head"><span class="rmod-name">Сетевой анализ</span><span class="rmod-score" style="color:var(--purple)">81</span></div>
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill" style="width:81%;background:var(--purple)"></div></div>
+            <div class="gauge-sub">14 кластеров · 3 схемы</div>
+          </div>
+          <div class="signals">
+            <div class="signal-item"><span class="signal-dot" style="background:var(--red)"></span>Круговые связи: 5</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--amber)"></span>Общий бенефициар: 6</div>
+            <div class="signal-item"><span class="signal-dot" style="background:var(--purple)"></span>Скрытые узлы: 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── NOTIFICATIONS ─── -->
+    <div id="panel-notif" class="panel">
+      <div class="filter-row">
+        <button class="filter-btn active">Все (7)</button>
+        <button class="filter-btn">Критичные</button>
+        <button class="filter-btn">Непрочитанные</button>
+        <button class="filter-btn">Системные</button>
+      </div>
+      <div class="notif-list">
+        <div class="notif-item unread">
+          <div class="notif-icon" style="background:var(--red-dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="notif-body">
+            <div class="notif-title">Критический риск — ТОО «ГрандСтройИнвест»</div>
+            <div class="notif-desc">Индекс риска повысился с 78 до 94. Выявлено 3 новых аномалии: структурирование, аффилированность заказчика, завышение на 340%.</div>
+            <div class="notif-time">Сегодня, 09:14</div>
+          </div>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon" style="background:var(--amber-dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="notif-body">
+            <div class="notif-title">Нетипичные транзакции — Джаксыбеков А.Р.</div>
+            <div class="notif-desc">Зафиксировано 3 перевода по 49.9 млн ₸ в течение 48 часов. Возможное структурирование.</div>
+            <div class="notif-time">Сегодня, 08:42</div>
+          </div>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon" style="background:var(--amber-dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="notif-body">
+            <div class="notif-title">Импорт без декларирования — ИП Назаров</div>
+            <div class="notif-desc">Груз электроники на $2.1M пересёк границу без полного таможенного декларирования. Требуется проверка.</div>
+            <div class="notif-time">Сегодня, 07:55</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon" style="background:var(--cyan-dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
+          <div class="notif-body">
+            <div class="notif-title">Отчёт сформирован — Еженедельный аналитический</div>
+            <div class="notif-desc">Доступен еженедельный отчёт за период 03.11–09.11.2024. 312 субъектов, 89 флагов.</div>
+            <div class="notif-time">Вчера, 18:00</div>
+          </div>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon" style="background:var(--green-dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="notif-body">
+            <div class="notif-title">Синхронизация данных КГД РК завершена</div>
+            <div class="notif-desc">Загружено 124 новых ЭСФ, 18 организаций добавлены в мониторинг автоматически.</div>
+            <div class="notif-time">Вчера, 06:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── REPORTS ─── -->
+    <div id="panel-reports" class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <span class="section-title">Отчёты и выгрузки</span>
+        <button class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Создать отчёт
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card-box" style="cursor:pointer" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:4px">Еженедельный аналитический</div>
+              <div style="font-size:12px;color:var(--text3)">03.11 – 09.11.2024</div>
+            </div>
+            <span class="alert-tag tag-green">Готов</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">312 субъектов · 89 флагов · 4 рекомендации</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">PDF</button>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">XLSX</button>
+          </div>
+        </div>
+        <div class="card-box" style="cursor:pointer" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:4px">Спец. отчёт — ГрандСтройИнвест</div>
+              <div style="font-size:12px;color:var(--text3)">09.11.2024</div>
+            </div>
+            <span class="alert-tag tag-red">Срочный</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">Углублённый анализ · 14 контрактов · аффилированность</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">PDF</button>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">DOCX</button>
+          </div>
+        </div>
+        <div class="card-box" style="cursor:pointer" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:4px">Ежемесячный — октябрь 2024</div>
+              <div style="font-size:12px;color:var(--text3)">01.10 – 31.10.2024</div>
+            </div>
+            <span class="alert-tag tag-green">Готов</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:12px">1 247 субъектов · 234 флага · сводка по модулям</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">PDF</button>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px">XLSX</button>
+          </div>
+        </div>
+        <div class="card-box" style="cursor:pointer;border-style:dashed" onmouseover="this.style.borderColor='var(--cyan2)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="height:100%;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span style="font-size:13px">Новый отчёт</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── AUDIT ─── -->
+    <div id="panel-audit" class="panel">
+      <div class="filter-row">
+        <button class="filter-btn active">Все действия</button>
+        <button class="filter-btn">Поиски</button>
+        <button class="filter-btn">Выгрузки</button>
+        <button class="filter-btn">Изменения</button>
+        <button class="filter-btn">Авторизация</button>
+      </div>
+      <div class="card-box">
+        <div class="audit-timeline">
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot" style="background:var(--red)"></div><div class="audit-line"></div></div>
+            <div class="audit-body"><div class="audit-who">Асанов М.К.</div><div class="audit-action">Открыта карточка субъекта — ТОО «ГрандСтройИнвест» (БИН 190840021780)</div><div class="audit-detail">IP: 10.20.1.45 · Браузер: Chrome 119 · Сессия #A8F21</div></div>
+            <div class="audit-time">09:42</div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot"></div><div class="audit-line"></div></div>
+            <div class="audit-body"><div class="audit-who">Асанов М.К.</div><div class="audit-action">Глобальный поиск — «ГрандСтрой»</div><div class="audit-detail">4 результата · время ответа 0.32с</div></div>
+            <div class="audit-time">09:38</div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot" style="background:var(--amber)"></div><div class="audit-line"></div></div>
+            <div class="audit-body"><div class="audit-who">Жумабеков Е.С.</div><div class="audit-action">Выгружен отчёт — Еженедельный аналитический (PDF, 2.4 MB)</div><div class="audit-detail">IP: 10.20.1.12 · Сессия #B3D94</div></div>
+            <div class="audit-time">09:15</div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot" style="background:var(--green)"></div><div class="audit-line"></div></div>
+            <div class="audit-body"><div class="audit-who">Система (авто)</div><div class="audit-action">Синхронизация данных КГД РК завершена успешно</div><div class="audit-detail">124 новых ЭСФ · 18 субъектов добавлено</div></div>
+            <div class="audit-time">06:00</div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot" style="background:var(--cyan)"></div><div class="audit-line"></div></div>
+            <div class="audit-body"><div class="audit-who">Асанов М.К.</div><div class="audit-action">Вход в систему выполнен успешно</div><div class="audit-detail">IP: 10.20.1.45 · MFA подтверждён · Сессия #A8F21</div></div>
+            <div class="audit-time">08:31</div>
+          </div>
+          <div class="audit-item">
+            <div class="audit-dot-wrap"><div class="audit-dot" style="background:var(--red)"></div></div>
+            <div class="audit-body"><div class="audit-who">Неизвестный</div><div class="audit-action">Неудачная попытка входа — 3 раза подряд (заблокировано)</div><div class="audit-detail">IP: 185.234.219.12 · Геолокация: RU · Подозрительно</div></div>
+            <div class="audit-time">03:17</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ROLES ─── -->
+    <div id="panel-roles" class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <span class="section-title">Управление ролями и доступом</span>
+        <button class="btn btn-primary">+ Добавить пользователя</button>
+      </div>
+      <div class="scroll-x">
+        <table class="data-table" style="background:var(--bg2);border-radius:var(--radius)">
+          <thead><tr>
+            <th>Пользователь</th><th>Роль</th><th>Доступ к модулям</th><th>Последний вход</th><th>Статус</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="font-weight:600">Асанов М.К.</div><div style="font-size:11px;color:var(--text3)">asanov@gov.kz</div></td>
+              <td><span class="alert-tag tag-cyan">Аналитик I</span></td>
+              <td><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="alert-tag tag-cyan" style="font-size:9px">Поиск</span><span class="alert-tag tag-cyan" style="font-size:9px">Карточки</span><span class="alert-tag tag-cyan" style="font-size:9px">Граф</span></div></td>
+              <td style="color:var(--text2)">09:31 сегодня</td>
+              <td><span class="risk-pill risk-low">● Активен</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:600">Жумабеков Е.С.</div><div style="font-size:11px;color:var(--text3)">zhumabek@gov.kz</div></td>
+              <td><span class="alert-tag tag-amber">Аналитик II</span></td>
+              <td><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="alert-tag tag-amber" style="font-size:9px">Все модули</span><span class="alert-tag tag-amber" style="font-size:9px">Отчёты</span></div></td>
+              <td style="color:var(--text2)">08:54 сегодня</td>
+              <td><span class="risk-pill risk-low">● Активен</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:600">Муратова Г.Б.</div><div style="font-size:11px;color:var(--text3)">muratova@gov.kz</div></td>
+              <td><span class="alert-tag tag-red">Руководитель</span></td>
+              <td><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="alert-tag tag-red" style="font-size:9px">Полный доступ</span></div></td>
+              <td style="color:var(--text2)">вчера 17:20</td>
+              <td><span class="risk-pill risk-low">● Активен</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:600">Технический аккаунт</div><div style="font-size:11px;color:var(--text3)">api@gov.kz</div></td>
+              <td><span class="alert-tag tag-purple">API</span></td>
+              <td><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="alert-tag tag-purple" style="font-size:9px">Только чтение</span></div></td>
+              <td style="color:var(--text2)">авто</td>
+              <td><span class="risk-pill risk-low">● Активен</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function doLogin(){
+  const u=document.getElementById('inp-login').value.trim();
+  const p=document.getElementById('inp-pass').value.trim();
+  const err=document.getElementById('login-err');
+  if(!u||!p){err.style.display='block';err.textContent='Введите логин и пароль';return}
+  if(u==='admin'&&p==='admin'||u.includes('@')){
+    document.getElementById('page-login').classList.remove('active');
+    document.getElementById('page-main').classList.add('active');
+    setTimeout(drawGraph,100);
+  } else {
+    err.style.display='block';err.textContent='Неверный логин или пароль';
+    document.getElementById('inp-pass').value='';
+  }
+}
+document.getElementById('inp-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('inp-login').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('inp-pass').focus()});
+
+function doLogout(){
+  document.getElementById('page-main').classList.remove('active');
+  document.getElementById('page-login').classList.add('active');
+  document.getElementById('inp-login').value='';
+  document.getElementById('inp-pass').value='';
+}
+
+const titles={dashboard:'Дашборд',search:'Поиск субъектов',entity:'Карточка субъекта — ТОО «ГрандСтройИнвест»',graph:'Граф связей',risk:'Модуль рисков',notif:'Уведомления',reports:'Отчёты',audit:'Журнал аудита',roles:'Роли и доступ'};
+
+function showPanel(id,navEl){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(navEl)navEl.classList.add('active');
+  document.getElementById('topbar-title').textContent=titles[id]||'';
+  if(id==='graph')setTimeout(drawGraph,50);
+}
+
+/* ─── GRAPH ─── */
+function drawGraph(){
+  const canvas=document.getElementById('graph-canvas');
+  const svg=document.getElementById('graph-svg');
+  if(!canvas||!svg)return;
+  const W=canvas.offsetWidth||700,H=canvas.offsetHeight||480;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+
+  const nodes=[
+    {id:'main',x:.5,y:.46,r:36,label:'ГрандСтрой\nИнвест',color:'#f87171',border:'#991b1b',score:94},
+    {id:'dir',x:.3,y:.22,r:26,label:'Бекмухамбетов\nК.С. (дир.)',color:'#fbbf24',border:'#92400e',score:79},
+    {id:'order',x:.72,y:.2,r:24,label:'КГКП «Заказчик\nАлматы»',color:'#f87171',border:'#991b1b',score:81},
+    {id:'sub1',x:.15,y:.55,r:20,label:'ТОО «ПрогресС»',color:'#fbbf24',border:'#92400e',score:62},
+    {id:'sub2',x:.82,y:.55,r:20,label:'ТОО «БилдГрупп»',color:'#fbbf24',border:'#92400e',score:55},
+    {id:'bank',x:.48,y:.82,r:22,label:'Счёт АТФ Банк\n(нал.снятие)',color:'#22d3ee',border:'#0891b2',score:null},
+    {id:'esf',x:.76,y:.78,r:18,label:'ЭСФ\nрасхождение',color:'#a78bfa',border:'#6d28d9',score:null},
+    {id:'off',x:.28,y:.75,r:18,label:'Чиновник\n(аффил.)',color:'#f87171',border:'#991b1b',score:72},
+  ];
+  const edges=[
+    {from:'main',to:'dir',label:'Руководство',color:'#fbbf2460'},
+    {from:'main',to:'order',label:'Контракты ×11',color:'#f8717160'},
+    {from:'main',to:'sub1',label:'Субподряд',color:'#94a3b840'},
+    {from:'main',to:'sub2',label:'Субподряд',color:'#94a3b840'},
+    {from:'main',to:'bank',label:'Транзакции',color:'#22d3ee60'},
+    {from:'main',to:'esf',label:'ЭСФ',color:'#a78bfa60'},
+    {from:'dir',to:'off',label:'Родство 3°',color:'#f8717180'},
+    {from:'off',to:'order',label:'Влияние',color:'#f8717180'},
+    {from:'bank',to:'off',label:'Перевод',color:'#f8717140'},
+  ];
+
+  const pos=(n)=>({x:n.x*W,y:n.y*H});
+
+  let html='';
+  edges.forEach(e=>{
+    const f=nodes.find(n=>n.id===e.from),t=nodes.find(n=>n.id===e.to);
+    if(!f||!t)return;
+    const fp=pos(f),tp=pos(t);
+    const mx=(fp.x+tp.x)/2,my=(fp.y+tp.y)/2;
+    html+=`<line x1="${fp.x}" y1="${fp.y}" x2="${tp.x}" y2="${tp.y}" stroke="${e.color}" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+    html+=`<text x="${mx}" y="${my-4}" text-anchor="middle" font-size="9" fill="#4a5e7a" font-family="Inter,sans-serif">${e.label}</text>`;
+  });
+  svg.innerHTML=html;
+
+  document.querySelectorAll('.graph-node').forEach(n=>n.remove());
+  nodes.forEach(n=>{
+    const p=pos(n);
+    const el=document.createElement('div');
+    el.className='graph-node';
+    el.style.left=p.x+'px';el.style.top=p.y+'px';
+    const lines=n.label.split('\n');
+    el.innerHTML=`<div class="gnode-circle" style="width:${n.r*2}px;height:${n.r*2}px;background:${n.color}18;border-color:${n.border};color:${n.color};font-size:${n.r>22?11:10}px">${n.score!==null?n.score:''}</div><div class="gnode-label" style="font-size:9px;color:#94a3b8">${lines.map(l=>`<div>${l}</div>`).join('')}</div>`;
+    el.onclick=()=>{if(n.id==='main')showPanel('entity',document.querySelector('.nav-item:nth-child(3)'))};
+    canvas.appendChild(el);
+  });
+}
+</script>
+</body>
+</html>
