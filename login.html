@@ -688,14 +688,30 @@
   unInput.addEventListener('input', () => { clear(pillU, errU); alertEl.classList.remove('show'); });
   pwInput.addEventListener('input', () => { clear(pillP, errP); alertEl.classList.remove('show'); });
 
+  const ACCOUNTS = [
+    { email: '22874@eanalytic.kz', password: '22874' }
+  ];
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     let ok = true;
     if (!unInput.value.trim()) { pillU.classList.add('err'); errU.classList.add('show'); ok = false; }
     if (!pwInput.value)        { pillP.classList.add('err'); errP.classList.add('show'); ok = false; }
     if (!ok) return;
-    alertEl.classList.add('show');
-    pillP.classList.add('err');
+
+    const match = ACCOUNTS.find(a =>
+      a.email === unInput.value.trim() && a.password === pwInput.value
+    );
+
+    if (match) {
+      const btn = form.querySelector('.btn-login');
+      btn.textContent = 'Вход...';
+      btn.disabled = true;
+      setTimeout(() => { window.location.href = 'main.html'; }, 600);
+    } else {
+      alertEl.classList.add('show');
+      pillP.classList.add('err');
+    }
   });
 </script>
 </body>
