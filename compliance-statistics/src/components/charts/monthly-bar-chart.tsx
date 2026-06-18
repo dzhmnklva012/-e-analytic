@@ -55,14 +55,14 @@ export function MonthlyBarChart() {
           <Bar
             dataKey="base"
             stackId="files"
-            fill="var(--color-chart-blue)"
+            fill="var(--color-chart-1)"
             isAnimationActive={false}
           />
           <Bar
             dataKey="top"
             stackId="files"
-            fill="var(--color-chart-red)"
-            radius={[3, 3, 0, 0]}
+            fill="var(--color-chart-2)"
+            radius={[4, 4, 0, 0]}
             isAnimationActive={false}
           />
         </BarChart>
