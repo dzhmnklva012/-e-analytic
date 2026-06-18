@@ -69,6 +69,7 @@ export function MetricTile({
   delta,
   deltaGoodWhenUp = true,
   showDot = false,
+  variant = "card",
   className,
 }: MetricTileProps) {
   const hasDelta = typeof delta === "number";
@@ -78,7 +79,10 @@ export function MetricTile({
   return (
     <div
       className={cn(
-        "flex items-center gap-4 rounded-xl bg-card p-4 shadow-sm ring-1 ring-foreground/5",
+        "flex items-center gap-4 rounded-xl p-4",
+        variant === "card"
+          ? "bg-card shadow-sm ring-1 ring-foreground/5"
+          : "bg-muted/40",
         className,
       )}
     >
