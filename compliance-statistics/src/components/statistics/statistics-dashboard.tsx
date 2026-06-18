@@ -172,13 +172,25 @@ export function StatisticsDashboard() {
             <li className="font-medium text-foreground">Статистика</li>
           </ol>
         </nav>
-        <header className="space-y-1">
-          <h1 className="font-heading text-2xl font-semibold tracking-tight text-foreground">
-            Статистика
-          </h1>
-          <p className="text-xs text-muted-foreground">
-            Сводные показатели модулей системы Compliance за выбранный период.
-          </p>
+        <header className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-1">
+            <h1 className="font-heading text-2xl font-semibold tracking-tight text-foreground">
+              Статистика
+            </h1>
+            <p className="text-xs text-muted-foreground">
+              Сводные показатели модулей системы Compliance за выбранный период.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="default">
+              <Download className="size-4" />
+              Экспорт CSV
+            </Button>
+            <Button size="default">
+              <FileText className="size-4" />
+              Сформировать отчёт
+            </Button>
+          </div>
         </header>
 
         <StatisticsToolbar
