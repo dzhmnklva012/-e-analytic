@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/lib/format";
 
