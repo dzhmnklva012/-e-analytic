@@ -7,7 +7,10 @@ export function EmployeeFilesCard() {
   return (
     <SectionCard title="Досье сотрудников" badge={employeeFiles.badge}>
       <div className="mb-4">
-        <TogglePills options={["Проверки", "Заключения"]} defaultIndex={0} />
+        <TogglePills
+          options={["Проверки", "Заключения"]}
+          defaultValue="Проверки"
+        />
       </div>
       <MonthlyBarChart />
     </SectionCard>
