@@ -34,14 +34,22 @@ function formatTime(date: Date): string {
 
 function StatisticsSections({ data }: { data: StatisticsData }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-      <TasksSection data={data.tasks} />
-      <HotlineSection data={data.hotline} />
-      <InvestigationsSection data={data.investigations} />
-      <ConflictSection data={data.conflict} />
-      <GiftsSection data={data.gifts} />
-      <CompanyFilesSection data={data.companyFiles} />
-      <EmployeeFilesSection data={data.employeeFiles} />
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      {/* Main column — wide, content-rich sections */}
+      <div className="space-y-4 lg:col-span-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <TasksSection data={data.tasks} />
+          <CompanyFilesSection data={data.companyFiles} />
+        </div>
+        <EmployeeFilesSection data={data.employeeFiles} />
+      </div>
+      {/* Right rail — compact summary cards */}
+      <div className="space-y-4">
+        <HotlineSection data={data.hotline} />
+        <InvestigationsSection data={data.investigations} />
+        <ConflictSection data={data.conflict} />
+        <GiftsSection data={data.gifts} />
+      </div>
     </div>
   );
 }
