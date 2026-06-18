@@ -60,7 +60,7 @@ export function SectionCard({
         <span className="min-w-0 flex-1">
           <span
             id={headingId}
-            className="block truncate font-heading text-base font-semibold leading-snug text-foreground"
+            className="block font-heading text-base font-semibold leading-snug text-foreground"
           >
             {title}
           </span>
