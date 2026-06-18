@@ -1,15 +1,22 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function MetricTileSkeleton() {
+function MetricStripSkeleton() {
   return (
-    <div className="flex items-center gap-4 rounded-xl bg-card p-4 shadow-sm ring-1 ring-foreground/5">
-      <Skeleton className="size-12 shrink-0 rounded-full" />
-      <div className="min-w-0 flex-1 space-y-2">
-        <Skeleton className="h-3 w-20" />
-        <Skeleton className="h-6 w-16" />
+    <Card className="gap-0 overflow-hidden py-0 shadow-sm ring-foreground/5">
+      <div className="grid grid-cols-2 divide-x divide-y divide-border sm:grid-cols-3 lg:grid-cols-5 lg:divide-y-0">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div key={i} className="flex flex-col gap-2 p-4 sm:p-5">
+            <div className="flex items-center gap-2">
+              <Skeleton className="size-8 shrink-0 rounded-lg" />
+              <Skeleton className="h-3 w-16" />
+            </div>
+            <Skeleton className="h-7 w-16" />
+            <Skeleton className="h-3 w-20" />
+          </div>
+        ))}
       </div>
-    </div>
+    </Card>
   );
 }
 
