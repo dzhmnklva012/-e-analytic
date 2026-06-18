@@ -147,7 +147,83 @@ export function EmployeeFilesSection({ data }: { data: EmployeeFilesStat }) {
   );
 }
 
-/* ──────────────── 4 & 5. Горячая линия / Расследования ──────────────── */
+/* ───────────────────── 4. Реестр проверок ───────────────────── */
+
+export function AuditRegistrySection({
+  data,
+  delta,
+}: {
+  data: AuditRegistryStat;
+  delta?: number;
+}) {
+  const statuses = [
+    { key: "completed", label: "Завершено", value: data.completed, tone: "success" as const },
+    { key: "inProgress", label: "В процессе", value: data.inProgress, tone: "info" as const },
+    { key: "planned", label: "Запланировано", value: data.planned, tone: "planned" as const },
+    { key: "overdue", label: "Просрочено", value: data.overdue, tone: "danger" as const },
+  ];
+
+  const hasDelta = typeof delta === "number";
+  const up = (delta ?? 0) >= 0;
+  const TrendIcon = up ? TrendingUp : TrendingDown;
+
+  return (
+    <SectionCard
+      id="registry"
+      title="Реестр проверок"
+      description="Проверки по месяцам и статусам"
+      icon={ClipboardCheck}
+    >
+      {data.total === 0 ? (
+        <EmptyState compact description="Проверок за выбранный период нет." />
+      ) : (
+        <div className="space-y-5">
+          <div className="space-y-1">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Всего проверок
+            </p>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="text-[32px] font-semibold leading-none tabular-nums text-foreground">
+                {formatNumber(data.total)}
+              </span>
+              {hasDelta && (
+                <span className="flex items-center gap-1 text-xs">
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-0.5 font-medium tabular-nums",
+                      up ? "text-success" : "text-danger",
+                    )}
+                  >
+                    <TrendIcon className="size-3.5" aria-hidden />
+                    {up ? "+" : "−"}
+                    {Math.abs(delta as number)}%
+                  </span>
+                  <span className="text-muted-foreground">за период</span>
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {statuses.map((s) => (
+              <StatChip
+                key={s.key}
+                label={s.label}
+                value={s.value}
+                share={percent(s.value, data.total)}
+                tone={s.tone}
+              />
+            ))}
+          </div>
+
+          <InspectionsBar data={data.byMonth} />
+        </div>
+      )}
+    </SectionCard>
+  );
+}
+
+/* ──────────────── 5 & 6. Горячая линия / Расследования ──────────────── */
 
 interface CaseFlowSectionProps {
   id: string;
