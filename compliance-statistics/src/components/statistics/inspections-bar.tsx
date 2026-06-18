@@ -60,7 +60,7 @@ export function InspectionsBar({ data, className }: InspectionsBarProps) {
           allowDecimals={false}
         />
         <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
-        <ChartLegend content={<ChartLegendContent />} />
+        <ChartLegend content={<ChartLegendContent className="flex-wrap" />} />
         <Bar
           dataKey="completed"
           stackId="a"
