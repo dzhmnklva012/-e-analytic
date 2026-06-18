@@ -43,21 +43,24 @@ function LabeledSelect({
   onValueChange,
   items,
   className,
+  id,
 }: {
   label: string;
   value: string;
   onValueChange: (value: string) => void;
   items: Item[];
   className?: string;
+  id?: string;
 }) {
-  const id = useId();
+  const autoId = useId();
+  const fieldId = id ?? autoId;
   return (
     <div className={cn("flex flex-col gap-1", className)}>
-      <label htmlFor={id} className="text-xs text-muted-foreground">
+      <label htmlFor={fieldId} className="text-xs text-muted-foreground">
         {label}
       </label>
       <Select value={value} onValueChange={(v) => onValueChange(v as string)} items={items}>
-        <SelectTrigger id={id} className="w-full">
+        <SelectTrigger id={fieldId} className="w-full">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
