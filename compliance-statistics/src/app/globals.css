@@ -111,17 +111,13 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* data-viz aliases (readable names used by charts) */
+  /* data-viz ramp */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-chart-blue: var(--chart-1);
-  --color-chart-red: var(--chart-2);
-  --color-chart-orange: var(--chart-3);
-  --color-chart-green: var(--chart-4);
-  --color-chart-yellow: var(--chart-5);
+  --color-chart-yellow: var(--chart-3); /* alias for the header theme-toggle sun */
 
   /* a lighter muted tone for icons / axis ticks (Figma #9da3ac) */
   --color-faint: #9da3ac;
