@@ -9,7 +9,10 @@ export function CompanyFilesCard() {
   return (
     <SectionCard title="Досье компании" badge={badge}>
       <div className="mb-4">
-        <TogglePills options={["Проверки", "Заключения"]} defaultIndex={1} />
+        <TogglePills
+          options={["Проверки", "Заключения"]}
+          defaultValue="Заключения"
+        />
       </div>
       <div className="flex flex-1 items-center justify-between gap-4">
         <RadialGauge
@@ -26,10 +29,12 @@ export function CompanyFilesCard() {
             },
           ]}
         />
-        <div className="flex flex-col gap-5 pr-2">
+        <div className="flex flex-col gap-4 pr-2">
           <div>
-            <div className="text-sm text-ink-secondary">Всего</div>
-            <div className="text-3xl font-bold text-ink">{total}</div>
+            <div className="text-sm text-muted-foreground">Всего</div>
+            <div className="text-[28px] font-bold leading-tight text-foreground">
+              {total}
+            </div>
           </div>
           <ul className="flex flex-col gap-3">
             <LegendItem
