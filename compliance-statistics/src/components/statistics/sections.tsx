@@ -176,7 +176,7 @@ function CaseFlowSection({
       {data.total === 0 ? (
         <EmptyState compact description="Обращений за выбранный период нет." />
       ) : (
-        <MetricGrid cols={4}>
+        <MetricGrid cols={2}>
           <MetricTile label={totalLabel} value={data.total} tone="default" showDot />
           <MetricTile label="Новые" value={data.new} tone="info" showDot />
           <MetricTile label="В работе" value={data.inProgress} tone="warning" showDot />
