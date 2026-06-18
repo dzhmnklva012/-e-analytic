@@ -18,6 +18,12 @@
       "runtimeExecutable": "powershell",
       "runtimeArgs": ["-NoProfile", "-Command", "$h=New-Object Net.HttpListener;$h.Prefixes.Add('http://localhost:3200/');$h.Start();while($h.IsListening){$c=$h.GetContext();$f='C:\\Users\\Avrora\\Desktop\\Adata\\ea-style.pdf';if(Test-Path $f){$c.Response.ContentType='application/pdf';$b=[IO.File]::ReadAllBytes($f);$c.Response.ContentLength64=$b.Length;$c.Response.OutputStream.Write($b,0,$b.Length)}else{$c.Response.StatusCode=404};$c.Response.Close()}"],
       "port": 3200
+    },
+    {
+      "name": "compliance-statistics",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "$env:PATH='C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;'+$env:PATH; Set-Location 'C:\\Users\\Avrora\\Desktop\\Adata\\compliance-statistics'; npm run dev -- -p 3300"],
+      "port": 3300
     }
   ]
 }
