@@ -108,7 +108,6 @@ export function buildStatistics(companyId: string, period: Period): StatisticsDa
       investigations: delta(),
       conflict: delta(),
     },
-    companies: buildCompanies(companyId, period),
   };
 }
 
