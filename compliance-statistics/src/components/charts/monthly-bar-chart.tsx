@@ -35,7 +35,7 @@ export function MonthlyBarChart() {
           margin={{ top: 8, right: 4, bottom: 0, left: -10 }}
           barCategoryGap="30%"
         >
-          <CartesianGrid vertical={false} stroke="var(--color-line)" />
+          <CartesianGrid vertical={false} stroke="var(--color-border)" />
           <XAxis
             dataKey="month"
             tickLine={false}
