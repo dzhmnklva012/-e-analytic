@@ -253,7 +253,7 @@ export function GiftsSection({ data }: { data: GiftsStat }) {
       {total === 0 ? (
         <EmptyState compact description="Деклараций о подарках нет." />
       ) : (
-        <MetricGrid cols={4}>
+        <MetricGrid cols={2}>
           <MetricTile label="Декларации" value={data.declarations} tone="info" showDot />
           <MetricTile label="Подарки" value={data.gifts} tone="planned" showDot />
           <MetricTile label="Дарители" value={data.donors} tone="warning" showDot />
