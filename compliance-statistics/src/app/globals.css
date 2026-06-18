@@ -95,6 +95,26 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Semantic status palette — light */
+  --success: oklch(0.627 0.165 149);
+  --success-foreground: oklch(0.985 0 0);
+  --info: oklch(0.546 0.215 262.881);
+  --info-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.681 0.162 75.834);
+  --warning-foreground: oklch(0.21 0 0);
+  --danger: oklch(0.577 0.245 27.325);
+  --danger-foreground: oklch(0.985 0 0);
+  --planned: oklch(0.541 0.232 293.009);
+  --other: oklch(0.554 0.046 257.417);
+  --unsigned: oklch(0.704 0.04 256.788);
+
+  /* Status-aligned chart channels */
+  --chart-1: var(--info);
+  --chart-2: var(--success);
+  --chart-3: var(--warning);
+  --chart-4: var(--planned);
+  --chart-5: var(--other);
 }
 
 .dark {
