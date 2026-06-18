@@ -25,8 +25,9 @@ export interface ProportionBarProps {
 /**
  * Case-flow summary (the ADATA chart grammar — no pie/donut): a prominent total
  * with an optional trend delta, a segmented proportion bar that shows the split
- * by share, and a grid of per-status stat chips carrying the counts and shares.
- * Accessible: the bar is a labelled img and the chips repeat the numbers as text.
+ * by share, and a per-status row list carrying the counts and shares. Full-width
+ * rows keep long Russian status labels on a single line in narrow cards.
+ * Accessible: the bar is a labelled img and the rows repeat the numbers as text.
  */
 export function ProportionBar({
   data,
