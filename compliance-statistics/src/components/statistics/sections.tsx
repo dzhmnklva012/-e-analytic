@@ -1,11 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Building2,
+  FileText,
   Gavel,
   Gift,
+  HandHeart,
   ListChecks,
   PhoneCall,
   Scale,
+  Users,
   UsersRound,
 } from "lucide-react";
 
@@ -16,7 +19,8 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { SectionCard } from "@/components/statistics/section-card";
-import { StatRow, StatRowList } from "@/components/statistics/stat-row";
+import { MetricGrid } from "@/components/statistics/metric-grid";
+import { MetricTile } from "@/components/statistics/metric-tile";
 import { DonutStat } from "@/components/statistics/donut-stat";
 import { RadialGauge } from "@/components/statistics/radial-gauge";
 import { AreaTrend } from "@/components/statistics/area-trend";
