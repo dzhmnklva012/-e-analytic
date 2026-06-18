@@ -87,10 +87,12 @@ export const tasks = {
 export const hotline = {
   total: 75,
   totalLabel: "Всего обращений",
+  // ordered so the donut arcs (clockwise from top) and the 2-col legend
+  // both match Figma: blue top → green right → yellow bottom-left
   segments: [
     { label: "Новые", count: 79, value: 11, color: "var(--color-chart-blue)" },
-    { label: "В работе", count: 45, value: 39, color: "var(--color-chart-yellow)" },
     { label: "Завершенные", count: 58, value: 50, color: "var(--color-chart-green)" },
+    { label: "В работе", count: 45, value: 39, color: "var(--color-chart-yellow)" },
   ],
 };
 
