@@ -71,6 +71,7 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
             outerRadius={72}
             paddingAngle={2}
             strokeWidth={2}
+            isAnimationActive={false}
           >
             <Label
               content={({ viewBox }) => {
