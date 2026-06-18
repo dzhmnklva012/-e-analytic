@@ -1,22 +1,36 @@
 "use client";
 
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { useEffect, useRef, useState } from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { employeeFiles } from "@/lib/data";
 
+const HEIGHT = 260;
 const axisTick = { fontSize: 10, fill: "var(--color-ink-muted)" } as const;
 
 export function MonthlyBarChart() {
+  // Measure the container so the chart gets an explicit pixel width.
+  // Avoids ResponsiveContainer's "width(-1)" pre-layout warning while
+  // staying fully responsive via ResizeObserver.
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      setWidth(entries[0].contentRect.width);
+    });
+    observer.observe(el);
+    setWidth(el.clientWidth);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="h-[260px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div ref={ref} className="w-full" style={{ height: HEIGHT }}>
+      {width > 0 && (
         <BarChart
+          width={width}
+          height={HEIGHT}
           data={employeeFiles.months}
           margin={{ top: 8, right: 4, bottom: 0, left: -10 }}
           barCategoryGap="30%"
@@ -52,7 +66,7 @@ export function MonthlyBarChart() {
             isAnimationActive={false}
           />
         </BarChart>
-      </ResponsiveContainer>
+      )}
     </div>
   );
 }
