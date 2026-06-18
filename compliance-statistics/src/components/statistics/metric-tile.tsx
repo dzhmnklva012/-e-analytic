@@ -105,7 +105,14 @@ export function MetricTile({
               aria-hidden
             />
           )}
-          <p className="truncate text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p
+            className={cn(
+              "text-xs font-medium text-muted-foreground",
+              variant === "card"
+                ? "truncate uppercase tracking-wide"
+                : "leading-tight",
+            )}
+          >
             {label}
           </p>
         </div>
