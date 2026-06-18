@@ -36,22 +36,27 @@ function formatTime(date: Date): string {
 
 function StatisticsSections({ data }: { data: StatisticsData }) {
   return (
-    <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
-      {/* Main column — wide chart on top, a row of distinct charts below */}
-      <div className="space-y-4 xl:col-span-3">
-        <EmployeeFilesSection data={data.employeeFiles} />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <TasksSection data={data.tasks} />
-          <CompanyFilesSection data={data.companyFiles} />
-          <ConflictSection data={data.conflict} />
+    <div className="space-y-4">
+      {/* Hero row — wide time-series + conflict gauge */}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        <div className="xl:col-span-2">
+          <EmployeeFilesSection data={data.employeeFiles} />
         </div>
+        <ConflictSection data={data.conflict} />
       </div>
-      {/* Right rail — compact summary cards */}
-      <div className="space-y-4">
+      {/* Detail row — distribution + case-flow */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <TasksSection data={data.tasks} />
         <HotlineSection data={data.hotline} />
         <InvestigationsSection data={data.investigations} />
+      </div>
+      {/* Files + gifts */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <CompanyFilesSection data={data.companyFiles} />
         <GiftsSection data={data.gifts} />
       </div>
+      {/* Companies (Users) records table */}
+      <CompaniesTable rows={data.companies} />
     </div>
   );
 }
