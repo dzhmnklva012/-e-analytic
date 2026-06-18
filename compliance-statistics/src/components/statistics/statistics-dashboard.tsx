@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { CalendarRange, Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/statistics/app-shell";
-import { CompaniesTable } from "@/components/statistics/companies-table";
 import { EmptyState } from "@/components/statistics/empty-state";
 import { OfflineBanner } from "@/components/statistics/offline-banner";
 import { StatisticsToolbar } from "@/components/statistics/statistics-toolbar";
