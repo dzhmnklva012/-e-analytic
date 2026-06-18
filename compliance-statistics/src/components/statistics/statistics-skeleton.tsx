@@ -3,16 +3,19 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function MetricTileSkeleton() {
   return (
-    <div className="rounded-lg border bg-card p-4">
-      <Skeleton className="h-3 w-20" />
-      <Skeleton className="mt-3 h-7 w-16" />
+    <div className="flex items-center gap-4 rounded-xl bg-card p-4 shadow-sm ring-1 ring-foreground/5">
+      <Skeleton className="size-12 shrink-0 rounded-full" />
+      <div className="min-w-0 flex-1 space-y-2">
+        <Skeleton className="h-3 w-20" />
+        <Skeleton className="h-6 w-16" />
+      </div>
     </div>
   );
 }
 
 function CardSkeleton({ rows = 4, chart = false }: { rows?: number; chart?: boolean }) {
   return (
-    <Card className="gap-0 py-0">
+    <Card className="gap-0 py-0 shadow-sm ring-foreground/5">
       <div className="flex items-center gap-3 px-5 py-4">
         <Skeleton className="size-9 rounded-md" />
         <div className="space-y-2">
