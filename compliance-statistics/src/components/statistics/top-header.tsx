@@ -109,11 +109,14 @@ function UserMenu({ email }: { email: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" size="sm" className="max-w-[200px] gap-1.5 px-2" />
+          <Button variant="ghost" size="sm" className="max-w-[220px] gap-1.5 px-2" />
         }
         aria-label="Меню профиля"
       >
-        <span className="truncate font-semibold text-foreground">{email}</span>
+        <User className="size-4 shrink-0 text-muted-foreground sm:hidden" />
+        <span className="hidden truncate font-semibold text-foreground sm:inline">
+          {email}
+        </span>
         <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
