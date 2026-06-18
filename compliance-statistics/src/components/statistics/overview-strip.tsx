@@ -18,7 +18,7 @@ export function OverviewStrip({ data, companiesCount }: OverviewStripProps) {
     data.tasks.other;
 
   return (
-    <MetricGrid cols={5} className="gap-3">
+    <MetricGrid cols={5} className="gap-4">
       <MetricTile label="Компании" value={companiesCount} icon={Building2} tone="info" />
       <MetricTile
         label="Задачи"
