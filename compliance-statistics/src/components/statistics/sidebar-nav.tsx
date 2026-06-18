@@ -5,13 +5,12 @@ import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
   Bot,
-  ChevronDown,
+  ChevronRight,
   ClipboardCheck,
   FolderOpen,
   Gift,
   GraduationCap,
   ListChecks,
-  Network,
   PhoneCall,
   Scale,
   ShieldBan,
@@ -33,7 +32,7 @@ interface NavModule {
   children?: NavChild[];
 }
 
-/** Module list + order per the ADATA Compliance Figma sidebar. */
+/** Module list + order per the ADATA Compliance sidebar reference. */
 export const MODULES: NavModule[] = [
   { key: "statistics", label: "Статистика", icon: BarChart3 },
   { key: "assistant", label: "Цифровой ассистент", icon: Bot },
@@ -55,7 +54,6 @@ export const MODULES: NavModule[] = [
   { key: "gifts", label: "Декларация подарков", icon: Gift },
   { key: "conflict", label: "Конфликт интересов", icon: Scale },
   { key: "training", label: "Обучение", icon: GraduationCap },
-  { key: "structure", label: "Структура предприятия", icon: Network },
 ];
 
 export const ACTIVE_KEY = "statistics";
@@ -63,10 +61,11 @@ export const ACTIVE_KEY = "statistics";
 const itemBase =
   "group/nav relative flex h-11 items-center rounded-lg text-sm outline-none transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50";
 
+/** Active = blue pill + blue icon; inactive = plain, gray icon + hover tint. */
 function itemTone(active: boolean) {
   return active
-    ? "bg-sidebar-accent font-semibold text-sidebar-accent-foreground"
-    : "bg-sidebar-accent/35 text-sidebar-foreground/80 hover:bg-sidebar-accent/70 hover:text-sidebar-foreground";
+    ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
+    : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground";
 }
 
 function NavIcon({ icon: Icon, active }: { icon: LucideIcon; active: boolean }) {
@@ -74,7 +73,9 @@ function NavIcon({ icon: Icon, active }: { icon: LucideIcon; active: boolean }) 
     <Icon
       className={cn(
         "size-[18px] shrink-0 transition-colors",
-        active ? "text-primary" : "text-primary/70 group-hover/nav:text-primary",
+        active
+          ? "text-primary"
+          : "text-muted-foreground group-hover/nav:text-foreground",
       )}
       aria-hidden
     />
@@ -105,7 +106,6 @@ function NavLink({
         itemBase,
         itemTone(active),
         collapsed ? "w-11 justify-center px-0" : "gap-3 px-3",
-        active && "ring-1 ring-inset ring-primary/15",
       )}
     >
       <NavIcon icon={module.icon} active={active} />
@@ -150,16 +150,16 @@ function NavGroup({
       >
         <NavIcon icon={module.icon} active={false} />
         <span className="flex-1 truncate text-left">{module.label}</span>
-        <ChevronDown
+        <ChevronRight
           className={cn(
             "size-4 shrink-0 text-muted-foreground transition-transform",
-            open && "rotate-180",
+            open && "rotate-90",
           )}
           aria-hidden
         />
       </button>
       {open && (
-        <ul className="mt-1 space-y-1 border-l border-sidebar-border pl-3 ml-5">
+        <ul className="ml-5 mt-1 space-y-1 border-l border-sidebar-border pl-3">
           {module.children?.map((child) => (
             <li key={child.key}>
               <a
