@@ -93,6 +93,8 @@ export interface StatisticsData {
   investigations: CaseFlowStat;
   conflict: ConflictStat;
   gifts: GiftsStat;
+  trends: Trends;
+  companies: CompanyRow[];
 }
 
 /** Drives which UI state the dashboard renders (demo + real). */
