@@ -296,7 +296,7 @@ export function InvestigationsSection({ data, delta }: { data: CaseFlowStat; del
   );
 }
 
-/* ──────────────────── 6. Конфликт интересов ──────────────────── */
+/* ──────────────────── 7. Конфликт интересов ──────────────────── */
 
 export function ConflictSection({ data }: { data: ConflictStat }) {
   return (
