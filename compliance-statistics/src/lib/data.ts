@@ -101,8 +101,8 @@ export const conflicts = {
   total: 101,
   totalLabel: "Всего",
   segments: [
-    { label: "Конфликт интересов найден", count: 12, value: 11, color: "var(--color-chart-blue)" },
-    { label: "Конфликт интересов не найден", count: 89, value: 89, color: "var(--color-chart-red)" },
+    { label: "Конфликт интересов найден", count: 12, value: 11, color: "var(--color-chart-2)" },
+    { label: "Конфликт интересов не найден", count: 89, value: 89, color: "var(--color-chart-1)" },
   ],
 };
 
