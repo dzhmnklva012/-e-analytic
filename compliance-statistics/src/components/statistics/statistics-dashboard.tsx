@@ -59,6 +59,15 @@ export function StatisticsDashboard() {
 
   const abortRef = useRef<AbortController | null>(null);
 
+  // Deep-linkable demo state, e.g. /?state=empty (handy for QA / reviews).
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("state");
+    const allowed: ViewState[] = ["ready", "loading", "empty", "error", "offline"];
+    if (param && (allowed as string[]).includes(param)) {
+      setDemoState(param as ViewState);
+    }
+  }, []);
+
   const skipLoad = period === "custom" && !customApplied;
 
   useEffect(() => {
