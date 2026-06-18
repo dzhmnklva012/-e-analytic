@@ -20,7 +20,7 @@ export function CompanyFilesCard() {
             {
               name: withoutRisks.label,
               value: withoutRisks.ring,
-              fill: "var(--color-chart-blue)",
+              fill: "var(--color-chart-1)",
             },
             {
               name: withRisks.label,
@@ -43,7 +43,7 @@ export function CompanyFilesCard() {
               value={withRisks.count}
             />
             <LegendItem
-              color="var(--color-chart-blue)"
+              color="var(--color-chart-1)"
               label={withoutRisks.label}
               value={withoutRisks.count}
             />
