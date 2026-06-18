@@ -17,7 +17,8 @@ import {
 } from "@/components/ui/tabs";
 import { SectionCard } from "@/components/statistics/section-card";
 import { StatRow, StatRowList } from "@/components/statistics/stat-row";
-import { ProportionBar } from "@/components/statistics/proportion-bar";
+import { DonutStat } from "@/components/statistics/donut-stat";
+import { RadialGauge } from "@/components/statistics/radial-gauge";
 import { MonthlyBar } from "@/components/statistics/monthly-bar";
 import { SignedSplitBar } from "@/components/statistics/signed-split-bar";
 import { EmptyState } from "@/components/statistics/empty-state";
