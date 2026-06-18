@@ -1,11 +1,19 @@
 import { ChevronRight } from "lucide-react";
 import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { StatBadge } from "./stat-badge";
 
 type SectionCardProps = {
   title: string;
   badge?: { period: string; value: number; delta: number };
-  /** Render the chevron as a filled blue button (matches Конфликт интересов). */
+  /** Render the chevron as a filled primary button (matches Конфликт интересов). */
   accentChevron?: boolean;
   className?: string;
   children: ReactNode;
@@ -15,31 +23,26 @@ export function SectionCard({
   title,
   badge,
   accentChevron,
-  className = "",
+  className,
   children,
 }: SectionCardProps) {
   return (
-    <section
-      className={`flex flex-col rounded-2xl bg-card p-6 shadow-[0_1px_2px_rgba(44,62,80,0.04)] ${className}`}
-    >
-      <header className="mb-4 flex items-start justify-between gap-3">
-        <h2 className="text-lg font-bold text-ink">{title}</h2>
-        <div className="flex shrink-0 items-center gap-2">
+    <Card className={`h-full gap-4 [--card-spacing:--spacing(6)] ${className ?? ""}`}>
+      <CardHeader>
+        <CardTitle className="text-base font-bold">{title}</CardTitle>
+        <CardAction className="flex items-center gap-2">
           {badge && <StatBadge {...badge} />}
-          <button
+          <Button
             type="button"
+            variant={accentChevron ? "default" : "outline"}
+            size="icon"
             aria-label={`Открыть ${title}`}
-            className={
-              accentChevron
-                ? "grid size-8 place-items-center rounded-lg bg-blue text-white transition-colors hover:bg-blue/90"
-                : "grid size-8 place-items-center rounded-lg border border-line text-ink-muted transition-colors hover:bg-bg"
-            }
           >
             <ChevronRight className="size-4" strokeWidth={2.5} />
-          </button>
-        </div>
-      </header>
-      {children}
-    </section>
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="flex flex-1 flex-col">{children}</CardContent>
+    </Card>
   );
 }
