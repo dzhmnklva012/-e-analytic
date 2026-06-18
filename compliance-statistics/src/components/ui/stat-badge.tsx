@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/badge";
+
 type StatBadgeProps = {
   period: string;
   value: number;
@@ -8,15 +10,15 @@ type StatBadgeProps = {
 export function StatBadge({ period, value, delta }: StatBadgeProps) {
   const sign = delta > 0 ? "+" : "";
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-lightblue px-2.5 py-1 text-xs font-semibold text-blue whitespace-nowrap">
+    <Badge variant="secondary" className="gap-1 text-xs font-semibold">
       <span>
         {period}: {value}
       </span>
-      <span className="text-blue/40">|</span>
+      <span className="opacity-40">|</span>
       <span>
         {sign}
         {delta}%
       </span>
-    </span>
+    </Badge>
   );
 }
