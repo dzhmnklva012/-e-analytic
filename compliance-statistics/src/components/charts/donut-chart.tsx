@@ -53,21 +53,13 @@ export function DonutChart({ segments, size = 180 }: DonutChartProps) {
   );
 }
 
-function renderLabel({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  value,
-}: {
-  cx: number;
-  cy: number;
-  midAngle: number;
-  innerRadius: number;
-  outerRadius: number;
-  value: number;
-}) {
+function renderLabel(props: PieLabelRenderProps) {
+  const cx = Number(props.cx ?? 0);
+  const cy = Number(props.cy ?? 0);
+  const midAngle = Number(props.midAngle ?? 0);
+  const innerRadius = Number(props.innerRadius ?? 0);
+  const outerRadius = Number(props.outerRadius ?? 0);
+  const value = Number(props.value ?? 0);
   const r = innerRadius + (outerRadius - innerRadius) / 2;
   const x = cx + r * Math.cos(-midAngle * RADIAN);
   const y = cy + r * Math.sin(-midAngle * RADIAN);
