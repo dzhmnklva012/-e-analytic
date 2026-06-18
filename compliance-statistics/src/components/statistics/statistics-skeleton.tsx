@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function MetricTileSkeleton() {
@@ -10,30 +10,30 @@ function MetricTileSkeleton() {
   );
 }
 
-function SectionCardSkeleton({ wide = false }: { wide?: boolean }) {
+function CardSkeleton({ rows = 4, chart = false }: { rows?: number; chart?: boolean }) {
   return (
-    <Card className={wide ? "md:col-span-2 xl:col-span-3" : undefined}>
-      <CardHeader>
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-9 rounded-md" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-3 w-44" />
-          </div>
+    <Card className="gap-0 py-0">
+      <div className="flex items-center gap-3 px-5 py-4">
+        <Skeleton className="size-9 rounded-md" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-3 w-40" />
         </div>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <Skeleton className={wide ? "h-48 w-full" : "h-28 w-full"} />
-        <div className="grid grid-cols-2 gap-3">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-        </div>
-      </CardContent>
+      </div>
+      <div className="space-y-3 border-t px-5 py-4">
+        {chart ? (
+          <Skeleton className="h-48 w-full" />
+        ) : (
+          Array.from({ length: rows }).map((_, i) => (
+            <Skeleton key={i} className="h-5 w-full" />
+          ))
+        )}
+      </div>
     </Card>
   );
 }
 
-/** Full loading placeholder matching the dashboard grid. */
+/** Full loading placeholder matching the dashboard main + rail layout. */
 export function StatisticsSkeleton() {
   return (
     <div className="space-y-6" aria-hidden>
@@ -42,11 +42,19 @@ export function StatisticsSkeleton() {
           <MetricTileSkeleton key={i} />
         ))}
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <SectionCardSkeleton key={i} />
-        ))}
-        <SectionCardSkeleton wide />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="space-y-4 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <CardSkeleton rows={5} />
+            <CardSkeleton rows={3} />
+          </div>
+          <CardSkeleton chart />
+        </div>
+        <div className="space-y-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <CardSkeleton key={i} rows={4} />
+          ))}
+        </div>
       </div>
     </div>
   );
