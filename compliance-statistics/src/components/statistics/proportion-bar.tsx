@@ -91,17 +91,25 @@ export function ProportionBar({
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-2" aria-hidden>
+      <ul className="space-y-3" aria-hidden>
         {data.map((d) => (
-          <StatChip
-            key={d.key}
-            label={d.label}
-            value={d.value}
-            share={percent(d.value, total)}
-            tone={d.tone}
-          />
+          <li key={d.key} className="flex items-center gap-2 text-xs">
+            <span
+              className="size-2 shrink-0 rounded-full"
+              style={{ backgroundColor: TONE_COLOR[d.tone] }}
+            />
+            <span className="min-w-0 flex-1 truncate text-muted-foreground">
+              {d.label}
+            </span>
+            <span className="shrink-0 font-semibold tabular-nums text-foreground">
+              {formatNumber(d.value)}
+            </span>
+            <span className="w-10 shrink-0 text-right tabular-nums text-muted-foreground">
+              {percent(d.value, total)}%
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
