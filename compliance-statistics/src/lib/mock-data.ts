@@ -141,6 +141,13 @@ export function buildStatistics(companyId: string, period: Period): StatisticsDa
       donors: n(40),
       recipients: n(46),
     },
+    trends: {
+      tasks: delta(),
+      hotline: delta(),
+      investigations: delta(),
+      conflict: delta(),
+    },
+    companies: buildCompanies(companyId, period),
   };
 }
 
