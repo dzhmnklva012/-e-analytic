@@ -86,6 +86,7 @@ export interface Trends {
   hotline: number;
   investigations: number;
   conflict: number;
+  registry: number;
 }
 
 /** Full statistics payload returned for a given period + company scope. */
