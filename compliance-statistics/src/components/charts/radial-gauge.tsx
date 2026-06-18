@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  PolarAngleAxis,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-} from "recharts";
+import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
 
 export type GaugeRing = {
   name: string;
