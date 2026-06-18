@@ -326,7 +326,7 @@ export function ConflictSection({ data }: { data: ConflictStat }) {
   );
 }
 
-/* ───────────────────────── 7. Подарки ───────────────────────── */
+/* ───────────────────────── 8. Подарки ───────────────────────── */
 
 export function GiftsSection({ data }: { data: GiftsStat }) {
   const total = data.declarations + data.gifts + data.donors + data.recipients;
