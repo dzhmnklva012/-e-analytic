@@ -40,7 +40,7 @@ function CardSkeleton({ rows = 4, chart = false }: { rows?: number; chart?: bool
 export function StatisticsSkeleton() {
   return (
     <div className="space-y-6" aria-hidden>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         {Array.from({ length: 5 }).map((_, i) => (
           <MetricTileSkeleton key={i} />
         ))}
