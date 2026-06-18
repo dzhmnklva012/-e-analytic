@@ -53,8 +53,18 @@ export function MonthlyBar({ data, className }: MonthlyBarProps) {
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="signed" fill="var(--color-signed)" radius={[3, 3, 0, 0]} />
-        <Bar dataKey="unsigned" fill="var(--color-unsigned)" radius={[3, 3, 0, 0]} />
+        <Bar
+          dataKey="signed"
+          fill="var(--color-signed)"
+          radius={[3, 3, 0, 0]}
+          isAnimationActive={false}
+        />
+        <Bar
+          dataKey="unsigned"
+          fill="var(--color-unsigned)"
+          radius={[3, 3, 0, 0]}
+          isAnimationActive={false}
+        />
       </BarChart>
     </ChartContainer>
   );
