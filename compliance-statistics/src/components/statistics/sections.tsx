@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Building2,
+  ClipboardCheck,
   FileText,
   Gavel,
   Gift,
@@ -8,6 +9,8 @@ import {
   ListChecks,
   PhoneCall,
   Scale,
+  TrendingDown,
+  TrendingUp,
   Users,
   UsersRound,
 } from "lucide-react";
@@ -24,10 +27,15 @@ import { MetricTile } from "@/components/statistics/metric-tile";
 import { DonutStat } from "@/components/statistics/donut-stat";
 import { RadialGauge } from "@/components/statistics/radial-gauge";
 import { AreaTrend } from "@/components/statistics/area-trend";
+import { InspectionsBar } from "@/components/statistics/inspections-bar";
 import { ProportionBar } from "@/components/statistics/proportion-bar";
 import { SignedSplitBar } from "@/components/statistics/signed-split-bar";
+import { StatChip } from "@/components/statistics/stat-chip";
 import { EmptyState } from "@/components/statistics/empty-state";
+import { formatNumber, percent } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import type {
+  AuditRegistryStat,
   CaseFlowStat,
   CompanyFilesStat,
   ConflictStat,
