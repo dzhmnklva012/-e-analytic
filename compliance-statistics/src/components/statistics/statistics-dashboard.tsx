@@ -36,21 +36,22 @@ function formatTime(date: Date): string {
 function StatisticsSections({ data }: { data: StatisticsData }) {
   return (
     <div className="space-y-4">
-      {/* Hero row — wide time-series + conflict gauge */}
+      {/* Hero row — wide time-series + conflict gauge (both tall) */}
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <div className="xl:col-span-2">
           <EmployeeFilesSection data={data.employeeFiles} />
         </div>
         <ConflictSection data={data.conflict} />
       </div>
-      {/* Detail row — distribution + case-flow */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <TasksSection data={data.tasks} />
+      {/* Case-flow row — two structurally identical cards, paired so heights
+          match exactly (no stretched dead space). */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <HotlineSection data={data.hotline} delta={data.trends.hotline} />
         <InvestigationsSection data={data.investigations} delta={data.trends.investigations} />
       </div>
-      {/* Files + gifts */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {/* Distribution + records row — donut, company files, gifts */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <TasksSection data={data.tasks} />
         <CompanyFilesSection data={data.companyFiles} />
         <GiftsSection data={data.gifts} />
       </div>
