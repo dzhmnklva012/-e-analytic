@@ -21,6 +21,15 @@ export interface MonthlySigned {
   unsigned: number;
 }
 
+/** One month of inspection-registry activity, split by status. */
+export interface MonthlyInspections {
+  month: string; // localized short label, e.g. "Янв"
+  completed: number; // Завершено
+  inProgress: number; // В процессе
+  planned: number; // Запланировано
+  overdue: number; // Просрочено
+}
+
 export interface TasksStat {
   planned: number;
   completed: number;
