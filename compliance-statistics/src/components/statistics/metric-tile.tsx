@@ -39,6 +39,10 @@ export interface MetricTileProps {
   tone?: Tone;
   /** Small caption under the value, e.g. "из 48". */
   hint?: string;
+  /** Signed period-over-period change in percent (e.g. 14 or -12). */
+  delta?: number;
+  /** Whether an increase is a good thing (drives delta color). Default true. */
+  deltaGoodWhenUp?: boolean;
   /** Show a colored status dot before the label. */
   showDot?: boolean;
   className?: string;
