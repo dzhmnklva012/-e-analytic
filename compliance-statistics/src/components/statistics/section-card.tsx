@@ -42,7 +42,7 @@ export function SectionCard({
       id={id}
       role="region"
       aria-labelledby={headingId}
-      className={cn("scroll-mt-20 gap-0 py-0", className)}
+      className={cn("scroll-mt-20 gap-0 py-0 shadow-sm ring-foreground/5", className)}
     >
       <button
         type="button"
