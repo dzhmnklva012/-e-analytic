@@ -25,7 +25,7 @@ export function CompanyFilesCard() {
             {
               name: withRisks.label,
               value: withRisks.ring,
-              fill: "var(--color-chart-red)",
+              fill: "var(--color-chart-2)",
             },
           ]}
         />
@@ -38,7 +38,7 @@ export function CompanyFilesCard() {
           </div>
           <ul className="flex flex-col gap-3">
             <LegendItem
-              color="var(--color-chart-red)"
+              color="var(--color-chart-2)"
               label={withRisks.label}
               value={withRisks.count}
             />
