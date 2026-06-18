@@ -248,10 +248,10 @@ export function GiftsSection({ data }: { data: GiftsStat }) {
         <EmptyState compact description="Деклараций о подарках нет." />
       ) : (
         <StatRowList>
-          <StatRow label="Декларации" value={data.declarations} tone="info" drillIn />
-          <StatRow label="Подарки" value={data.gifts} tone="planned" drillIn />
-          <StatRow label="Дарители" value={data.donors} tone="warning" drillIn />
-          <StatRow label="Получатели" value={data.recipients} tone="success" drillIn />
+          <StatRow label="Декларации" value={data.declarations} tone="info" />
+          <StatRow label="Подарки" value={data.gifts} tone="planned" />
+          <StatRow label="Дарители" value={data.donors} tone="warning" />
+          <StatRow label="Получатели" value={data.recipients} tone="success" />
         </StatRowList>
       )}
     </SectionCard>
