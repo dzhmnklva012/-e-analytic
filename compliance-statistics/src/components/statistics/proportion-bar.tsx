@@ -75,7 +75,7 @@ export function ProportionBar({
       )}
 
       <div
-        className="flex h-2.5 w-full gap-0.5 overflow-hidden rounded-full bg-muted"
+        className="flex h-2 w-full gap-0.5 overflow-hidden rounded-full bg-muted"
         role="img"
         aria-label={summary}
       >
@@ -91,36 +91,17 @@ export function ProportionBar({
         ))}
       </div>
 
-      <ul className="space-y-3" aria-hidden>
-        {data.map((d) => {
-          const share = percent(d.value, total);
-          return (
-            <li key={d.key} className="space-y-2">
-              <div className="flex items-center gap-2.5 text-xs">
-                <span
-                  className="size-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: TONE_COLOR[d.tone] }}
-                />
-                <span className="min-w-0 flex-1 truncate text-muted-foreground">
-                  {d.label}
-                </span>
-                <span className="shrink-0 font-semibold tabular-nums text-foreground">
-                  {formatNumber(d.value)}
-                </span>
-                <span className="w-9 shrink-0 text-right tabular-nums text-muted-foreground">
-                  {share}%
-                </span>
-              </div>
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${share}%`, backgroundColor: TONE_COLOR[d.tone] }}
-                />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="grid grid-cols-3 gap-2" aria-hidden>
+        {data.map((d) => (
+          <StatChip
+            key={d.key}
+            label={d.label}
+            value={d.value}
+            share={percent(d.value, total)}
+            tone={d.tone}
+          />
+        ))}
+      </div>
     </div>
   );
 }
