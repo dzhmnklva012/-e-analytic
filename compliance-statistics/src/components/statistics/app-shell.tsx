@@ -1,135 +1,60 @@
 "use client";
 
-import { useState } from "react";
-import type { LucideIcon } from "lucide-react";
-import {
-  BarChart3,
-  Bot,
-  FolderOpen,
-  Gift,
-  ListChecks,
-  Menu,
-  PhoneCall,
-  Scale,
-  ScrollText,
-  ShieldBan,
-  ShieldCheck,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
 } from "@/components/ui/sheet";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { BrandLogo } from "@/components/statistics/brand-logo";
+import { SidebarNav } from "@/components/statistics/sidebar-nav";
+import { TopHeader } from "@/components/statistics/top-header";
 import { cn } from "@/lib/utils";
 
-interface NavModule {
-  key: string;
-  label: string;
-  icon: LucideIcon;
-}
-
-const MODULES: NavModule[] = [
-  { key: "assistant", label: "Цифровой ассистент", icon: Bot },
-  { key: "audit", label: "Журнал аудита", icon: ScrollText },
-  { key: "tasks", label: "Задачи", icon: ListChecks },
-  { key: "hotline", label: "Горячая линия", icon: PhoneCall },
-  { key: "sanctions", label: "Санкции", icon: ShieldBan },
-  { key: "dossier", label: "Досье", icon: FolderOpen },
-  { key: "sb", label: "Проверка СБ", icon: ShieldCheck },
-  { key: "gifts", label: "Декларация подарков", icon: Gift },
-  { key: "conflict", label: "Конфликт интересов", icon: Scale },
-  { key: "statistics", label: "Статистика", icon: BarChart3 },
-];
-
-const ACTIVE_KEY = "statistics";
-
-function Logo({ onBrand = false }: { onBrand?: boolean }) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span
-        className={cn(
-          "flex size-8 shrink-0 items-center justify-center rounded-md text-base font-bold",
-          onBrand ? "bg-white text-brand" : "bg-primary text-primary-foreground",
-        )}
-      >
-        A
-      </span>
-      <span
-        className={cn(
-          "text-base font-bold tracking-wide",
-          onBrand ? "text-brand-foreground" : "text-foreground",
-        )}
-      >
-        DATA
-        <span className={cn("ml-2 text-xs font-medium", onBrand ? "text-white/55" : "text-muted-foreground")}>
-          Compliance
-        </span>
-      </span>
-    </div>
-  );
-}
-
-function NavList({ onNavigate }: { onNavigate?: () => void }) {
-  return (
-    <nav className="space-y-1" aria-label="Модули системы Compliance">
-      {MODULES.map((m) => {
-        const active = m.key === ACTIVE_KEY;
-        const Icon = m.icon;
-        return (
-          <a
-            key={m.key}
-            href="#"
-            aria-current={active ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate?.();
-            }}
-            className={cn(
-              "flex items-center gap-3 rounded-md border-l-2 px-3 py-2 text-sm transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
-              active
-                ? "border-primary bg-sidebar-accent font-semibold text-sidebar-accent-foreground"
-                : "border-transparent text-muted-foreground hover:bg-accent/60 hover:text-foreground",
-            )}
-          >
-            <Icon className="size-4 shrink-0" aria-hidden />
-            <span className="truncate">{m.label}</span>
-          </a>
-        );
-      })}
-    </nav>
-  );
-}
-
-function UserChip({ email }: { email: string }) {
-  return (
-    <div className="flex items-center gap-2.5 border-t px-4 py-4">
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-semibold text-primary">
-        АС
-      </span>
-      <div className="min-w-0 leading-tight">
-        <p className="truncate text-xs font-medium text-foreground">Асылбек Сариев</p>
-        <p className="truncate text-xs text-muted-foreground">{email}</p>
-      </div>
-    </div>
-  );
-}
+const COLLAPSE_KEY = "adata-sidebar-collapsed";
 
 export interface AppShellProps {
   /** Sticky notice rendered full-bleed under the topbar (e.g. offline). */
   notice?: React.ReactNode;
-  /** Current user email shown in the top bar / user chip. */
+  /** Current user email shown in the profile menu. */
   userEmail?: string;
   children: React.ReactNode;
 }
 
-/** Responsive Compliance frame: navy top bar, module sidebar, Sheet on mobile. */
+/**
+ * Responsive Compliance frame matching the Figma: white global portal header,
+ * white collapsible module rail (icon-only when collapsed), Sheet on mobile.
+ */
 export function AppShell({ notice, userEmail = "user@adata.kz", children }: AppShellProps) {
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Restore the persisted rail state after mount (avoids SSR mismatch).
+  useEffect(() => {
+    try {
+      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
+    } catch {
+      /* storage unavailable */
+    }
+  }, []);
+
+  const toggleCollapsed = () =>
+    setCollapsed((v) => {
+      const next = !v;
+      try {
+        localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
+      } catch {
+        /* storage unavailable */
+      }
+      return next;
+    });
 
   return (
     <div className="flex min-h-screen flex-1 flex-col">
@@ -140,60 +65,69 @@ export function AppShell({ notice, userEmail = "user@adata.kz", children }: AppS
         Перейти к содержимому
       </a>
 
-      {/* Top bar */}
-      <header className="sticky top-0 z-40 flex h-14 items-center gap-3 bg-brand px-4 text-brand-foreground sm:px-6">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-brand-foreground hover:bg-white/10 hover:text-brand-foreground lg:hidden"
-          aria-label="Открыть меню"
-          onClick={() => setOpen(true)}
-        >
-          <Menu className="size-4" />
-        </Button>
-        <Logo onBrand />
-        <div className="ml-auto flex items-center gap-2">
-          <span className="hidden rounded-md bg-white/10 px-2.5 py-1 text-xs font-medium sm:inline-block">
-            RU
-          </span>
-          <span className="hidden max-w-[200px] truncate text-xs text-white/70 md:inline-block">
-            {userEmail}
-          </span>
-          <span className="flex size-8 items-center justify-center rounded-full bg-white/15 text-xs font-semibold">
-            АС
-          </span>
-        </div>
-      </header>
+      <TopHeader userEmail={userEmail} onOpenMobileNav={() => setMobileOpen(true)} />
 
       <div className="flex min-h-0 flex-1">
-        {/* Desktop sidebar */}
-        <aside className="hidden w-60 shrink-0 flex-col border-r bg-sidebar lg:flex">
-          <div className="px-4 pb-2 pt-4">
-            <p className="px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground/70">
-              Модули
-            </p>
+        {/* Desktop rail */}
+        <aside
+          className={cn(
+            "sticky top-16 hidden h-[calc(100dvh-4rem)] shrink-0 flex-col border-r border-sidebar-border bg-sidebar transition-[width] duration-200 ease-out lg:flex",
+            collapsed ? "w-[72px]" : "w-64",
+          )}
+        >
+          <div
+            className={cn(
+              "flex h-16 items-center border-b border-sidebar-border",
+              collapsed ? "justify-center px-2" : "justify-between px-4",
+            )}
+          >
+            {!collapsed && <BrandLogo />}
+            {collapsed ? (
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Развернуть меню"
+                      onClick={toggleCollapsed}
+                    />
+                  }
+                >
+                  <ChevronsRight className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent side="right">Развернуть меню</TooltipContent>
+              </Tooltip>
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Свернуть меню"
+                onClick={toggleCollapsed}
+              >
+                <ChevronsLeft className="size-4" />
+              </Button>
+            )}
           </div>
-          <ScrollArea className="flex-1 px-3 pb-4">
-            <NavList />
+          <ScrollArea className="min-h-0 flex-1 px-3 py-4">
+            <SidebarNav collapsed={collapsed} />
           </ScrollArea>
-          <UserChip email={userEmail} />
         </aside>
 
-        {/* Mobile nav */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="left" className="w-72 p-0">
-            <SheetHeader className="border-b">
+        {/* Mobile rail */}
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetContent side="left" className="w-72 gap-0 p-0">
+            <SheetHeader className="border-b border-sidebar-border">
               <SheetTitle className="text-left">
-                <Logo />
+                <BrandLogo />
               </SheetTitle>
               <SheetDescription className="sr-only">
                 Навигация по модулям системы Compliance
               </SheetDescription>
             </SheetHeader>
-            <ScrollArea className="h-[calc(100vh-200px)] px-3 py-2">
-              <NavList onNavigate={() => setOpen(false)} />
+            <ScrollArea className="min-h-0 flex-1 px-3 py-3">
+              <SidebarNav onNavigate={() => setMobileOpen(false)} />
             </ScrollArea>
-            <UserChip email={userEmail} />
           </SheetContent>
         </Sheet>
 
