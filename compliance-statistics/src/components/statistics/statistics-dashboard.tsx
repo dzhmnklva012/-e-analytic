@@ -130,7 +130,7 @@ export function StatisticsDashboard() {
           <h1 className="font-heading text-2xl font-semibold tracking-tight text-foreground">
             Статистика
           </h1>
-          <p className="text-xs text-muted-foreground sm:text-sm">
+          <p className="text-xs text-muted-foreground">
             Сводные показатели модулей системы Compliance за выбранный период.
           </p>
         </header>
