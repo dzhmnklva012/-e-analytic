@@ -103,17 +103,24 @@
   --sidebar-border: #e3e7eb;
   --sidebar-ring: oklch(0.546 0.215 262.881);
 
+  /* Coral data-viz ramp (from the Revenue Analytics ref). Categorical chart
+     series read coral; --success/--danger keep meaning for deltas + the
+     conflict gauge. --primary stays blue (brand/nav). */
+  --coral: oklch(0.63 0.18 33);
+  --coral-2: oklch(0.72 0.13 34);
+  --coral-3: oklch(0.81 0.08 34);
+
   /* Semantic status palette — light */
   --success: oklch(0.627 0.165 149);
   --success-foreground: oklch(0.985 0 0);
-  --info: oklch(0.546 0.215 262.881);
+  --info: var(--coral);
   --info-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.681 0.162 75.834);
+  --warning: var(--coral-2);
   --warning-foreground: oklch(0.21 0 0);
   --danger: oklch(0.577 0.245 27.325);
   --danger-foreground: oklch(0.985 0 0);
-  --planned: oklch(0.541 0.232 293.009);
-  --other: oklch(0.554 0.046 257.417);
+  --planned: var(--coral-3);
+  --other: oklch(0.62 0.03 45);
   --unsigned: oklch(0.704 0.04 256.788);
 
   /* Status-aligned chart channels */
