@@ -59,12 +59,19 @@ export function StatisticsDashboard() {
 
   const abortRef = useRef<AbortController | null>(null);
 
-  // Deep-linkable demo state, e.g. /?state=empty (handy for QA / reviews).
+  // Deep-linkable demo state / period, e.g. /?state=empty or /?period=custom
+  // (handy for QA and design reviews).
   useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get("state");
-    const allowed: ViewState[] = ["ready", "loading", "empty", "error", "offline"];
-    if (param && (allowed as string[]).includes(param)) {
-      setDemoState(param as ViewState);
+    const params = new URLSearchParams(window.location.search);
+    const state = params.get("state");
+    const states: ViewState[] = ["ready", "loading", "empty", "error", "offline"];
+    if (state && (states as string[]).includes(state)) {
+      setDemoState(state as ViewState);
+    }
+    const p = params.get("period");
+    const periods: Period[] = ["today", "week", "month", "quarter", "year", "custom"];
+    if (p && (periods as string[]).includes(p)) {
+      setPeriod(p as Period);
     }
   }, []);
 
