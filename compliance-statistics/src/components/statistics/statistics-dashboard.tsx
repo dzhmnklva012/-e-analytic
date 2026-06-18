@@ -14,6 +14,7 @@ import {
   TasksSection,
   CompanyFilesSection,
   EmployeeFilesSection,
+  AuditRegistrySection,
   HotlineSection,
   InvestigationsSection,
   ConflictSection,
