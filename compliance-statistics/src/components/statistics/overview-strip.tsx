@@ -105,7 +105,7 @@ export function OverviewStrip({ data, companiesCount }: OverviewStripProps) {
     <Card className="gap-0 overflow-hidden py-0 shadow-sm ring-foreground/5">
       <div className="grid grid-cols-2 divide-x divide-y divide-border sm:grid-cols-3 lg:grid-cols-5 lg:divide-y-0">
         {metrics.map((m) => (
-          <MetricCell key={m.key} {...m} />
+          <MetricCell key={m.id} {...m} />
         ))}
       </div>
     </Card>
