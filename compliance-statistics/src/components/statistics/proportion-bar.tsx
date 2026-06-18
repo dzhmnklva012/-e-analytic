@@ -1,7 +1,6 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatNumber, percent } from "@/lib/format";
-import { StatChip } from "@/components/statistics/stat-chip";
 import { TONE_COLOR } from "@/components/statistics/tone";
 import type { Tone } from "@/components/statistics/metric-tile";
 
