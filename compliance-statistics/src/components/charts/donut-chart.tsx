@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Cell,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  type PieLabelRenderProps,
-} from "recharts";
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 export type DonutSegment = {
   label: string;
