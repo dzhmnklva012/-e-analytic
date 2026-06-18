@@ -168,6 +168,8 @@ export const EMPTY_STATISTICS: StatisticsData = {
   investigations: { total: 0, new: 0, completed: 0, inProgress: 0 },
   conflict: { total: 0, found: 0, notFound: 0 },
   gifts: { declarations: 0, gifts: 0, donors: 0, recipients: 0 },
+  trends: { tasks: 0, hotline: 0, investigations: 0, conflict: 0 },
+  companies: [],
 };
 
 export interface FetchParams {
