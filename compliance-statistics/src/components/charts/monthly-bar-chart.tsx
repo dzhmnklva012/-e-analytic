@@ -5,7 +5,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { employeeFiles } from "@/lib/data";
 
 const HEIGHT = 260;
-const axisTick = { fontSize: 10, fill: "var(--color-ink-muted)" } as const;
+const axisTick = { fontSize: 12, fill: "var(--color-faint)" } as const;
 
 export function MonthlyBarChart() {
   // Measure the container so the chart gets an explicit pixel width.
