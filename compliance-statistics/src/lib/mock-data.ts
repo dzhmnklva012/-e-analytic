@@ -83,18 +83,18 @@ export function buildStatistics(companyId: string, period: Period): StatisticsDa
         return { month, signed, unsigned: total - signed };
       }),
     },
-    hotline: {
-      total: n(86),
-      new: n(14),
-      completed: n(58),
-      inProgress: n(14),
-    },
-    investigations: {
-      total: n(42),
-      new: n(7),
-      completed: n(26),
-      inProgress: n(9),
-    },
+    hotline: (() => {
+      const nw = n(14);
+      const ip = n(16);
+      const cm = n(58);
+      return { total: nw + ip + cm, new: nw, inProgress: ip, completed: cm };
+    })(),
+    investigations: (() => {
+      const nw = n(7);
+      const ip = n(9);
+      const cm = n(26);
+      return { total: nw + ip + cm, new: nw, inProgress: ip, completed: cm };
+    })(),
     conflict: (() => {
       const total = n(48);
       const found = Math.round(total * (0.2 + rng() * 0.25));
