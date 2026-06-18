@@ -20,19 +20,34 @@ export function OverviewStrip({ data, companiesCount }: OverviewStripProps) {
   return (
     <MetricGrid cols={5} className="gap-3">
       <MetricTile label="Компании" value={companiesCount} icon={Building2} tone="info" />
-      <MetricTile label="Задачи" value={tasksTotal} icon={ListChecks} tone="info" />
-      <MetricTile label="Обращения" value={data.hotline.total} icon={PhoneCall} tone="info" />
+      <MetricTile
+        label="Задачи"
+        value={tasksTotal}
+        icon={ListChecks}
+        tone="info"
+        delta={data.trends.tasks}
+      />
+      <MetricTile
+        label="Обращения"
+        value={data.hotline.total}
+        icon={PhoneCall}
+        tone="info"
+        delta={data.trends.hotline}
+      />
       <MetricTile
         label="Расследования"
         value={data.investigations.total}
         icon={Gavel}
         tone="info"
+        delta={data.trends.investigations}
       />
       <MetricTile
         label="Конфликты выявлены"
         value={data.conflict.found}
         icon={Scale}
         tone="danger"
+        delta={data.trends.conflict}
+        deltaGoodWhenUp={false}
       />
     </MetricGrid>
   );
