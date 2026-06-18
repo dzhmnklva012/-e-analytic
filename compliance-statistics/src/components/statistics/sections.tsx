@@ -21,6 +21,7 @@ import { ProportionBar } from "@/components/statistics/proportion-bar";
 import { MonthlyBar } from "@/components/statistics/monthly-bar";
 import { SignedSplitBar } from "@/components/statistics/signed-split-bar";
 import { EmptyState } from "@/components/statistics/empty-state";
+import { formatNumber } from "@/lib/format";
 import type {
   CaseFlowStat,
   CompanyFilesStat,
