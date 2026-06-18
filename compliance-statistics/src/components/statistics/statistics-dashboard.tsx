@@ -162,7 +162,7 @@ export function StatisticsDashboard() {
       notice={showOffline ? <OfflineBanner /> : undefined}
       userEmail="22874@adata.kz"
     >
-      <div className="mx-auto max-w-[1440px] space-y-6">
+      <div className="mx-auto w-full max-w-[1680px] space-y-6">
         <nav aria-label="Хлебные крошки">
           <ol className="flex items-center gap-2 text-xs text-muted-foreground">
             <li>Главная</li>
