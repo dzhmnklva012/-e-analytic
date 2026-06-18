@@ -4,7 +4,7 @@ import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 export type DonutSegment = {
   label: string;
-  value: number; // percentage value (drives both arc size and the on-arc label)
+  value: number; // percentage value (drives both arc size and the bubble label)
   color: string;
 };
 
@@ -14,8 +14,9 @@ type DonutChartProps = {
 };
 
 const RADIAN = Math.PI / 180;
+const BUBBLE_R = 18;
 
-export function DonutChart({ segments, size = 180 }: DonutChartProps) {
+export function DonutChart({ segments, size = 200 }: DonutChartProps) {
   return (
     <div className="shrink-0">
       <PieChart width={size} height={size}>
@@ -25,15 +26,15 @@ export function DonutChart({ segments, size = 180 }: DonutChartProps) {
           nameKey="label"
           cx="50%"
           cy="50%"
-          innerRadius="60%"
-          outerRadius="100%"
+          innerRadius="44%"
+          outerRadius="72%"
           startAngle={90}
           endAngle={-270}
           paddingAngle={3}
-          cornerRadius={8}
+          cornerRadius={10}
           stroke="none"
           isAnimationActive={false}
-          label={renderLabel}
+          label={renderBubble}
           labelLine={false}
         >
           {segments.map((s) => (
@@ -45,27 +46,29 @@ export function DonutChart({ segments, size = 180 }: DonutChartProps) {
   );
 }
 
-function renderLabel(props: PieLabelRenderProps) {
+/** White circular bubble sitting on the ring, showing the segment's percentage. */
+function renderBubble(props: PieLabelRenderProps) {
   const cx = Number(props.cx ?? 0);
   const cy = Number(props.cy ?? 0);
   const midAngle = Number(props.midAngle ?? 0);
-  const innerRadius = Number(props.innerRadius ?? 0);
   const outerRadius = Number(props.outerRadius ?? 0);
   const value = Number(props.value ?? 0);
-  const r = innerRadius + (outerRadius - innerRadius) / 2;
-  const x = cx + r * Math.cos(-midAngle * RADIAN);
-  const y = cy + r * Math.sin(-midAngle * RADIAN);
+  const x = cx + outerRadius * Math.cos(-midAngle * RADIAN);
+  const y = cy + outerRadius * Math.sin(-midAngle * RADIAN);
   return (
-    <text
-      x={x}
-      y={y}
-      fill="#ffffff"
-      textAnchor="middle"
-      dominantBaseline="central"
-      fontSize={12}
-      fontWeight={700}
-    >
-      {value}%
-    </text>
+    <g style={{ filter: "drop-shadow(0 2px 5px rgba(27,26,78,0.18))" }}>
+      <circle cx={x} cy={y} r={BUBBLE_R} fill="#ffffff" />
+      <text
+        x={x}
+        y={y}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight={700}
+        fill="#1b1a4e"
+      >
+        {value}%
+      </text>
+    </g>
   );
 }
