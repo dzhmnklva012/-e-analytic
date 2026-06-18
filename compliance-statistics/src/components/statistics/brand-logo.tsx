@@ -17,11 +17,8 @@ export function BrandLogo({ compact = false, className }: BrandLogoProps) {
         A
       </span>
       {!compact && (
-        <span className="text-base font-bold tracking-wide text-foreground">
+        <span className="text-lg font-bold tracking-wide text-foreground">
           DATA
-          <span className="ml-2 text-xs font-medium text-muted-foreground">
-            Compliance
-          </span>
         </span>
       )}
       <span className="sr-only">ADATA Compliance</span>
