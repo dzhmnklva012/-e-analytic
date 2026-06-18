@@ -2,6 +2,7 @@
 
 import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
+import { StatChip } from "@/components/statistics/stat-chip";
 import { TONE_COLOR } from "@/components/statistics/tone";
 import type { Tone } from "@/components/statistics/metric-tile";
 import { formatNumber, percent } from "@/lib/format";
@@ -21,12 +22,18 @@ export interface RadialGaugeProps {
   centerCaption: string;
   tone?: Tone;
   legend: GaugeLegendItem[];
+  /** Optional headline above the gauge — uppercase label + the total count. */
+  headlineLabel?: string;
+  /** "rows" = plain legend list (default); "chips" = nested stat tiles. */
+  legendVariant?: "rows" | "chips";
   className?: string;
 }
 
 /**
  * Radial compliance gauge: an arc filled to value/total with the percentage in
- * the center, plus a text legend with the underlying counts.
+ * the center. An optional headline surfaces the underlying total, and the
+ * legend can render either as plain rows or as nested stat chips (sharing the
+ * dashboard's chip grammar).
  */
 export function RadialGauge({
   value,
@@ -34,6 +41,8 @@ export function RadialGauge({
   centerCaption,
   tone = "success",
   legend,
+  headlineLabel,
+  legendVariant = "rows",
   className,
 }: RadialGaugeProps) {
   const pct = percent(value, total);
@@ -42,7 +51,18 @@ export function RadialGauge({
   };
 
   return (
-    <div className={cn("flex flex-col items-center gap-4", className)}>
+    <div className={cn("flex flex-col items-center gap-5", className)}>
+      {headlineLabel && (
+        <div className="w-full space-y-1 text-center">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {headlineLabel}
+          </p>
+          <p className="text-[32px] font-semibold leading-none tabular-nums text-foreground">
+            {formatNumber(total)}
+          </p>
+        </div>
+      )}
+
       <ChartContainer
         config={config}
         className="aspect-square h-40 w-40 shrink-0"
@@ -78,22 +98,36 @@ export function RadialGauge({
         </RadialBarChart>
       </ChartContainer>
 
-      <ul className="w-full space-y-2" aria-hidden>
-        {legend.map((item) => (
-          <li key={item.label} className="flex items-center gap-2.5 text-xs">
-            <span
-              className="size-2.5 shrink-0 rounded-full"
-              style={{ backgroundColor: TONE_COLOR[item.tone] }}
+      {legendVariant === "chips" ? (
+        <div className="grid w-full grid-cols-2 gap-2" aria-hidden>
+          {legend.map((item) => (
+            <StatChip
+              key={item.label}
+              label={item.label}
+              value={item.value}
+              share={percent(item.value, total)}
+              tone={item.tone}
             />
-            <span className="min-w-0 flex-1 truncate text-muted-foreground">
-              {item.label}
-            </span>
-            <span className="shrink-0 font-semibold tabular-nums text-foreground">
-              {formatNumber(item.value)}
-            </span>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      ) : (
+        <ul className="w-full space-y-2" aria-hidden>
+          {legend.map((item) => (
+            <li key={item.label} className="flex items-center gap-2.5 text-xs">
+              <span
+                className="size-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: TONE_COLOR[item.tone] }}
+              />
+              <span className="min-w-0 flex-1 truncate text-muted-foreground">
+                {item.label}
+              </span>
+              <span className="shrink-0 font-semibold tabular-nums text-foreground">
+                {formatNumber(item.value)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
