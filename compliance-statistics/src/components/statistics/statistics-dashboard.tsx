@@ -118,7 +118,15 @@ export function StatisticsDashboard() {
 
   // Resolve which UI state to render (demo override wins over real status).
   let body: React.ReactNode;
-  if (demoState === "loading" || (demoState === "ready" && status === "loading" && !data)) {
+  if (demoState === "ready" && skipLoad && !data) {
+    body = (
+      <EmptyState
+        icon={CalendarRange}
+        title="Выберите период"
+        description="Укажите даты начала и окончания выше и нажмите «Применить», чтобы построить статистику."
+      />
+    );
+  } else if (demoState === "loading" || (demoState === "ready" && status === "loading" && !data)) {
     body = <StatisticsSkeleton />;
   } else if (demoState === "error" || (demoState === "ready" && status === "error")) {
     body = <ErrorState onRetry={handleRetry} />;
