@@ -50,6 +50,16 @@ export interface EmployeeFilesStat {
   byMonth: MonthlySigned[]; // Данные по месяцам
 }
 
+/** Реестр проверок — inspection registry, totals + monthly status mix. */
+export interface AuditRegistryStat {
+  total: number;
+  completed: number; // Завершено
+  inProgress: number; // В процессе
+  planned: number; // Запланировано
+  overdue: number; // Просрочено
+  byMonth: MonthlyInspections[]; // Помесячная динамика по статусам
+}
+
 export interface CaseFlowStat {
   total: number;
   new: number;
