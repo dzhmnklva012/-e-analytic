@@ -1,5 +1,7 @@
 import type {
   Company,
+  CompanyRow,
+  CompanyStatus,
   Period,
   StatisticsData,
   SignedSplit,
