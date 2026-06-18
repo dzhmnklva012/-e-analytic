@@ -55,8 +55,6 @@ function StatisticsSections({ data }: { data: StatisticsData }) {
         <CompanyFilesSection data={data.companyFiles} />
         <GiftsSection data={data.gifts} />
       </div>
-      {/* Companies (Users) records table */}
-      <CompaniesTable rows={data.companies} />
     </div>
   );
 }
