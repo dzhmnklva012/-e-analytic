@@ -94,6 +94,7 @@ export interface StatisticsData {
   tasks: TasksStat;
   companyFiles: CompanyFilesStat;
   employeeFiles: EmployeeFilesStat;
+  auditRegistry: AuditRegistryStat;
   hotline: CaseFlowStat;
   investigations: CaseFlowStat;
   conflict: ConflictStat;
