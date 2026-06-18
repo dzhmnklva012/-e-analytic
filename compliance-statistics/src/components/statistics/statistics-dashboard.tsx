@@ -158,8 +158,20 @@ export function StatisticsDashboard() {
   }
 
   return (
-    <AppShell notice={showOffline ? <OfflineBanner /> : undefined}>
-      <div className="mx-auto max-w-[1400px] space-y-6">
+    <AppShell
+      notice={showOffline ? <OfflineBanner /> : undefined}
+      userEmail="22874@adata.kz"
+    >
+      <div className="mx-auto max-w-[1440px] space-y-6">
+        <nav aria-label="Хлебные крошки">
+          <ol className="flex items-center gap-2 text-xs text-muted-foreground">
+            <li>Главная</li>
+            <li aria-hidden>/</li>
+            <li>Compliance</li>
+            <li aria-hidden>/</li>
+            <li className="font-medium text-foreground">Статистика</li>
+          </ol>
+        </nav>
         <header className="space-y-1">
           <h1 className="font-heading text-2xl font-semibold tracking-tight text-foreground">
             Статистика
