@@ -49,12 +49,14 @@ function StatisticsSections({ data }: { data: StatisticsData }) {
         <HotlineSection data={data.hotline} delta={data.trends.hotline} />
         <InvestigationsSection data={data.investigations} delta={data.trends.investigations} />
       </div>
-      {/* Distribution + records row — donut, company files, gifts */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      {/* Distribution row — donut + gifts kept at ≥half width so the donut's
+          legend stays beside it (compact) and the two cards match height. */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <TasksSection data={data.tasks} />
-        <CompanyFilesSection data={data.companyFiles} />
         <GiftsSection data={data.gifts} />
       </div>
+      {/* Company files — full-width signed/unsigned summary. */}
+      <CompanyFilesSection data={data.companyFiles} />
     </div>
   );
 }
