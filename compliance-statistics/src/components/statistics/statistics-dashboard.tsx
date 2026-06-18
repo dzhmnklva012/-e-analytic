@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { CalendarRange } from "lucide-react";
 import { AppShell } from "@/components/statistics/app-shell";
+import { EmptyState } from "@/components/statistics/empty-state";
 import { OfflineBanner } from "@/components/statistics/offline-banner";
 import { StatisticsToolbar } from "@/components/statistics/statistics-toolbar";
 import { StatisticsSkeleton } from "@/components/statistics/statistics-skeleton";
