@@ -22,7 +22,7 @@
     {
       "name": "compliance-statistics",
       "runtimeExecutable": "powershell",
-      "runtimeArgs": ["-NoProfile", "-Command", "$env:PATH='C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;'+$env:PATH; Set-Location 'C:\\Users\\Avrora\\Desktop\\Adata\\compliance-statistics'; npm run dev -- -p 3300"],
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", "$env:PATH='C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;'+$env:PATH; Set-Location 'C:\\Users\\Avrora\\Desktop\\Adata\\compliance-statistics'; npm.cmd run dev -- -p 3300"],
       "port": 3300
     }
   ]
