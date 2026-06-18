@@ -42,16 +42,17 @@ export function StatisticsSkeleton() {
           <MetricTileSkeleton key={i} />
         ))}
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="space-y-4 lg:col-span-2">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+        <div className="space-y-4 xl:col-span-3">
+          <CardSkeleton chart />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <CardSkeleton rows={5} />
             <CardSkeleton rows={3} />
+            <CardSkeleton rows={3} />
           </div>
-          <CardSkeleton chart />
         </div>
         <div className="space-y-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 3 }).map((_, i) => (
             <CardSkeleton key={i} rows={4} />
           ))}
         </div>
