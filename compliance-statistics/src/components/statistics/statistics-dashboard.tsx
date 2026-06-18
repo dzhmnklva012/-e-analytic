@@ -46,8 +46,8 @@ function StatisticsSections({ data }: { data: StatisticsData }) {
       {/* Detail row — distribution + case-flow */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <TasksSection data={data.tasks} />
-        <HotlineSection data={data.hotline} />
-        <InvestigationsSection data={data.investigations} />
+        <HotlineSection data={data.hotline} delta={data.trends.hotline} />
+        <InvestigationsSection data={data.investigations} delta={data.trends.investigations} />
       </div>
       {/* Files + gifts */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
