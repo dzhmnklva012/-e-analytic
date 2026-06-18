@@ -21,15 +21,14 @@ export interface DonutDatum {
 
 export interface DonutStatProps {
   data: DonutDatum[];
-  /** Caption shown under the total in the donut center. */
+  /** Caption under the centered total. */
   centerLabel: string;
   className?: string;
 }
 
 /**
- * Donut chart with a centered total and a text legend listing each segment's
- * value and share. The legend carries the real numbers so the chart itself is
- * only a visual aid (role="img" with a summary label).
+ * Donut chart with a centered total and a text legend (value + share). The
+ * legend carries the real numbers; the chart is a labelled decorative img.
  */
 export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
   const total = data.reduce((sum, d) => sum + d.value, 0);
@@ -37,12 +36,7 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
   const config: ChartConfig = Object.fromEntries(
     data.map((d) => [d.key, { label: d.label, color: TONE_COLOR[d.tone] }]),
   );
-
-  const chartData = data.map((d) => ({
-    ...d,
-    fill: TONE_COLOR[d.tone],
-  }));
-
+  const chartData = data.map((d) => ({ ...d, fill: TONE_COLOR[d.tone] }));
   const summary = data.map((d) => `${d.label}: ${d.value}`).join(", ");
 
   return (
@@ -81,11 +75,7 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
                     >
                       {formatNumber(total)}
                     </tspan>
-                    <tspan
-                      x={cx}
-                      y={cy + 16}
-                      className="fill-muted-foreground text-xs"
-                    >
+                    <tspan x={cx} y={cy + 16} className="fill-muted-foreground text-xs">
                       {centerLabel}
                     </tspan>
                   </text>
@@ -96,14 +86,14 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
         </PieChart>
       </ChartContainer>
 
-      <ul className="w-full min-w-0 space-y-2" aria-hidden>
+      <ul className="w-full space-y-2" aria-hidden>
         {data.map((d) => (
           <li key={d.key} className="flex items-center gap-2.5 text-xs">
             <span
               className="size-2.5 shrink-0 rounded-full"
               style={{ backgroundColor: TONE_COLOR[d.tone] }}
             />
-            <span className="min-w-0 flex-1 text-muted-foreground">
+            <span className="min-w-0 flex-1 truncate text-muted-foreground">
               {d.label}
             </span>
             <span className="shrink-0 font-semibold tabular-nums text-foreground">
