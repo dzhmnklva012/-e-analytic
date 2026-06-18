@@ -147,11 +147,19 @@ export const EMPTY_STATISTICS: StatisticsData = {
     conclusions: { total: 0, signed: 0, unsigned: 0 },
     byMonth: [],
   },
+  auditRegistry: {
+    total: 0,
+    completed: 0,
+    inProgress: 0,
+    planned: 0,
+    overdue: 0,
+    byMonth: [],
+  },
   hotline: { total: 0, new: 0, completed: 0, inProgress: 0 },
   investigations: { total: 0, new: 0, completed: 0, inProgress: 0 },
   conflict: { total: 0, found: 0, notFound: 0 },
   gifts: { declarations: 0, gifts: 0, donors: 0, recipients: 0 },
-  trends: { tasks: 0, hotline: 0, investigations: 0, conflict: 0 },
+  trends: { tasks: 0, hotline: 0, investigations: 0, conflict: 0, registry: 0 },
 };
 
 export interface FetchParams {
