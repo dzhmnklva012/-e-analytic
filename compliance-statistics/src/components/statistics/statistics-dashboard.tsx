@@ -50,6 +50,9 @@ function StatisticsSections({ data }: { data: StatisticsData }) {
         <HotlineSection data={data.hotline} delta={data.trends.hotline} />
         <InvestigationsSection data={data.investigations} delta={data.trends.investigations} />
       </div>
+      {/* Реестр проверок — full-width: status chips + a stacked monthly column
+          chart (a viz distinct from the area hero above). */}
+      <AuditRegistrySection data={data.auditRegistry} delta={data.trends.registry} />
       {/* Distribution row — donut + gifts kept at ≥half width so the donut's
           legend stays beside it (compact) and the two cards match height. */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
