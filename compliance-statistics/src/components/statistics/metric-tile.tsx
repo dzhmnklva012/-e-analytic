@@ -58,9 +58,15 @@ export function MetricTile({
   icon: Icon,
   tone = "default",
   hint,
+  delta,
+  deltaGoodWhenUp = true,
   showDot = false,
   className,
 }: MetricTileProps) {
+  const hasDelta = typeof delta === "number";
+  const up = (delta ?? 0) >= 0;
+  const good = up === deltaGoodWhenUp;
+  const TrendIcon = up ? TrendingUp : TrendingDown;
   return (
     <div
       className={cn(
