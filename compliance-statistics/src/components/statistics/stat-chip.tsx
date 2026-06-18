@@ -28,7 +28,7 @@ export function StatChip({
 }: StatChipProps) {
   return (
     <div className={cn("rounded-lg bg-muted/50 p-3", className)}>
-      <div className="flex items-start gap-1.5">
+      <div className="flex items-start gap-2">
         <span
           className="mt-1 size-2 shrink-0 rounded-full"
           style={{ backgroundColor: TONE_COLOR[tone] }}
@@ -38,7 +38,7 @@ export function StatChip({
           {label}
         </span>
       </div>
-      <div className="mt-2 flex items-baseline gap-1.5">
+      <div className="mt-2 flex items-baseline gap-2">
         <span className="text-xl font-semibold leading-none tabular-nums text-foreground">
           {formatNumber(value)}
         </span>
