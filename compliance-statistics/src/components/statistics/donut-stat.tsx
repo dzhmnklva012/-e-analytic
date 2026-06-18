@@ -40,7 +40,12 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
   const summary = data.map((d) => `${d.label}: ${d.value}`).join(", ");
 
   return (
-    <div className={cn("flex flex-col items-center gap-5", className)}>
+    <div
+      className={cn(
+        "@container flex flex-col items-center gap-5 @sm:flex-row @sm:gap-6",
+        className,
+      )}
+    >
       <ChartContainer
         config={config}
         className="aspect-square h-40 w-40 shrink-0"
