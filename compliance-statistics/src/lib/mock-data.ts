@@ -102,11 +102,34 @@ export function buildStatistics(companyId: string, period: Period): StatisticsDa
       donors: n(40),
       recipients: n(46),
     },
+    auditRegistry: (() => {
+      const km = Math.min(k, 3); // keep monthly columns readable at long periods
+      const byMonth = MONTHS.slice(0, 12).map((month) => ({
+        month,
+        completed: Math.round(10 * (0.5 + rng() * 1.1) * km),
+        inProgress: Math.round(4 * (0.4 + rng() * 1.0) * km),
+        planned: Math.round(5 * (0.4 + rng() * 1.0) * km),
+        overdue: Math.round(2 * (0.2 + rng() * 0.9) * km),
+      }));
+      const completed = byMonth.reduce((s, m) => s + m.completed, 0);
+      const inProgress = byMonth.reduce((s, m) => s + m.inProgress, 0);
+      const planned = byMonth.reduce((s, m) => s + m.planned, 0);
+      const overdue = byMonth.reduce((s, m) => s + m.overdue, 0);
+      return {
+        total: completed + inProgress + planned + overdue,
+        completed,
+        inProgress,
+        planned,
+        overdue,
+        byMonth,
+      };
+    })(),
     trends: {
       tasks: delta(),
       hotline: delta(),
       investigations: delta(),
       conflict: delta(),
+      registry: delta(),
     },
   };
 }
