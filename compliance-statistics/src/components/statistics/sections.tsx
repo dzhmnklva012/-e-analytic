@@ -15,15 +15,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { SectionCard } from "@/components/statistics/section-card";
-import { MetricGrid } from "@/components/statistics/metric-grid";
-import { MetricTile } from "@/components/statistics/metric-tile";
-import { DonutStat } from "@/components/statistics/donut-stat";
+import { StatRow, StatRowList } from "@/components/statistics/stat-row";
+import { ProportionBar } from "@/components/statistics/proportion-bar";
 import { MonthlyBar } from "@/components/statistics/monthly-bar";
 import { SignedSplitBar } from "@/components/statistics/signed-split-bar";
 import { EmptyState } from "@/components/statistics/empty-state";
-import { formatNumber } from "@/lib/format";
 import type {
   CaseFlowStat,
   CompanyFilesStat,
@@ -32,14 +29,6 @@ import type {
   GiftsStat,
   TasksStat,
 } from "@/lib/types";
-
-function TotalBadge({ value }: { value: number }) {
-  return (
-    <Badge variant="secondary" className="tabular-nums">
-      Всего: {formatNumber(value)}
-    </Badge>
-  );
-}
 
 /* ───────────────────────── 1. Задачи ───────────────────────── */
 
@@ -52,13 +41,12 @@ export function TasksSection({ data }: { data: TasksStat }) {
       title="Задачи"
       description="Распределение по статусам"
       icon={ListChecks}
-      action={<TotalBadge value={total} />}
     >
       {total === 0 ? (
         <EmptyState compact description="За выбранный период задач нет." />
       ) : (
-        <DonutStat
-          centerLabel="Всего задач"
+        <ProportionBar
+          totalLabel="Всего задач"
           data={[
             { key: "completed", label: "Завершённые", value: data.completed, tone: "success" },
             { key: "inProgress", label: "В работе", value: data.inProgress, tone: "info" },
@@ -82,7 +70,6 @@ export function CompanyFilesSection({ data }: { data: CompanyFilesStat }) {
       title="Файлы по компаниям"
       description="Проверки, заключения и данные"
       icon={Building2}
-      action={<TotalBadge value={total} />}
     >
       {total === 0 ? (
         <EmptyState compact description="Файлы по компаниям отсутствуют." />
@@ -121,8 +108,6 @@ export function EmployeeFilesSection({ data }: { data: EmployeeFilesStat }) {
       title="Файлы по сотрудникам"
       description="Проверки, заключения и помесячная динамика"
       icon={UsersRound}
-      action={<TotalBadge value={total} />}
-      className="md:col-span-2 xl:col-span-3"
     >
       {total === 0 ? (
         <EmptyState compact description="Файлы по сотрудникам отсутствуют." />
@@ -176,12 +161,12 @@ function CaseFlowSection({
       {data.total === 0 ? (
         <EmptyState compact description="Обращений за выбранный период нет." />
       ) : (
-        <MetricGrid cols={2}>
-          <MetricTile label={totalLabel} value={data.total} tone="default" showDot />
-          <MetricTile label="Новые" value={data.new} tone="info" showDot />
-          <MetricTile label="В работе" value={data.inProgress} tone="warning" showDot />
-          <MetricTile label="Завершённые" value={data.completed} tone="success" showDot />
-        </MetricGrid>
+        <StatRowList>
+          <StatRow label={totalLabel} value={data.total} tone="default" drillIn />
+          <StatRow label="Новые" value={data.new} tone="info" drillIn />
+          <StatRow label="В работе" value={data.inProgress} tone="warning" drillIn />
+          <StatRow label="Завершённые" value={data.completed} tone="success" drillIn />
+        </StatRowList>
       )}
     </SectionCard>
   );
@@ -195,7 +180,7 @@ export function HotlineSection({ data }: { data: CaseFlowStat }) {
       description="Поток обращений"
       icon={PhoneCall}
       data={data}
-      totalLabel="Всего"
+      totalLabel="Всего обращений"
     />
   );
 }
@@ -208,7 +193,7 @@ export function InvestigationsSection({ data }: { data: CaseFlowStat }) {
       description="Поток расследований"
       icon={Gavel}
       data={data}
-      totalLabel="Всего"
+      totalLabel="Всего расследований"
     />
   );
 }
@@ -222,13 +207,12 @@ export function ConflictSection({ data }: { data: ConflictStat }) {
       title="Конфликт интересов"
       description="Результаты проверок"
       icon={Scale}
-      action={<TotalBadge value={data.total} />}
     >
       {data.total === 0 ? (
         <EmptyState compact description="Проверок на конфликт интересов нет." />
       ) : (
-        <DonutStat
-          centerLabel="Всего проверок"
+        <ProportionBar
+          totalLabel="Всего проверок"
           data={[
             { key: "notFound", label: "Конфликт не выявлен", value: data.notFound, tone: "success" },
             { key: "found", label: "Конфликт выявлен", value: data.found, tone: "danger" },
@@ -253,12 +237,12 @@ export function GiftsSection({ data }: { data: GiftsStat }) {
       {total === 0 ? (
         <EmptyState compact description="Деклараций о подарках нет." />
       ) : (
-        <MetricGrid cols={2}>
-          <MetricTile label="Декларации" value={data.declarations} tone="info" showDot />
-          <MetricTile label="Подарки" value={data.gifts} tone="planned" showDot />
-          <MetricTile label="Дарители" value={data.donors} tone="warning" showDot />
-          <MetricTile label="Получатели" value={data.recipients} tone="success" showDot />
-        </MetricGrid>
+        <StatRowList>
+          <StatRow label="Декларации" value={data.declarations} tone="info" drillIn />
+          <StatRow label="Подарки" value={data.gifts} tone="planned" drillIn />
+          <StatRow label="Дарители" value={data.donors} tone="warning" drillIn />
+          <StatRow label="Получатели" value={data.recipients} tone="success" drillIn />
+        </StatRowList>
       )}
     </SectionCard>
   );
