@@ -49,8 +49,10 @@ export interface MetricTileProps {
 }
 
 /**
- * Compact KPI tile. Display-only — numbers use tabular figures so columns
- * stay aligned. All sizing stays on the 4px scale (12/16/28px text).
+ * Compact KPI tile in the Horizon style: a soft tinted icon circle on the
+ * left, label + big value on the right, optional period delta beneath.
+ * Display-only — numbers use tabular figures so columns stay aligned.
+ * Sizing stays on the 4px scale (12/16/24px text, 48px icon).
  */
 export function MetricTile({
   label,
@@ -70,10 +72,21 @@ export function MetricTile({
   return (
     <div
       className={cn(
-        "flex items-start justify-between gap-3 rounded-lg border bg-card p-4",
+        "flex items-center gap-4 rounded-xl bg-card p-4 shadow-sm ring-1 ring-foreground/5",
         className,
       )}
     >
+      {Icon && (
+        <span
+          className={cn(
+            "flex size-12 shrink-0 items-center justify-center rounded-full",
+            TONE_ICON[tone],
+          )}
+          aria-hidden
+        >
+          <Icon className="size-5" />
+        </span>
+      )}
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           {showDot && (
@@ -82,15 +95,15 @@ export function MetricTile({
               aria-hidden
             />
           )}
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="truncate text-xs font-medium uppercase tracking-wide text-muted-foreground">
             {label}
           </p>
         </div>
-        <p className="mt-2 text-[28px] font-semibold leading-none tabular-nums text-foreground">
+        <p className="mt-1 text-2xl font-semibold leading-tight tabular-nums text-foreground">
           {formatNumber(value)}
         </p>
         {hasDelta && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs">
+          <p className="mt-1 flex flex-wrap items-center gap-x-1 text-xs">
             <span
               className={cn(
                 "inline-flex items-center gap-0.5 font-medium tabular-nums",
@@ -105,20 +118,9 @@ export function MetricTile({
           </p>
         )}
         {!hasDelta && hint && (
-          <p className="mt-2 text-xs text-muted-foreground">{hint}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{hint}</p>
         )}
       </div>
-      {Icon && (
-        <span
-          className={cn(
-            "flex size-9 shrink-0 items-center justify-center rounded-md",
-            TONE_ICON[tone],
-          )}
-          aria-hidden
-        >
-          <Icon className="size-4" />
-        </span>
-      )}
     </div>
   );
 }
