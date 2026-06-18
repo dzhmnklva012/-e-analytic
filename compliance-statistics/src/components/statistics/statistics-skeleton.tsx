@@ -57,17 +57,6 @@ export function StatisticsSkeleton() {
         <CardSkeleton rows={3} />
         <CardSkeleton rows={4} />
       </div>
-      <Card className="gap-0 py-0">
-        <div className="flex items-center gap-3 px-5 py-4">
-          <Skeleton className="size-9 rounded-md" />
-          <Skeleton className="h-4 w-32" />
-        </div>
-        <div className="space-y-3 border-t px-5 py-4">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-6 w-full" />
-          ))}
-        </div>
-      </Card>
     </div>
   );
 }
