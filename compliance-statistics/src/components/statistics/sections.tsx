@@ -148,6 +148,9 @@ interface CaseFlowSectionProps {
   icon: LucideIcon;
   data: CaseFlowStat;
   totalLabel: string;
+  emptyText: string;
+  /** Signed period-over-period change in percent. */
+  delta?: number;
 }
 
 function CaseFlowSection({
@@ -157,14 +160,17 @@ function CaseFlowSection({
   icon,
   data,
   totalLabel,
+  emptyText,
+  delta,
 }: CaseFlowSectionProps) {
   return (
     <SectionCard id={id} title={title} description={description} icon={icon}>
       {data.total === 0 ? (
-        <EmptyState compact description="Обращений за выбранный период нет." />
+        <EmptyState compact description={emptyText} />
       ) : (
         <ProportionBar
           totalLabel={totalLabel}
+          delta={delta}
           data={[
             { key: "new", label: "Новые", value: data.new, tone: "info" },
             { key: "inProgress", label: "В работе", value: data.inProgress, tone: "warning" },
@@ -176,7 +182,7 @@ function CaseFlowSection({
   );
 }
 
-export function HotlineSection({ data }: { data: CaseFlowStat }) {
+export function HotlineSection({ data, delta }: { data: CaseFlowStat; delta?: number }) {
   return (
     <CaseFlowSection
       id="hotline"
@@ -184,12 +190,14 @@ export function HotlineSection({ data }: { data: CaseFlowStat }) {
       description="Поток обращений"
       icon={PhoneCall}
       data={data}
+      delta={delta}
       totalLabel="Всего обращений"
+      emptyText="Обращений за выбранный период нет."
     />
   );
 }
 
-export function InvestigationsSection({ data }: { data: CaseFlowStat }) {
+export function InvestigationsSection({ data, delta }: { data: CaseFlowStat; delta?: number }) {
   return (
     <CaseFlowSection
       id="investigations"
@@ -197,7 +205,9 @@ export function InvestigationsSection({ data }: { data: CaseFlowStat }) {
       description="Поток расследований"
       icon={Gavel}
       data={data}
+      delta={delta}
       totalLabel="Всего расследований"
+      emptyText="Расследований за выбранный период нет."
     />
   );
 }
