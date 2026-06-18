@@ -54,11 +54,11 @@ export function StatisticsSkeleton() {
         </div>
         <CardSkeleton rows={4} />
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <CardSkeleton rows={5} />
         <CardSkeleton rows={4} />
-        <CardSkeleton rows={4} />
       </div>
+      <CardSkeleton chart />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <CardSkeleton rows={3} />
         <CardSkeleton rows={4} />
