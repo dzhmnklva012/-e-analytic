@@ -47,8 +47,8 @@ export function TasksSection({ data }: { data: TasksStat }) {
       {total === 0 ? (
         <EmptyState compact description="За выбранный период задач нет." />
       ) : (
-        <ProportionBar
-          totalLabel="Всего задач"
+        <DonutStat
+          centerLabel="Всего задач"
           data={[
             { key: "completed", label: "Завершённые", value: data.completed, tone: "success" },
             { key: "inProgress", label: "В работе", value: data.inProgress, tone: "info" },
