@@ -195,7 +195,7 @@ export function HotlineSection({ data }: { data: CaseFlowStat }) {
       description="Поток обращений"
       icon={PhoneCall}
       data={data}
-      totalLabel="Всего обращений"
+      totalLabel="Всего"
     />
   );
 }
