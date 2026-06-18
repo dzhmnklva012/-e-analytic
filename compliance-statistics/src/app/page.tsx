@@ -1,5 +1,10 @@
-import { StatisticsDashboard } from "@/components/statistics/statistics-dashboard";
+import { StatisticsDashboard } from "@/components/dashboard/statistics-dashboard";
+import { AppShell } from "@/components/layout/app-shell";
 
-export default function Page() {
-  return <StatisticsDashboard />;
+export default function Home() {
+  return (
+    <AppShell>
+      <StatisticsDashboard />
+    </AppShell>
+  );
 }
