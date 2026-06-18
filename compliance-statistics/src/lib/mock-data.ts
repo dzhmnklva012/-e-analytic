@@ -1,11 +1,4 @@
-import type {
-  Company,
-  CompanyRow,
-  CompanyStatus,
-  Period,
-  StatisticsData,
-  SignedSplit,
-} from "@/lib/types";
+import type { Company, Period, StatisticsData, SignedSplit } from "@/lib/types";
 
 export const COMPANIES: Company[] = [
   { id: "all", name: "Все компании" },
