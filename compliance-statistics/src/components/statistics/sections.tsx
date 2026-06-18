@@ -234,6 +234,8 @@ export function ConflictSection({ data }: { data: ConflictStat }) {
           total={data.total}
           centerCaption="не выявлен"
           tone="success"
+          headlineLabel="Всего проверок"
+          legendVariant="chips"
           legend={[
             { label: "Конфликт не выявлен", value: data.notFound, tone: "success" },
             { label: "Конфликт выявлен", value: data.found, tone: "danger" },
