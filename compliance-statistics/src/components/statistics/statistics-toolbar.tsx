@@ -126,6 +126,7 @@ export function StatisticsToolbar({
 
         <div className="grid grid-cols-2 items-end gap-3 sm:flex sm:flex-wrap">
           <LabeledSelect
+            id="demo-state"
             label="Демо-состояние"
             value={demoState}
             onValueChange={(v) => onDemoStateChange(v as ViewState)}
