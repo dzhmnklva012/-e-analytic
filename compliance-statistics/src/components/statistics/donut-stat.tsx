@@ -42,7 +42,7 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
   return (
     <div
       className={cn(
-        "@container flex flex-col items-center gap-5 @sm:flex-row @sm:gap-6",
+        "flex flex-col items-center gap-5 sm:flex-row sm:gap-6",
         className,
       )}
     >
