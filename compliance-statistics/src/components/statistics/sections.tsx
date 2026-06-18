@@ -258,12 +258,36 @@ export function GiftsSection({ data }: { data: GiftsStat }) {
       {total === 0 ? (
         <EmptyState compact description="Деклараций о подарках нет." />
       ) : (
-        <StatRowList>
-          <StatRow label="Декларации" value={data.declarations} tone="info" />
-          <StatRow label="Подарки" value={data.gifts} tone="planned" />
-          <StatRow label="Дарители" value={data.donors} tone="warning" />
-          <StatRow label="Получатели" value={data.recipients} tone="success" />
-        </StatRowList>
+        <MetricGrid cols={2}>
+          <MetricTile
+            variant="subtle"
+            label="Декларации"
+            value={data.declarations}
+            icon={FileText}
+            tone="info"
+          />
+          <MetricTile
+            variant="subtle"
+            label="Подарки"
+            value={data.gifts}
+            icon={Gift}
+            tone="planned"
+          />
+          <MetricTile
+            variant="subtle"
+            label="Дарители"
+            value={data.donors}
+            icon={HandHeart}
+            tone="warning"
+          />
+          <MetricTile
+            variant="subtle"
+            label="Получатели"
+            value={data.recipients}
+            icon={Users}
+            tone="success"
+          />
+        </MetricGrid>
       )}
     </SectionCard>
   );
