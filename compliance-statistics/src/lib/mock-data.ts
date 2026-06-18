@@ -129,7 +129,6 @@ export const EMPTY_STATISTICS: StatisticsData = {
   conflict: { total: 0, found: 0, notFound: 0 },
   gifts: { declarations: 0, gifts: 0, donors: 0, recipients: 0 },
   trends: { tasks: 0, hotline: 0, investigations: 0, conflict: 0 },
-  companies: [],
 };
 
 export interface FetchParams {
