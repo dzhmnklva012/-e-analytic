@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Bell,
-  ChevronDown,
-  LogOut,
-  Menu,
-  Settings,
-  User,
-} from "lucide-react";
+import { Bell, ChevronDown, LogOut, Menu, Settings, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,39 +18,40 @@ import { BrandLogo } from "@/components/statistics/brand-logo";
 import { ThemeToggle } from "@/components/statistics/theme-toggle";
 import { cn } from "@/lib/utils";
 
-const PRODUCTS = ["E-Analytic", "AntiCor", "Compliance", "IONYX"];
+const PORTAL_LINKS = [
+  { label: "Продукты и решения", href: "#" },
+  { label: "Контакты", href: "#" },
+  { label: "Тарифы", href: "#" },
+];
+
 const LANGUAGES = [
   { value: "ru", label: "Рус" },
   { value: "kk", label: "Қаз" },
   { value: "en", label: "Eng" },
 ];
+
 const NOTIFICATIONS = [
   { id: 1, text: "Новое обращение на горячую линию", time: "5 мин назад" },
   { id: 2, text: "Отчёт за май сформирован", time: "1 ч назад" },
   { id: 3, text: "3 файла ожидают подписания", time: "вчера" },
 ];
 
-const portalLinkClass =
-  "rounded-md px-1 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50";
-
-function ProductsMenu() {
+/** Uppercase portal nav with hairline dividers between every item. */
+function PortalNav() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        render={
-          <Button variant="ghost" size="sm" className="gap-1 px-2 text-muted-foreground" />
-        }
-      >
-        Продукты и решения
-        <ChevronDown className="size-4" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-48">
-        <DropdownMenuLabel>Продукты ADATA</DropdownMenuLabel>
-        {PRODUCTS.map((p) => (
-          <DropdownMenuItem key={p}>{p}</DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <nav aria-label="Навигация портала ADATA" className="hidden items-center lg:flex">
+      {PORTAL_LINKS.map((link, i) => (
+        <span key={link.label} className="flex items-center">
+          {i > 0 && <span className="mx-1 h-4 w-px bg-border" aria-hidden />}
+          <a
+            href={link.href}
+            className="rounded-md px-3 text-sm font-medium uppercase tracking-wide text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          >
+            {link.label}
+          </a>
+        </span>
+      ))}
+    </nav>
   );
 }
 
@@ -90,14 +84,10 @@ function NotificationsMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<Button variant="ghost" size="icon" className="relative" />}
-        aria-label={`Уведомления: ${NOTIFICATIONS.length} новых`}
+        render={<Button variant="ghost" size="icon" />}
+        aria-label={`Уведомления: ${NOTIFICATIONS.length}`}
       >
         <Bell className="size-4" />
-        <span
-          className="absolute right-1.5 top-1.5 size-2 rounded-full bg-danger ring-2 ring-card"
-          aria-hidden
-        />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-72">
         <DropdownMenuLabel>Уведомления</DropdownMenuLabel>
@@ -113,19 +103,18 @@ function NotificationsMenu() {
   );
 }
 
+/** Profile menu — trigger shows the user's email + caret (matches the ref). */
 function UserMenu({ email }: { email: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <button
-            type="button"
-            className="flex size-8 items-center justify-center rounded-full bg-success text-xs font-semibold text-success-foreground outline-none transition-[box-shadow] focus-visible:ring-[3px] focus-visible:ring-ring/50"
-          />
+          <Button variant="ghost" size="sm" className="max-w-[200px] gap-1.5 px-2" />
         }
         aria-label="Меню профиля"
       >
-        АС
+        <span className="truncate font-semibold text-foreground">{email}</span>
+        <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
         <div className="px-1.5 py-1.5">
@@ -156,44 +145,42 @@ export interface TopHeaderProps {
   onOpenMobileNav: () => void;
 }
 
-/** Global ADATA portal bar: portal nav (desktop) + theme/lang/settings/bell/user. */
+/**
+ * Global ADATA portal bar, rendered as a card at the top of the content
+ * column: uppercase portal nav (desktop) + theme/lang/settings/bell/email.
+ */
 export function TopHeader({ userEmail, onOpenMobileNav }: TopHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center gap-2 border-b border-border bg-card px-4 sm:px-6">
+    <header
+      className={cn(
+        "sticky top-3 z-40 flex h-[72px] shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-4 sm:px-6",
+      )}
+    >
       {/* Left: mobile menu + logo, or desktop portal nav */}
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          aria-label="Открыть меню"
-          onClick={onOpenMobileNav}
-        >
-          <Menu className="size-4" />
-        </Button>
-        <div className="lg:hidden">
-          <BrandLogo />
-        </div>
-        <nav
-          aria-label="Навигация портала ADATA"
-          className="hidden items-center gap-1 lg:flex"
-        >
-          <ProductsMenu />
-          <span className="h-4 w-px bg-border" aria-hidden />
-          <a href="#" className={cn(portalLinkClass, "px-2")}>
-            Контакты
-          </a>
-          <a href="#" className={cn(portalLinkClass, "px-2")}>
-            Тарифы
-          </a>
-        </nav>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="lg:hidden"
+        aria-label="Открыть меню"
+        onClick={onOpenMobileNav}
+      >
+        <Menu className="size-4" />
+      </Button>
+      <div className="lg:hidden">
+        <BrandLogo />
       </div>
+      <PortalNav />
 
       {/* Right: controls */}
       <div className="ml-auto flex items-center gap-1 sm:gap-2">
         <ThemeToggle />
         <LanguageMenu />
-        <Button variant="ghost" size="icon" aria-label="Настройки" className="hidden sm:inline-flex">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Настройки"
+          className="hidden sm:inline-flex"
+        >
           <Settings className="size-4" />
         </Button>
         <NotificationsMenu />
