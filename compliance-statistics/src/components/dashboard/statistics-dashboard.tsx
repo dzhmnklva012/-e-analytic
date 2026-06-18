@@ -29,7 +29,7 @@ export function StatisticsDashboard() {
     <div className="mx-auto max-w-[1220px] p-6">
       {/* Title + filters */}
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-ink">Статистика</h1>
+        <h1 className="text-2xl font-bold text-foreground">Статистика</h1>
         <div className="flex gap-3">
           <SelectField label="Месяц" options={MONTHS} defaultValue="Все" />
           <SelectField label="Год" options={YEARS} defaultValue="Все" />
