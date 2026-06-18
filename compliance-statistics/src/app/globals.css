@@ -12,43 +12,43 @@
 :root {
   --radius: 1rem; /* 16px base; explicit 4px-grid scale defined in @theme inline */
 
-  --background: #f4f5f6; /* page */
-  --foreground: #2c3e50; /* main text */
+  --background: #eef0f8; /* light lavender page */
+  --foreground: #1b1a4e; /* dark navy text/headings */
   --card: #ffffff;
-  --card-foreground: #2c3e50;
+  --card-foreground: #1b1a4e;
   --popover: #ffffff;
-  --popover-foreground: #2c3e50;
+  --popover-foreground: #1b1a4e;
 
-  --primary: #0070eb; /* ADATA blue */
+  --primary: #2d2bb5; /* WebSales indigo */
   --primary-foreground: #ffffff;
-  --secondary: #e0efff; /* light-blue (selected/active) */
-  --secondary-foreground: #0070eb;
-  --muted: #f4f5f6;
-  --muted-foreground: #71757a; /* secondary text */
-  --accent: #e0efff; /* hover */
-  --accent-foreground: #0070eb;
-  --destructive: #e74135;
+  --secondary: #ececfb; /* light indigo (selected/active) */
+  --secondary-foreground: #2d2bb5;
+  --muted: #f1f3fa; /* subtle fill (tiles, toggle track) */
+  --muted-foreground: #8a90a6; /* secondary gray text */
+  --accent: #ececfb; /* hover */
+  --accent-foreground: #2d2bb5;
+  --destructive: #e7484d;
 
-  --border: #e5e5ef;
-  --input: #e5e5ef;
-  --ring: #0070eb;
+  --border: #e7e9f4;
+  --input: #e7e9f4;
+  --ring: #2d2bb5;
 
-  /* data-viz ramp */
-  --chart-1: #0070eb; /* blue */
-  --chart-2: #e74135; /* red */
-  --chart-3: #ff9900; /* orange */
-  --chart-4: #4caf50; /* green */
-  --chart-5: #fbc920; /* yellow */
+  /* data-viz ramp — indigo / teal / yellow (+ periwinkle for 4-way splits) */
+  --chart-1: #2d2bb5; /* indigo */
+  --chart-2: #34d1c4; /* teal */
+  --chart-3: #ffd23f; /* yellow */
+  --chart-4: #7c7ae0; /* periwinkle */
+  --chart-5: #b9b8ee; /* light indigo */
 
   /* sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #2c3e50;
-  --sidebar-primary: #0070eb;
+  --sidebar-foreground: #1b1a4e;
+  --sidebar-primary: #2d2bb5;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e0efff;
-  --sidebar-accent-foreground: #0070eb;
-  --sidebar-border: #e5e5ef;
-  --sidebar-ring: #0070eb;
+  --sidebar-accent: #ececfb;
+  --sidebar-accent-foreground: #2d2bb5;
+  --sidebar-border: #e7e9f4;
+  --sidebar-ring: #2d2bb5;
 }
 
 .dark {
