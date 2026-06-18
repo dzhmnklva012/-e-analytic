@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import type { StatisticsData } from "@/lib/types";
 
 interface Metric {
-  key: string;
+  id: string;
   label: string;
   value: number;
   icon: LucideIcon;
