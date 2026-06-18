@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils";
 export interface MetricGridProps {
   children: React.ReactNode;
   /** Max columns on the largest breakpoint. Mobile is always 2. */
-  cols?: 3 | 4 | 5;
+  cols?: 2 | 3 | 4 | 5;
   className?: string;
 }
 
 const COLS: Record<NonNullable<MetricGridProps["cols"]>, string> = {
+  2: "",
   3: "sm:grid-cols-3",
   4: "sm:grid-cols-2 lg:grid-cols-4",
   5: "sm:grid-cols-3 lg:grid-cols-5",
