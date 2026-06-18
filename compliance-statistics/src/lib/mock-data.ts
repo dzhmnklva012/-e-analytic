@@ -51,38 +51,6 @@ const PERIOD_SCALE: Record<Period, number> = {
   custom: 1.4,
 };
 
-function companyBin(id: string): string {
-  return (hash(id) * 99991).toString().padStart(12, "0").slice(-12);
-}
-
-function buildCompanyRow(c: Company, period: Period): CompanyRow {
-  const rng = seeded(hash(c.id) * 17 + hash(period) * 5);
-  const k = PERIOD_SCALE[period] ?? 1;
-  const checksTotal = Math.round(80 * k * (0.6 + rng()));
-  const checksSigned = Math.round(checksTotal * (0.5 + rng() * 0.4));
-  const roll = rng();
-  const status: CompanyStatus =
-    roll > 0.86 ? "archived" : roll > 0.66 ? "review" : "active";
-  return {
-    id: c.id,
-    name: c.name,
-    bin: companyBin(c.id),
-    checksSigned,
-    checksTotal,
-    tasks: Math.round(60 * k * (0.5 + rng())),
-    hotline: Math.round(30 * k * (0.4 + rng())),
-    conflictFound: rng() < 0.3,
-    status,
-  };
-}
-
-/** Companies (Users) table rows for the current scope. */
-export function buildCompanies(companyId: string, period: Period): CompanyRow[] {
-  const list = COMPANIES.filter((c) => c.id !== "all");
-  const scoped = companyId === "all" ? list : list.filter((c) => c.id === companyId);
-  return scoped.map((c) => buildCompanyRow(c, period));
-}
-
 export function buildStatistics(companyId: string, period: Period): StatisticsData {
   const rng = seeded(hash(companyId) * 7 + hash(period) * 13);
   const k = PERIOD_SCALE[period] ?? 1;
