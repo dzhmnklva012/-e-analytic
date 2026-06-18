@@ -161,12 +161,21 @@ function CaseFlowSection({
       {data.total === 0 ? (
         <EmptyState compact description="Обращений за выбранный период нет." />
       ) : (
-        <StatRowList>
-          <StatRow label={totalLabel} value={data.total} tone="default" drillIn />
-          <StatRow label="Новые" value={data.new} tone="info" drillIn />
-          <StatRow label="В работе" value={data.inProgress} tone="warning" drillIn />
-          <StatRow label="Завершённые" value={data.completed} tone="success" drillIn />
-        </StatRowList>
+        <div className="space-y-4">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {totalLabel}
+            </p>
+            <p className="text-2xl font-semibold leading-none tabular-nums text-foreground">
+              {formatNumber(data.total)}
+            </p>
+          </div>
+          <StatRowList>
+            <StatRow label="Новые" value={data.new} tone="info" />
+            <StatRow label="В работе" value={data.inProgress} tone="warning" />
+            <StatRow label="Завершённые" value={data.completed} tone="success" />
+          </StatRowList>
+        </div>
       )}
     </SectionCard>
   );
