@@ -89,7 +89,24 @@ export function MetricTile({
         <p className="mt-2 text-[28px] font-semibold leading-none tabular-nums text-foreground">
           {formatNumber(value)}
         </p>
-        {hint && <p className="mt-2 text-xs text-muted-foreground">{hint}</p>}
+        {hasDelta && (
+          <p className="mt-2 flex items-center gap-1.5 text-xs">
+            <span
+              className={cn(
+                "inline-flex items-center gap-0.5 font-medium tabular-nums",
+                good ? "text-success" : "text-danger",
+              )}
+            >
+              <TrendIcon className="size-3.5" aria-hidden />
+              {up ? "+" : "−"}
+              {Math.abs(delta as number)}%
+            </span>
+            <span className="text-muted-foreground">за период</span>
+          </p>
+        )}
+        {!hasDelta && hint && (
+          <p className="mt-2 text-xs text-muted-foreground">{hint}</p>
+        )}
       </div>
       {Icon && (
         <span
