@@ -1,0 +1,50 @@
+import { RadialGauge } from "../charts/radial-gauge";
+import { LegendItem } from "../ui/legend-item";
+import { SectionCard } from "../ui/section-card";
+import { TogglePills } from "../ui/toggle-pills";
+import { companyFiles } from "@/lib/data";
+
+export function CompanyFilesCard() {
+  const { badge, total, withRisks, withoutRisks } = companyFiles;
+  return (
+    <SectionCard title="Досье компании" badge={badge}>
+      <div className="mb-4">
+        <TogglePills options={["Проверки", "Заключения"]} defaultIndex={1} />
+      </div>
+      <div className="flex flex-1 items-center justify-between gap-4">
+        <RadialGauge
+          rings={[
+            {
+              name: withoutRisks.label,
+              value: withoutRisks.ring,
+              fill: "var(--color-chart-blue)",
+            },
+            {
+              name: withRisks.label,
+              value: withRisks.ring,
+              fill: "var(--color-chart-red)",
+            },
+          ]}
+        />
+        <div className="flex flex-col gap-5 pr-2">
+          <div>
+            <div className="text-sm text-ink-secondary">Всего</div>
+            <div className="text-3xl font-bold text-ink">{total}</div>
+          </div>
+          <ul className="flex flex-col gap-3">
+            <LegendItem
+              color="var(--color-chart-red)"
+              label={withRisks.label}
+              value={withRisks.count}
+            />
+            <LegendItem
+              color="var(--color-chart-blue)"
+              label={withoutRisks.label}
+              value={withoutRisks.count}
+            />
+          </ul>
+        </div>
+      </div>
+    </SectionCard>
+  );
+}
