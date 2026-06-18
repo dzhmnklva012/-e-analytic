@@ -33,9 +33,13 @@ export default function RootLayout({
       lang="ru"
       className={`${openSans.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <TooltipProvider delay={200}>{children}</TooltipProvider>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <ThemeProvider>
+          <TooltipProvider delay={200}>{children}</TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
