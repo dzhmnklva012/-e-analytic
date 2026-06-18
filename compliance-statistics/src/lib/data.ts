@@ -76,10 +76,10 @@ export const tasks = {
     { label: "Законченные", value: 19 },
   ],
   segments: [
-    { label: "Назначенные", percent: 14.5, color: "var(--color-chart-blue)" },
-    { label: "В работе", percent: 21.2, color: "var(--color-chart-red)" },
-    { label: "Тестирование", percent: 15.9, color: "var(--color-chart-orange)" },
-    { label: "Законченные", percent: 41.6, color: "var(--color-chart-green)" },
+    { label: "Назначенные", percent: 14.5, color: "var(--color-chart-1)" },
+    { label: "В работе", percent: 21.2, color: "var(--color-chart-2)" },
+    { label: "Тестирование", percent: 15.9, color: "var(--color-chart-3)" },
+    { label: "Законченные", percent: 41.6, color: "var(--color-chart-4)" },
   ],
 };
 
