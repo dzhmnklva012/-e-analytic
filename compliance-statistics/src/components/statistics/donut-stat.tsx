@@ -91,7 +91,7 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
         </PieChart>
       </ChartContainer>
 
-      <ul className="w-full space-y-2" aria-hidden>
+      <ul className="w-full min-w-0 space-y-2 @sm:flex-1" aria-hidden>
         {data.map((d) => (
           <li key={d.key} className="flex items-center gap-2.5 text-xs">
             <span
