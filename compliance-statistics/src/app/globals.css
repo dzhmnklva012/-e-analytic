@@ -1,53 +1,167 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-/* ADATA Compliance — design tokens (from Figma variables) */
-@theme {
-  /* surfaces */
-  --color-bg: #f4f5f6;
-  --color-card: #ffffff;
-  --color-line: #e5e5ef;
+@custom-variant dark (&:is(.dark *));
 
-  /* text */
-  --color-ink: #2c3e50;
-  --color-ink-secondary: #71757a;
-  --color-ink-muted: #9da3ac;
+/*
+  ADATA Compliance — Tailwind color library.
+  ADATA's Figma palette is mapped onto shadcn's semantic CSS variables so the
+  whole UI (and every shadcn component) is driven by one token set.
+*/
+:root {
+  --radius: 1rem; /* 16px base; explicit 4px-grid scale defined in @theme inline */
 
-  /* brand */
-  --color-blue: #0070eb;
-  --color-lightblue: #e0efff;
-  --color-yellow: #fbc920;
+  --background: #f4f5f6; /* page */
+  --foreground: #2c3e50; /* main text */
+  --card: #ffffff;
+  --card-foreground: #2c3e50;
+  --popover: #ffffff;
+  --popover-foreground: #2c3e50;
 
-  /* data-viz */
-  --color-chart-blue: #0070eb;
-  --color-chart-red: #e74135;
-  --color-chart-orange: #ff9900;
-  --color-chart-green: #4caf50;
-  --color-chart-yellow: #fbc920;
+  --primary: #0070eb; /* ADATA blue */
+  --primary-foreground: #ffffff;
+  --secondary: #e0efff; /* light-blue (selected/active) */
+  --secondary-foreground: #0070eb;
+  --muted: #f4f5f6;
+  --muted-foreground: #71757a; /* secondary text */
+  --accent: #e0efff; /* hover */
+  --accent-foreground: #0070eb;
+  --destructive: #e74135;
 
-  /* typography */
-  --font-sans: var(--font-open-sans), "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --border: #e5e5ef;
+  --input: #e5e5ef;
+  --ring: #0070eb;
 
-  /* radii used across cards/controls */
-  --radius-card: 16px;
+  /* data-viz ramp */
+  --chart-1: #0070eb; /* blue */
+  --chart-2: #e74135; /* red */
+  --chart-3: #ff9900; /* orange */
+  --chart-4: #4caf50; /* green */
+  --chart-5: #fbc920; /* yellow */
+
+  /* sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2c3e50;
+  --sidebar-primary: #0070eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e0efff;
+  --sidebar-accent-foreground: #0070eb;
+  --sidebar-border: #e5e5ef;
+  --sidebar-ring: #0070eb;
 }
 
-html,
-body {
-  height: 100%;
+.dark {
+  /* Dark mode is not finalized yet (desktop light theme first). Sensible defaults. */
+  --background: #1b1f24;
+  --foreground: #e8eaed;
+  --card: #232830;
+  --card-foreground: #e8eaed;
+  --popover: #232830;
+  --popover-foreground: #e8eaed;
+  --primary: #3b92f5;
+  --primary-foreground: #ffffff;
+  --secondary: #1e2a3a;
+  --secondary-foreground: #8ec2ff;
+  --muted: #232830;
+  --muted-foreground: #9aa0a8;
+  --accent: #1e2a3a;
+  --accent-foreground: #8ec2ff;
+  --destructive: #e74135;
+  --border: #313742;
+  --input: #313742;
+  --ring: #3b92f5;
+  --chart-1: #3b92f5;
+  --chart-2: #e74135;
+  --chart-3: #ff9900;
+  --chart-4: #4caf50;
+  --chart-5: #fbc920;
+  --sidebar: #232830;
+  --sidebar-foreground: #e8eaed;
+  --sidebar-primary: #3b92f5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e2a3a;
+  --sidebar-accent-foreground: #8ec2ff;
+  --sidebar-border: #313742;
+  --sidebar-ring: #3b92f5;
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme inline {
+  /* fonts */
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  /* shadcn semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* data-viz aliases (readable names used by charts) */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-blue: var(--chart-1);
+  --color-chart-red: var(--chart-2);
+  --color-chart-orange: var(--chart-3);
+  --color-chart-green: var(--chart-4);
+  --color-chart-yellow: var(--chart-5);
+
+  /* a lighter muted tone for icons / axis ticks (Figma #9da3ac) */
+  --color-faint: #9da3ac;
+
+  /* sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* radii — strict 4px grid */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
 }
 
-/* thin, unobtrusive scrollbars to match the clean light theme */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-ink-muted) transparent;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* thin, unobtrusive scrollbars for the clean light theme */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-faint) transparent;
+  }
 }
