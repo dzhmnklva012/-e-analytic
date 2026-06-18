@@ -69,12 +69,12 @@ export function TasksSection({ data }: { data: TasksStat }) {
 /* ─────────────────────── 2. Файлы компаний ─────────────────────── */
 
 export function CompanyFilesSection({ data }: { data: CompanyFilesStat }) {
-  const total = data.checks.total + data.conclusions.total + data.data.total;
+  const total = data.checks.total + data.conclusions.total;
   return (
     <SectionCard
       id="company-files"
       title="Файлы по компаниям"
-      description="Проверки, заключения и данные"
+      description="Проверки и заключения"
       icon={Building2}
     >
       {total === 0 ? (
@@ -84,16 +84,12 @@ export function CompanyFilesSection({ data }: { data: CompanyFilesStat }) {
           <TabsList className="w-full" aria-label="Категории файлов компаний">
             <TabsTrigger value="checks">Проверки</TabsTrigger>
             <TabsTrigger value="conclusions">Заключения</TabsTrigger>
-            <TabsTrigger value="data">Данные</TabsTrigger>
           </TabsList>
           <TabsContent value="checks" className="pt-4">
             <SignedSplitBar data={data.checks} label="Всего проверок" />
           </TabsContent>
           <TabsContent value="conclusions" className="pt-4">
             <SignedSplitBar data={data.conclusions} label="Всего заключений" />
-          </TabsContent>
-          <TabsContent value="data" className="pt-4">
-            <SignedSplitBar data={data.data} label="Всего файлов данных" />
           </TabsContent>
         </Tabs>
       )}
