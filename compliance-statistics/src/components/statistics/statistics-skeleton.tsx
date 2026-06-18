@@ -42,21 +42,32 @@ export function StatisticsSkeleton() {
           <MetricTileSkeleton key={i} />
         ))}
       </div>
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
-        <div className="space-y-4 xl:col-span-3">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        <div className="xl:col-span-2">
           <CardSkeleton chart />
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <CardSkeleton rows={5} />
-            <CardSkeleton rows={3} />
-            <CardSkeleton rows={3} />
-          </div>
         </div>
-        <div className="space-y-4">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <CardSkeleton key={i} rows={4} />
+        <CardSkeleton rows={4} />
+      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <CardSkeleton rows={5} />
+        <CardSkeleton rows={4} />
+        <CardSkeleton rows={4} />
+      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <CardSkeleton rows={3} />
+        <CardSkeleton rows={4} />
+      </div>
+      <Card className="gap-0 py-0">
+        <div className="flex items-center gap-3 px-5 py-4">
+          <Skeleton className="size-9 rounded-md" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+        <div className="space-y-3 border-t px-5 py-4">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-6 w-full" />
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
