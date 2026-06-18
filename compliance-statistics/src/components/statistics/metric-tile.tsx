@@ -45,6 +45,12 @@ export interface MetricTileProps {
   deltaGoodWhenUp?: boolean;
   /** Show a colored status dot before the label. */
   showDot?: boolean;
+  /**
+   * "card" (default) is a standalone white tile with ring + shadow.
+   * "subtle" drops the ring/shadow and sits on a muted surface, for nesting
+   * inside a SectionCard (e.g. the Подарки grid).
+   */
+  variant?: "card" | "subtle";
   className?: string;
 }
 
