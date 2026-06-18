@@ -87,12 +87,12 @@ export function OverviewStrip({ data, companiesCount }: OverviewStripProps) {
     data.tasks.other;
 
   const metrics: Metric[] = [
-    { key: "companies", label: "Компании", value: companiesCount, icon: Building2, hint: "в системе" },
-    { key: "tasks", label: "Задачи", value: tasksTotal, icon: ListChecks, delta: data.trends.tasks },
-    { key: "hotline", label: "Обращения", value: data.hotline.total, icon: PhoneCall, delta: data.trends.hotline },
-    { key: "investigations", label: "Расследования", value: data.investigations.total, icon: Gavel, delta: data.trends.investigations },
+    { id: "companies", label: "Компании", value: companiesCount, icon: Building2, hint: "в системе" },
+    { id: "tasks", label: "Задачи", value: tasksTotal, icon: ListChecks, delta: data.trends.tasks },
+    { id: "hotline", label: "Обращения", value: data.hotline.total, icon: PhoneCall, delta: data.trends.hotline },
+    { id: "investigations", label: "Расследования", value: data.investigations.total, icon: Gavel, delta: data.trends.investigations },
     {
-      key: "conflict",
+      id: "conflict",
       label: "Конфликты выявлены",
       value: data.conflict.found,
       icon: Scale,
