@@ -69,21 +69,6 @@ export interface Trends {
   conflict: number;
 }
 
-export type CompanyStatus = "active" | "review" | "archived";
-
-/** One row of the Companies (Users) table. */
-export interface CompanyRow {
-  id: string;
-  name: string;
-  bin: string;
-  checksSigned: number;
-  checksTotal: number;
-  tasks: number;
-  hotline: number;
-  conflictFound: boolean;
-  status: CompanyStatus;
-}
-
 /** Full statistics payload returned for a given period + company scope. */
 export interface StatisticsData {
   tasks: TasksStat;
