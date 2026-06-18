@@ -121,7 +121,7 @@ export function EmployeeFilesSection({ data }: { data: EmployeeFilesStat }) {
             <TabsTrigger value="conclusions">Заключения</TabsTrigger>
           </TabsList>
           <TabsContent value="months" className="pt-4">
-            <MonthlyBar data={data.byMonth} />
+            <AreaTrend data={data.byMonth} />
           </TabsContent>
           <TabsContent value="inspections" className="pt-4">
             <div className="max-w-md">
