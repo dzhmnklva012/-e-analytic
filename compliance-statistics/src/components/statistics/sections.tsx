@@ -222,11 +222,14 @@ export function ConflictSection({ data }: { data: ConflictStat }) {
       {data.total === 0 ? (
         <EmptyState compact description="Проверок на конфликт интересов нет." />
       ) : (
-        <ProportionBar
-          totalLabel="Всего проверок"
-          data={[
-            { key: "notFound", label: "Конфликт не выявлен", value: data.notFound, tone: "success" },
-            { key: "found", label: "Конфликт выявлен", value: data.found, tone: "danger" },
+        <RadialGauge
+          value={data.notFound}
+          total={data.total}
+          centerCaption="не выявлен"
+          tone="success"
+          legend={[
+            { label: "Конфликт не выявлен", value: data.notFound, tone: "success" },
+            { label: "Конфликт выявлен", value: data.found, tone: "danger" },
           ]}
         />
       )}
