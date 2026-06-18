@@ -103,12 +103,12 @@ export function DonutStat({ data, centerLabel, className }: DonutStatProps) {
 
       <ul className="w-full min-w-0 space-y-2" aria-hidden>
         {data.map((d) => (
-          <li key={d.key} className="flex items-center gap-3 text-xs">
+          <li key={d.key} className="flex items-center gap-2.5 text-xs">
             <span
               className="size-2.5 shrink-0 rounded-full"
               style={{ backgroundColor: TONE_COLOR[d.tone] }}
             />
-            <span className="min-w-0 flex-1 truncate text-muted-foreground">
+            <span className="min-w-0 flex-1 text-muted-foreground">
               {d.label}
             </span>
             <span className="shrink-0 font-semibold tabular-nums text-foreground">
