@@ -63,6 +63,25 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
     }
   }, [autoGenerate, generate]);
 
+  const removeMessage = useCallback((id: string) => {
+    setMessages((prev) => prev.filter((m) => m.id !== id));
+  }, []);
+
+  // Re-answer: replace an assistant text reply using the preceding user question.
+  const regenerateAnswer = useCallback(
+    (id: string) => {
+      setMessages((prev) => {
+        const idx = prev.findIndex((m) => m.id === id);
+        if (idx <= 0) return prev;
+        const question = prev[idx - 1]?.text ?? "";
+        const next = [...prev];
+        next[idx] = { ...next[idx], text: answerQuestion(question) };
+        return next;
+      });
+    },
+    [],
+  );
+
   const send = useCallback(
     (raw: string) => {
       const text = raw.trim();
