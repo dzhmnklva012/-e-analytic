@@ -49,4 +49,20 @@ function Button({
   )
 }
 
-export { Button, buttonVariants }
+/** Anchor styled as a button — use for links so semantics stay correct. */
+function ButtonLink({
+  className,
+  variant = "default",
+  size = "default",
+  ...props
+}: React.ComponentProps<"a"> & VariantProps<typeof buttonVariants>) {
+  return (
+    <a
+      data-slot="button-link"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, ButtonLink, buttonVariants }
