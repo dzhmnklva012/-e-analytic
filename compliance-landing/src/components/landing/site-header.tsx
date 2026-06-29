@@ -70,21 +70,17 @@ function SiteHeader() {
           <div className="hidden sm:block">
             <LangSwitch />
           </div>
-          <Button
+          <ButtonLink
             variant="ghost"
             size="sm"
             className="hidden md:inline-flex"
-            render={<a href="#" />}
+            href="#"
           >
             Войти
-          </Button>
-          <Button
-            size="sm"
-            className="hidden md:inline-flex"
-            render={<a href="#contact" />}
-          >
+          </ButtonLink>
+          <ButtonLink size="sm" className="hidden md:inline-flex" href="#contact">
             Запросить демо
-          </Button>
+          </ButtonLink>
           <MobileNav />
         </div>
       </div>
