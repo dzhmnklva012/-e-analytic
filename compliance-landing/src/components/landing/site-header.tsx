@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "@/components/landing/logo";
 import { MobileNav } from "@/components/landing/mobile-nav";
 
