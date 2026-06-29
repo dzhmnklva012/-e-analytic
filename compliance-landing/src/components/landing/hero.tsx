@@ -17,7 +17,7 @@ export function Hero() {
         <div className="cloud absolute left-[60%] top-[18%] h-28 w-56 rounded-full opacity-60" />
       </div>
 
-      <Container className="relative z-10 flex flex-col items-center pt-16 pb-0 text-center sm:pt-20">
+      <Container className="relative z-10 flex flex-col items-center pt-28 pb-0 text-center sm:pt-32">
         <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/25 backdrop-blur-sm">
           <Sparkles className="size-3.5" aria-hidden="true" />
           ИИ-агент международного поиска
