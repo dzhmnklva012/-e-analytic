@@ -81,18 +81,17 @@ export function FeaturesDashboard() {
                 Этот год
               </span>
             </div>
-            <div className="mt-6 flex h-40 items-end gap-2">
+            <div className="mt-6 flex h-44 gap-2">
               {sales.map((h, i) => (
-                <div key={i} className="flex flex-1 flex-col items-center gap-2">
-                  <div className="relative flex w-full flex-1 items-end">
+                <div key={i} className="flex flex-1 flex-col items-center justify-end gap-2">
+                  <div className="relative w-full" style={{ height: `${h}%` }}>
                     {i === 6 && (
-                      <span className="absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-full rounded-md bg-foreground px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap text-background">
+                      <span className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full rounded-md bg-foreground px-2 py-0.5 text-[11px] font-semibold whitespace-nowrap text-background">
                         7 240
                       </span>
                     )}
                     <div
-                      className={i === 6 ? "w-full rounded-t-md bg-primary" : "w-full rounded-t-md bg-primary/15"}
-                      style={{ height: `${h}%` }}
+                      className={i === 6 ? "h-full w-full rounded-t-md bg-primary" : "h-full w-full rounded-t-md bg-primary/15"}
                     />
                   </div>
                   <span className="text-[11px] text-muted-foreground">{months[i]}</span>
