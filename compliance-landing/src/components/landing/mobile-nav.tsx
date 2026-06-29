@@ -46,6 +46,7 @@ export function MobileNav({ links, light = false }: { links: NavLink[]; light?: 
         aria-expanded={open}
         aria-haspopup="dialog"
         onClick={() => setOpen(true)}
+        className={cn(light && "border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white")}
       >
         <Menu className="size-5" aria-hidden="true" />
       </Button>
