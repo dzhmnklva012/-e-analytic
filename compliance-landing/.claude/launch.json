@@ -1,11 +1,12 @@
 {
-  "version": "0.0.1",
   "configurations": [
     {
-      "name": "landing",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "3400"],
-      "port": 3400
+      "name": "compliance-landing",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "powershell -ExecutionPolicy Bypass -Command \"$env:PATH = 'C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;' + $env:PATH; npm.cmd run dev -- -p 3400\"",
+      "cwd": "${workspaceFolder}/compliance-landing",
+      "url": "http://localhost:3400"
     }
   ]
 }
