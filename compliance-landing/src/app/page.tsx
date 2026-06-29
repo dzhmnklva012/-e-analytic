@@ -3,16 +3,17 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfflineBanner } from "@/components/landing/offline-banner";
 import { Hero } from "@/components/landing/hero";
-import { TrustStrip } from "@/components/landing/trust-strip";
-import { ScreeningDemo } from "@/components/landing/screening-demo";
+import { StatsTree } from "@/components/landing/stats-tree";
+import { HowSteps } from "@/components/landing/how-steps";
 import { ModuleCard } from "@/components/landing/module-card";
-import { StepItem } from "@/components/landing/step-item";
-import { FeatureCard } from "@/components/landing/feature-card";
+import { FeaturesDashboard } from "@/components/landing/features-dashboard";
+import { ScreeningDemo } from "@/components/landing/screening-demo";
+import { RadialTools } from "@/components/landing/radial-tools";
 import { PricingCard } from "@/components/landing/pricing-card";
 import { Faq } from "@/components/landing/faq";
 import { CtaBand } from "@/components/landing/cta-band";
 import { SiteFooter } from "@/components/landing/site-footer";
-import { modules, steps, benefits, plans } from "@/lib/data";
+import { modules, plans } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -30,7 +31,27 @@ export default function Home() {
       <main id="main">
         <Hero />
 
-        <TrustStrip />
+        <StatsTree />
+
+        <HowSteps />
+
+        {/* Modules */}
+        <Section id="modules" className="bg-card/50">
+          <div className="flex flex-col gap-12">
+            <SectionHeading
+              eyebrow="Продукты и решения"
+              title="11 модулей комплаенса в одной системе"
+              description="Глобальная проверка — флагман на базе ИИ-агента. Вокруг него — связанный набор модулей, превращающих сигналы в управляемые дела и решения."
+            />
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {modules.map((module) => (
+                <ModuleCard key={module.name} module={module} />
+              ))}
+            </div>
+          </div>
+        </Section>
+
+        <FeaturesDashboard />
 
         {/* Live demo */}
         <Section id="demo">
@@ -47,55 +68,7 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* Modules */}
-        <Section id="modules">
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow="Продукты и решения"
-              title="11 модулей комплаенса в одной системе"
-              description="Глобальная проверка — флагман на базе ИИ-агента. Вокруг него — связанный набор модулей, превращающих сигналы в управляемые дела и решения."
-            />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {modules.map((module) => (
-                <ModuleCard key={module.name} module={module} />
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* How it works */}
-        <Section id="how" className="bg-card/50">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-            <SectionHeading
-              align="left"
-              eyebrow="Как это работает"
-              title="От сигнала до закрытого дела"
-              description="Модули соединяются в единый рабочий процесс: обращение или флаг по контрагенту превращается в расследование, отчёт и аудиторский след."
-              className="lg:sticky lg:top-24 lg:self-start"
-            />
-            <ol className="flex flex-col">
-              {steps.map((step, i) => (
-                <StepItem key={step.title} step={step} index={i} />
-              ))}
-            </ol>
-          </div>
-        </Section>
-
-        {/* Benefits */}
-        <Section id="benefits">
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow="Польза для бизнеса"
-              title="Меньше риска, больше скорости и контроля"
-              description="Быстрые защищённые KYC/AML-решения, единый источник правды и полный аудиторский след."
-            />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {benefits.map((benefit) => (
-                <FeatureCard key={benefit.title} benefit={benefit} />
-              ))}
-            </div>
-          </div>
-        </Section>
+        <RadialTools />
 
         {/* Pricing */}
         <Section id="pricing" className="bg-card/50">
