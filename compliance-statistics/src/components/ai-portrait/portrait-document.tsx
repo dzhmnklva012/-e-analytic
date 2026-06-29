@@ -70,7 +70,7 @@ function Section({ section }: { section: PortraitSection }) {
 export function PortraitDocument({ sections }: { sections: PortraitSection[] }) {
   return (
     <div className="flex flex-col gap-6">
-      {sections.map((section, i) => (
+      {sections.map((section) => (
         <Section key={section.id} section={section} />
       ))}
     </div>
