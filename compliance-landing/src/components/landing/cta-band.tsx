@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 
 function CtaBand() {
   return (
