@@ -1,51 +1,42 @@
 "use client";
 
-import { useState } from "react";
-
-import { NAV_LINKS } from "@/lib/data";
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
-import { ButtonLink } from "@/components/ui/button";
-import { Logo } from "@/components/landing/logo";
-import { MobileNav } from "@/components/landing/mobile-nav";
+import { Logo } from "./logo";
+import { MobileNav } from "./mobile-nav";
 
-const LANGS = ["Рус", "Eng"] as const;
+export const navLinks = [
+  { href: "#modules", label: "Продукты и решения" },
+  { href: "#how", label: "Как это работает" },
+  { href: "#pricing", label: "Тарифы" },
+  { href: "#faq", label: "Вопросы" },
+];
 
-/** Non-functional language switch stub (Рус active). */
-function LangSwitch() {
-  const [lang, setLang] = useState<(typeof LANGS)[number]>("Рус");
+export function SiteHeader() {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div
-      className="inline-flex items-center rounded-lg bg-muted p-0.5"
-      role="group"
-      aria-label="Язык интерфейса"
+    <header
+      className={cn(
+        "sticky top-0 z-40 w-full border-b transition-colors",
+        scrolled
+          ? "border-border bg-card/85 backdrop-blur-md"
+          : "border-transparent bg-transparent",
+      )}
     >
-      {LANGS.map((value) => (
-        <button
-          key={value}
-          type="button"
-          aria-pressed={lang === value}
-          onClick={() => setLang(value)}
-          className={cn(
-            "rounded-md px-2.5 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
-            lang === value
-              ? "bg-card text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground",
-          )}
-        >
-          {value}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function SiteHeader() {
-  return (
-    <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <Container className="flex h-16 items-center justify-between gap-4">
         <a
           href="#top"
-          className="rounded-lg focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+          className="rounded-md focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
           aria-label="ADATA Compliance — на главную"
         >
           <Logo />
@@ -53,11 +44,11 @@ function SiteHeader() {
 
         <nav aria-label="Основная навигация" className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="rounded-lg px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+                  className="inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
                 >
                   {link.label}
                 </a>
@@ -67,25 +58,20 @@ function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <LangSwitch />
-          </div>
-          <ButtonLink
+          <Button
             variant="ghost"
-            size="sm"
-            className="hidden md:inline-flex"
-            href="#"
+            size="lg"
+            className="hidden sm:inline-flex"
+            render={<a href="#" />}
           >
             Войти
-          </ButtonLink>
-          <ButtonLink size="sm" className="hidden md:inline-flex" href="#contact">
-            Запросить демо
-          </ButtonLink>
-          <MobileNav />
+          </Button>
+          <Button size="lg" className="hidden sm:inline-flex" render={<a href="#pricing" />}>
+            Попробовать
+          </Button>
+          <MobileNav links={navLinks} />
         </div>
-      </div>
+      </Container>
     </header>
   );
 }
-
-export { SiteHeader };
