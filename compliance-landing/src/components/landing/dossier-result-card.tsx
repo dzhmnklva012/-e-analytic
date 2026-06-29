@@ -8,7 +8,7 @@ import {
 
 import type { ScreeningResult } from "@/lib/screening";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { RiskBadge } from "@/components/landing/risk-badge";
 
