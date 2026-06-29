@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import type { PricingTier } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 
 function PricingCard({
   name,
