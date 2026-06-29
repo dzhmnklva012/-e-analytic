@@ -96,6 +96,9 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
     [],
   );
 
+  // Demo: the first answer attempt simulates an AI failure; retry succeeds.
+  const answerShouldFail = useRef(true);
+
   const send = useCallback(
     (raw: string) => {
       const text = raw.trim();
@@ -108,19 +111,49 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
       setReplying(true);
 
       after(900, () => {
+        setReplying(false);
+        if (answerShouldFail.current) {
+          answerShouldFail.current = false;
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: nextId(),
+              role: "assistant",
+              kind: "error",
+              text: "Не удалось получить ответ от ИИ. Проверьте соединение и попробуйте снова.",
+              question: text,
+            },
+          ]);
+          return;
+        }
         setMessages((prev) => [
           ...prev,
-          {
-            id: nextId(),
-            role: "assistant",
-            kind: "text",
-            text: answerQuestion(text),
-          },
+          { id: nextId(), role: "assistant", kind: "text", text: answerQuestion(text) },
         ]);
-        setReplying(false);
       });
     },
     [after, nextId, replying, status],
+  );
+
+  // Retry a failed answer: drop the error bubble and re-run its question.
+  const retryAnswer = useCallback(
+    (id: string) => {
+      let question: string | undefined;
+      setMessages((prev) => {
+        question = prev.find((m) => m.id === id)?.question;
+        return prev.filter((m) => m.id !== id);
+      });
+      if (!question) return;
+      setReplying(true);
+      after(800, () => {
+        setReplying(false);
+        setMessages((prev) => [
+          ...prev,
+          { id: nextId(), role: "assistant", kind: "text", text: answerQuestion(question!) },
+        ]);
+      });
+    },
+    [after, nextId],
   );
 
   return {
@@ -132,5 +165,6 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
     send,
     removeMessage,
     regenerateAnswer,
+    retryAnswer,
   };
 }
