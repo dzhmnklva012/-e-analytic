@@ -28,6 +28,8 @@
   --accent: #ececfb; /* hover */
   --accent-foreground: #2d2bb5;
   --destructive: #e7484d;
+  --success: #2e9e6b; /* valid / "не состоит" / действующее */
+  --warning: #d98521; /* expired / истёкшее — needs attention */
 
   --border: #e7e9f4;
   --input: #e7e9f4;
