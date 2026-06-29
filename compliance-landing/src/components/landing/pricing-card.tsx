@@ -50,14 +50,14 @@ function PricingCard({
         ))}
       </ul>
 
-      <Button
+      <ButtonLink
         size="lg"
         variant={featured ? "default" : "outline"}
         className="w-full"
-        render={<a href="#contact" />}
+        href="#contact"
       >
         {cta}
-      </Button>
+      </ButtonLink>
     </div>
   );
 }
