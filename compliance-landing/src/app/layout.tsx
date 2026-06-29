@@ -4,7 +4,8 @@ import "./globals.css";
 
 const openSans = Open_Sans({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "600", "700", "800"],
+  style: ["normal", "italic"],
   variable: "--font-sans",
 });
 
