@@ -1,37 +1,105 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 /*
-  ADATA Compliance — Tailwind color library.
-  ADATA's Figma palette mapped onto semantic CSS variables; the whole landing
-  page (and every shadcn / Base UI component) is driven by one token set.
-  Light theme only. Strict 4px spacing/radius grid; body 14px Open Sans.
+  ADATA Compliance — Landing page Tailwind color library.
+  ADATA's Figma palette mapped onto shadcn's semantic CSS variables so the whole
+  page (and every shadcn component) is driven by one token set.
+  Authoritative Figma tokens: bg #f4f5f6, card #fff, line #e5e5ef, text #2c3e50,
+  secondary text #71757a, muted #9da3ac, light-blue #e0efff, primary #0070eb,
+  accent yellow #fbc920.
 */
 :root {
-  --radius: 16px;
+  --radius: 1rem; /* 16px base; explicit 4px-grid scale in @theme inline */
 
-  --background: #eef0f8; /* light lavender page */
-  --foreground: #2c3e50; /* dark slate text/headings */
+  --background: #f4f5f6; /* clean light page */
+  --foreground: #2c3e50; /* slate text/headings */
   --card: #ffffff;
   --card-foreground: #2c3e50;
   --popover: #ffffff;
   --popover-foreground: #2c3e50;
 
-  --primary: #068dff; /* ADATA blue — buttons / accent */
+  --primary: #0070eb; /* ADATA blue — buttons / accent */
   --primary-foreground: #ffffff;
-  --secondary: #e0efff; /* light blue (selected / active) */
-  --secondary-foreground: #068dff;
-  --muted: #f1f3fa; /* subtle fill (tiles, tracks) */
+  --secondary: #e0efff; /* light blue (selected/active/tint) */
+  --secondary-foreground: #0070eb;
+  --muted: #f1f3f6; /* subtle fill */
   --muted-foreground: #71757a; /* secondary gray text */
-  --accent: #e0efff; /* hover */
-  --accent-foreground: #068dff;
-  --destructive: #e7484d; /* high risk / errors */
+  --accent: #e0efff; /* hover tint */
+  --accent-foreground: #0070eb;
+  --destructive: #e74135;
   --success: #2e9e6b; /* low risk / valid */
   --warning: #d98521; /* medium risk / needs attention */
 
-  --border: #e3e5e8;
-  --input: #e3e5e8;
-  --ring: #068dff;
+  --border: #e5e5ef;
+  --input: #e5e5ef;
+  --ring: #0070eb;
+
+  /* accent yellow (badges / highlights) */
+  --accent-yellow: #fbc920;
+
+  /* risk ramp */
+  --risk-low: #2e9e6b;
+  --risk-medium: #d98521;
+  --risk-high: #e74135;
+
+  --chart-1: #0070eb;
+  --chart-2: #34d1c4;
+  --chart-3: #fbc920;
+  --chart-4: #7c7ae0;
+  --chart-5: #b9b8ee;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2c3e50;
+  --sidebar-primary: #0070eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e0efff;
+  --sidebar-accent-foreground: #0070eb;
+  --sidebar-border: #e5e5ef;
+  --sidebar-ring: #0070eb;
+}
+
+.dark {
+  --background: #0f141a;
+  --foreground: #e8eaed;
+  --card: #171d24;
+  --card-foreground: #e8eaed;
+  --popover: #171d24;
+  --popover-foreground: #e8eaed;
+  --primary: #3b92f5;
+  --primary-foreground: #ffffff;
+  --secondary: #16263a;
+  --secondary-foreground: #8ec2ff;
+  --muted: #1b222b;
+  --muted-foreground: #9aa0a8;
+  --accent: #16263a;
+  --accent-foreground: #8ec2ff;
+  --destructive: #e74135;
+  --success: #3fbd86;
+  --warning: #e0a04a;
+  --border: #262d36;
+  --input: #262d36;
+  --ring: #3b92f5;
+  --accent-yellow: #fbc920;
+  --risk-low: #3fbd86;
+  --risk-medium: #e0a04a;
+  --risk-high: #e74135;
+  --chart-1: #3b92f5;
+  --chart-2: #34d1c4;
+  --chart-3: #fbc920;
+  --chart-4: #7c7ae0;
+  --chart-5: #b9b8ee;
+  --sidebar: #171d24;
+  --sidebar-foreground: #e8eaed;
+  --sidebar-primary: #3b92f5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #16263a;
+  --sidebar-accent-foreground: #8ec2ff;
+  --sidebar-border: #262d36;
+  --sidebar-ring: #3b92f5;
 }
 
 @theme inline {
@@ -39,7 +107,7 @@
   --font-sans: var(--font-sans);
   --font-heading: var(--font-sans);
 
-  /* semantic colors */
+  /* shadcn semantic colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -61,8 +129,29 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* a lighter muted tone for icons / hairlines (Figma #9da3ac) */
+  --color-accent-yellow: var(--accent-yellow);
+  --color-risk-low: var(--risk-low);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-high: var(--risk-high);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* lighter muted tone for icons (Figma #9da3ac) */
   --color-faint: #9da3ac;
+
+  /* sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
   /* radii — strict 4px grid */
   --radius-sm: 8px;
@@ -71,7 +160,6 @@
   --radius-xl: 20px;
   --radius-2xl: 24px;
   --radius-3xl: 28px;
-  --radius-4xl: 32px;
 }
 
 @layer base {
@@ -89,9 +177,37 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* thin, unobtrusive scrollbars for the clean light theme */
+  /* respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  /* thin scrollbars for the clean light theme */
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-faint) transparent;
+  }
+}
+
+@layer utilities {
+  /* soft radial glow used behind the hero */
+  .bg-hero-glow {
+    background-image:
+      radial-gradient(60% 50% at 50% 0%, color-mix(in oklch, var(--primary) 14%, transparent) 0%, transparent 70%),
+      radial-gradient(40% 40% at 85% 10%, color-mix(in oklch, var(--accent-yellow) 12%, transparent) 0%, transparent 70%);
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklch, var(--border) 60%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklch, var(--border) 60%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 }
