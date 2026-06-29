@@ -25,8 +25,16 @@ type AiPortraitChatProps = {
 /** Self-contained "Портрет ИИ" panel: AI-generated dossier + follow-up chat. */
 export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
   const online = useOnlineStatus();
-  const { status, messages, replying, generate, send, removeMessage, regenerateAnswer } =
-    usePortraitChat({ portrait });
+  const {
+    status,
+    messages,
+    replying,
+    generate,
+    send,
+    removeMessage,
+    regenerateAnswer,
+    retryAnswer,
+  } = usePortraitChat({ portrait });
 
   const copy = (text: string) => navigator.clipboard?.writeText(text);
   const portraitText = `Портрет ИИ — ${portrait.subjectName}`;
