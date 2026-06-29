@@ -71,6 +71,15 @@ export function SiteFooter() {
           </p>
         </div>
       </Container>
+
+      {/* nature/hills band */}
+      <div className="relative mt-12 h-40 overflow-hidden sm:h-56">
+        <div className="bg-hills absolute inset-0 [clip-path:ellipse(140%_100%_at_50%_100%)]" aria-hidden="true" />
+        <div
+          className="bg-hills absolute inset-x-0 bottom-0 h-3/4 opacity-80 [clip-path:ellipse(120%_100%_at_30%_100%)]"
+          aria-hidden="true"
+        />
+      </div>
     </footer>
   );
 }
