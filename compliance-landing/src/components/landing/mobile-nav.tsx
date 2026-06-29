@@ -3,7 +3,8 @@
 import { Menu, X } from "lucide-react";
 
 import { NAV_LINKS } from "@/lib/data";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -18,14 +19,8 @@ function MobileNav() {
   return (
     <Dialog>
       <DialogTrigger
-        render={
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Открыть меню"
-            className="md:hidden"
-          />
-        }
+        aria-label="Открыть меню"
+        className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "md:hidden")}
       >
         <Menu className="size-5" aria-hidden />
       </DialogTrigger>
@@ -34,9 +29,8 @@ function MobileNav() {
         <div className="flex items-center justify-between">
           <Logo />
           <DialogClose
-            render={
-              <Button variant="ghost" size="icon" aria-label="Закрыть меню" />
-            }
+            aria-label="Закрыть меню"
+            className={buttonVariants({ variant: "ghost", size: "icon" })}
           >
             <X className="size-5" aria-hidden />
           </DialogClose>
@@ -60,12 +54,15 @@ function MobileNav() {
         </nav>
 
         <div className="mt-auto flex flex-col gap-3">
-          <ButtonLink variant="outline" size="lg" href="#">
+          <DialogClose
+            render={<a href="#" />}
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+          >
             Войти
-          </ButtonLink>
+          </DialogClose>
           <DialogClose
             render={<a href="#contact" />}
-            className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+            className={buttonVariants({ size: "lg" })}
           >
             Запросить демо
           </DialogClose>
