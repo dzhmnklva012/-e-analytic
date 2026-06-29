@@ -8,6 +8,7 @@ import { useOnlineStatus } from "@/hooks/use-online-status";
 import { suggestedQuestions, type Portrait } from "@/lib/portrait";
 import { ChatComposer } from "./chat-composer";
 import { ChatMessage } from "./chat-message";
+import { MessageActions } from "./message-actions";
 import { EmptyState } from "./empty-state";
 import { OfflineBanner } from "./offline-banner";
 import { PortraitDocument } from "./portrait-document";
