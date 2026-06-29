@@ -6,11 +6,11 @@ import { ChecksCard, AccuracyCard } from "./hero-dashboard-cards";
 
 export function Hero() {
   return (
-    <section id="top" className="relative">
-      {/* sky background */}
-      <div className="absolute inset-x-0 top-0 h-[680px] bg-sky" aria-hidden="true" />
+    <section id="top" className="relative -mt-16">
+      {/* sky background (extends behind the sticky header) */}
+      <div className="absolute inset-x-0 top-0 h-[744px] bg-sky" aria-hidden="true" />
       {/* drifting clouds */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[680px] overflow-hidden" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[744px] overflow-hidden" aria-hidden="true">
         <div className="cloud animate-drift absolute left-[8%] top-[38%] h-40 w-72 rounded-full opacity-80" />
         <div className="cloud animate-drift absolute right-[6%] top-[30%] h-48 w-96 rounded-full opacity-70" style={{ animationDelay: "3s" }} />
         <div className="cloud animate-drift absolute left-[34%] top-[52%] h-56 w-[32rem] rounded-full opacity-90" style={{ animationDelay: "6s" }} />
