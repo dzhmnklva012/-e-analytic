@@ -14,22 +14,22 @@ function CtaBand() {
             контрагентах — без установки и обязательств.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
+            <ButtonLink
               size="lg"
               variant="secondary"
               className="bg-card text-primary hover:bg-card/90"
-              render={<a href="#contact" />}
+              href="#contact"
             >
               Запросить демо
-            </Button>
-            <Button
+            </ButtonLink>
+            <ButtonLink
               size="lg"
               variant="outline"
               className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-              render={<a href="#pricing" />}
+              href="#pricing"
             >
               Смотреть тарифы
-            </Button>
+            </ButtonLink>
           </div>
         </div>
       </Container>
