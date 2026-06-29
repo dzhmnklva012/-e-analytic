@@ -72,13 +72,13 @@ export function SiteFooter() {
         </div>
       </Container>
 
-      {/* nature/hills band */}
-      <div className="relative mt-12 h-40 overflow-hidden sm:h-56">
-        <div className="bg-hills absolute inset-0 [clip-path:ellipse(140%_100%_at_50%_100%)]" aria-hidden="true" />
+      {/* ambient glow band */}
+      <div className="relative mt-12 h-40 overflow-hidden sm:h-56" aria-hidden="true">
         <div
-          className="bg-hills absolute inset-x-0 bottom-0 h-3/4 opacity-80 [clip-path:ellipse(120%_100%_at_30%_100%)]"
-          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-full"
+          style={{ background: "radial-gradient(60% 120% at 50% 100%, color-mix(in oklch, var(--primary) 30%, transparent), transparent 70%)" }}
         />
+        <div className="bg-grid absolute inset-0 opacity-20 [mask-image:radial-gradient(60%_100%_at_50%_100%,black,transparent)]" />
       </div>
     </footer>
   );
