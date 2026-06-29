@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 
 /**
- * Tracks the browser's online/offline state.
- * Returns `true` until the component mounts (SSR-safe), then mirrors
- * `navigator.onLine` and listens for `online` / `offline` events.
+ * Tracks navigator.onLine and reacts to online/offline events.
+ * Starts `true` to avoid an SSR/hydration flash; corrected on mount.
  */
 export function useOnlineStatus(): boolean {
   const [online, setOnline] = useState(true);
