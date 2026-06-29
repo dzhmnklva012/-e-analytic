@@ -1,18 +1,32 @@
-import type { ModuleItem } from "@/lib/data";
+import { cn } from "@/lib/utils";
+import type { Module } from "@/lib/data";
 
-/** Compact module tile for the modules grid. */
-function ModuleCard({ icon: Icon, name, description }: ModuleItem) {
+export function ModuleCard({ module }: { module: Module }) {
+  const Icon = module.icon;
   return (
-    <div className="flex gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/40">
-      <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-        <Icon className="size-5" aria-hidden />
+    <div
+      className={cn(
+        "group relative flex flex-col gap-3 rounded-2xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-foreground/5",
+        module.flagship ? "border-primary/40 ring-1 ring-primary/20" : "border-border",
+      )}
+    >
+      {module.flagship && (
+        <span className="absolute top-5 right-5 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
+          ИИ-агент
+        </span>
+      )}
+      <span
+        className={cn(
+          "grid size-11 place-items-center rounded-xl transition-colors",
+          module.flagship
+            ? "bg-primary text-primary-foreground"
+            : "bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground",
+        )}
+      >
+        <Icon className="size-5" aria-hidden="true" />
       </span>
-      <div className="flex flex-col gap-1">
-        <h3 className="text-sm font-semibold text-foreground">{name}</h3>
-        <p className="text-xs leading-relaxed text-muted-foreground">{description}</p>
-      </div>
+      <h3 className="text-base font-bold text-foreground">{module.name}</h3>
+      <p className="text-sm text-pretty text-muted-foreground">{module.description}</p>
     </div>
   );
 }
-
-export { ModuleCard };
