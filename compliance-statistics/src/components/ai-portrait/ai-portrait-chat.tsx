@@ -59,7 +59,7 @@ export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
             variant="outline"
             size="sm"
             onClick={generate}
-            className="gap-1.5"
+            className="gap-2"
           >
             <RefreshCw className="size-3.5" />
             <span className="hidden sm:inline">Сгенерировать повторно</span>
