@@ -94,13 +94,13 @@
   --chart-4: #8f8df0;
   --chart-5: #b9b8ee;
   --sidebar: #101218;
-  --sidebar-foreground: #e8eaed;
-  --sidebar-primary: #3b92f5;
+  --sidebar-foreground: #f3f5f9;
+  --sidebar-primary: #3b86ff;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #16263a;
-  --sidebar-accent-foreground: #8ec2ff;
-  --sidebar-border: #262d36;
-  --sidebar-ring: #3b92f5;
+  --sidebar-accent: #131c2c;
+  --sidebar-accent-foreground: #9cc4ff;
+  --sidebar-border: #1e222c;
+  --sidebar-ring: #3b86ff;
 }
 
 @theme inline {
