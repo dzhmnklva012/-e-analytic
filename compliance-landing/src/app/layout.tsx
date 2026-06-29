@@ -11,7 +11,7 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "ADATA Compliance — ИИ-проверка контрагентов и санкционный скрининг",
   description:
-    "ADATA Compliance — платформа комплаенса и проверки контрагентов на базе ИИ. Введите название компании — проверим по международным базам и санкционным спискам, оценим риск и покажем досье.",
+    "ADATA Compliance — платформа AML/KYC due-diligence. Введите название компании, и ИИ-агент проверит её по международным базам и санкционным спискам, оценит уровень риска и покажет полное досье.",
 };
 
 export default function RootLayout({
@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${openSans.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html lang="ru" className={openSans.variable}>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }
