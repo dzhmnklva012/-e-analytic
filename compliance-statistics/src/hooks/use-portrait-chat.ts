@@ -8,13 +8,18 @@ export type ChatRole = "assistant" | "user";
 export type ChatMessage = {
   id: string;
   role: ChatRole;
-  /** "portrait" renders the structured dossier; "text" is a plain chat bubble. */
-  kind: "text" | "portrait";
+  /** "portrait" = structured dossier · "text" = chat bubble · "error" = failed reply. */
+  kind: "text" | "portrait" | "error";
   text?: string;
+  /** For "error" replies: the question to retry. */
+  question?: string;
 };
 
-/** empty → no portrait yet · generating → loading skeleton · ready → chat live. */
-export type GenStatus = "empty" | "generating" | "ready";
+/**
+ * empty → no portrait yet · generating → loading skeleton ·
+ * ready → chat live · error → portrait generation failed (AI unavailable).
+ */
+export type GenStatus = "empty" | "generating" | "ready" | "error";
 
 type Options = {
   portrait: Portrait;
