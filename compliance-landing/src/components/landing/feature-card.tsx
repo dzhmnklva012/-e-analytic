@@ -1,19 +1,14 @@
-import type { Feature } from "@/lib/data";
-import { Card } from "@/components/ui/card";
+import type { Benefit } from "@/lib/data";
 
-/** Icon + title + description tile, used for benefits and audience grids. */
-function FeatureCard({ icon: Icon, title, description }: Feature) {
+export function FeatureCard({ benefit }: { benefit: Benefit }) {
+  const Icon = benefit.icon;
   return (
-    <Card className="gap-4 transition-shadow hover:shadow-sm">
-      <span className="inline-flex size-12 items-center justify-center rounded-xl bg-secondary text-primary">
-        <Icon className="size-6" aria-hidden />
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-6">
+      <span className="grid size-11 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+        <Icon className="size-5" aria-hidden="true" />
       </span>
-      <div className="flex flex-col gap-1.5">
-        <h3 className="text-base font-semibold text-foreground">{title}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
-      </div>
-    </Card>
+      <h3 className="text-base font-bold text-foreground">{benefit.title}</h3>
+      <p className="text-sm text-pretty text-muted-foreground">{benefit.description}</p>
+    </div>
   );
 }
-
-export { FeatureCard };
