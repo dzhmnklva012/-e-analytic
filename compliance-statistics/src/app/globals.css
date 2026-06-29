@@ -13,11 +13,11 @@
   --radius: 1rem; /* 16px base; explicit 4px-grid scale defined in @theme inline */
 
   --background: #eef0f8; /* light lavender page */
-  --foreground: #1b1a4e; /* dark navy text/headings */
+  --foreground: #2c3e50; /* dark navy text/headings */
   --card: #ffffff;
-  --card-foreground: #1b1a4e;
+  --card-foreground: #2c3e50;
   --popover: #ffffff;
-  --popover-foreground: #1b1a4e;
+  --popover-foreground: #2c3e50;
 
   --primary: #068dff; /* ADATA blue — buttons / accent */
   --primary-foreground: #ffffff;
@@ -44,7 +44,7 @@
 
   /* sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #1b1a4e;
+  --sidebar-foreground: #2c3e50;
   --sidebar-primary: #068dff;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #e0efff;
