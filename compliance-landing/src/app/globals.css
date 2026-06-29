@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  ADATA Compliance — Tailwind color library.
+  ADATA's Figma palette mapped onto semantic CSS variables; the whole landing
+  page (and every shadcn / Base UI component) is driven by one token set.
+  Light theme only. Strict 4px spacing/radius grid; body 14px Open Sans.
+*/
+:root {
+  --radius: 16px;
+
+  --background: #eef0f8; /* light lavender page */
+  --foreground: #2c3e50; /* dark slate text/headings */
+  --card: #ffffff;
+  --card-foreground: #2c3e50;
+  --popover: #ffffff;
+  --popover-foreground: #2c3e50;
+
+  --primary: #068dff; /* ADATA blue — buttons / accent */
+  --primary-foreground: #ffffff;
+  --secondary: #e0efff; /* light blue (selected / active) */
+  --secondary-foreground: #068dff;
+  --muted: #f1f3fa; /* subtle fill (tiles, tracks) */
+  --muted-foreground: #71757a; /* secondary gray text */
+  --accent: #e0efff; /* hover */
+  --accent-foreground: #068dff;
+  --destructive: #e7484d; /* high risk / errors */
+  --success: #2e9e6b; /* low risk / valid */
+  --warning: #d98521; /* medium risk / needs attention */
+
+  --border: #e3e5e8;
+  --input: #e3e5e8;
+  --ring: #068dff;
+}
+
+@theme inline {
+  /* fonts */
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  /* semantic colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* a lighter muted tone for icons / hairlines (Figma #9da3ac) */
+  --color-faint: #9da3ac;
+
+  /* radii — strict 4px grid */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-4xl: 32px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* thin, unobtrusive scrollbars for the clean light theme */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-faint) transparent;
+  }
+}
