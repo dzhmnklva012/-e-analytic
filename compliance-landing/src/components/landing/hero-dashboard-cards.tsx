@@ -64,7 +64,6 @@ function Donut({ value }: { value: number }) {
         fill="none"
         stroke="var(--primary)"
         strokeWidth="14"
-        strokelinecap="round"
         strokeDasharray={c}
         strokeDashoffset={offset}
         strokeLinecap="round"
