@@ -1,32 +1,23 @@
 import type { Step } from "@/lib/data";
 
-interface StepItemProps extends Step {
-  index: number;
-  /** Hide the connector line on the last item. */
-  last?: boolean;
-}
-
-/** Numbered step in the "How it works" vertical timeline. */
-function StepItem({ index, title, description, last }: StepItemProps) {
+export function StepItem({ step, index }: { step: Step; index: number }) {
+  const Icon = step.icon;
   return (
-    <li className="relative flex gap-4 pb-8 last:pb-0">
-      {!last && (
-        <span
-          aria-hidden
-          className="absolute left-5 top-12 h-[calc(100%-32px)] w-px bg-border"
-        />
-      )}
-      <span className="z-10 inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-        {index + 1}
-      </span>
-      <div className="flex flex-col gap-1 pt-1.5">
-        <h3 className="text-base font-semibold text-foreground">{title}</h3>
-        <p className="max-w-[640px] text-sm leading-relaxed text-muted-foreground">
-          {description}
-        </p>
+    <li className="relative flex gap-4">
+      {/* connector */}
+      <div className="flex flex-col items-center">
+        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+          <Icon className="size-5" aria-hidden="true" />
+        </span>
+        <span className="mt-2 w-px flex-1 bg-border last:hidden" aria-hidden="true" />
+      </div>
+      <div className="flex flex-col gap-1 pb-8">
+        <span className="text-xs font-bold tracking-wide text-primary uppercase">
+          Шаг {index + 1}
+        </span>
+        <h3 className="text-base font-bold text-foreground">{step.title}</h3>
+        <p className="max-w-md text-sm text-pretty text-muted-foreground">{step.description}</p>
       </div>
     </li>
   );
 }
-
-export { StepItem };
