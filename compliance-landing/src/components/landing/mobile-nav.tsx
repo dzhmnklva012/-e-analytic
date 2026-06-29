@@ -56,12 +56,14 @@ function MobileNav() {
 
         <div className="mt-auto flex flex-col gap-3">
           <DialogClose
+            nativeButton={false}
             render={<a href="#" />}
             className={buttonVariants({ variant: "outline", size: "lg" })}
           >
             Войти
           </DialogClose>
           <DialogClose
+            nativeButton={false}
             render={<a href="#contact" />}
             className={buttonVariants({ size: "lg" })}
           >
