@@ -31,8 +31,8 @@
   --success: #2e9e6b; /* valid / "не состоит" / действующее */
   --warning: #d98521; /* expired / истёкшее — needs attention */
 
-  --border: #e7e9f4;
-  --input: #e7e9f4;
+  --border: #e3e5e8;
+  --input: #e3e5e8;
   --ring: #068dff;
 
   /* data-viz ramp — indigo / teal / yellow (+ periwinkle for 4-way splits) */
