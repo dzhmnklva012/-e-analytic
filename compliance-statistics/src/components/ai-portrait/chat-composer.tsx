@@ -91,7 +91,6 @@ export function ChatComposer({ onSend, disabled, offline }: ChatComposerProps) {
           aria-label="Отправить вопрос"
           disabled={blocked || !value.trim() || tooLong}
           onClick={submit}
-          className="mb-0.5"
         >
           <SendHorizontal className="size-4" />
         </Button>
