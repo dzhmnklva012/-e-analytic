@@ -58,17 +58,18 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="lg"
-            className="hidden sm:inline-flex"
-            render={<a href="#" />}
+          <a
+            href="#"
+            className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "hidden sm:inline-flex")}
           >
             Войти
-          </Button>
-          <Button size="lg" className="hidden sm:inline-flex" render={<a href="#pricing" />}>
+          </a>
+          <a
+            href="#pricing"
+            className={cn(buttonVariants({ size: "lg" }), "hidden sm:inline-flex")}
+          >
             Попробовать
-          </Button>
+          </a>
           <MobileNav links={navLinks} />
         </div>
       </Container>
