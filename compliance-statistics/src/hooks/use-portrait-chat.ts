@@ -104,8 +104,8 @@ export function usePortraitChat({
     [],
   );
 
-  // Demo: the first answer attempt simulates an AI failure; retry succeeds.
-  const answerShouldFail = useRef(true);
+  // Demo: optionally force the first answer to fail; retry succeeds.
+  const answerShouldFail = useRef(simulateAnswerError);
 
   const send = useCallback(
     (raw: string) => {
