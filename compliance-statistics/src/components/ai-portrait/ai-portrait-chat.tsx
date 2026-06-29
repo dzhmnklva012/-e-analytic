@@ -107,7 +107,25 @@ export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
           ) : (
             <>
               {messages.map((m) =>
-                m.kind === "portrait" ? (
+                m.kind === "error" ? (
+                  <ChatMessage key={m.id} role="assistant">
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-start gap-2 text-foreground">
+                        <TriangleAlert className="mt-0.5 size-4 shrink-0 text-destructive" />
+                        <span>{m.text}</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => retryAnswer(m.id)}
+                        className="gap-1.5 self-start"
+                      >
+                        <RefreshCw className="size-3.5" />
+                        Повторить
+                      </Button>
+                    </div>
+                  </ChatMessage>
+                ) : m.kind === "portrait" ? (
                   <ChatMessage
                     key={m.id}
                     role="assistant"
