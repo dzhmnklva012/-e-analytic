@@ -29,8 +29,8 @@ export function FeaturesDashboard() {
           </p>
         </div>
 
-        {/* dashboard over nature band */}
-        <div className="rounded-3xl bg-nature p-4 sm:p-6">
+        {/* dashboard panel */}
+        <div className="rounded-3xl border border-border bg-card/40 p-4 backdrop-blur-sm sm:p-6">
           <div className="grid gap-4 lg:grid-cols-3">
             {/* activity */}
             <div className="rounded-2xl border border-border bg-card p-5 lg:col-span-2">
