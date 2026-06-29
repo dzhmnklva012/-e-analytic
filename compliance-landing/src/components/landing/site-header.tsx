@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
