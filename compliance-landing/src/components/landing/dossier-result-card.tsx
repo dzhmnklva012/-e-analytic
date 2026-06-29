@@ -1,141 +1,101 @@
-import {
-  Building2,
-  CalendarDays,
-  FileSearch,
-  Flag,
-  SearchX,
-} from "lucide-react";
+import { Check, AlertTriangle, Search, MapPin, FileText } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { Dossier, SourceHit } from "@/lib/screening";
+import { RiskBadge } from "./risk-badge";
 
-import type { ScreeningResult } from "@/lib/screening";
-import { Badge } from "@/components/ui/badge";
-import { ButtonLink } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { RiskBadge } from "@/components/landing/risk-badge";
+const statusIcon: Record<SourceHit["status"], typeof Check> = {
+  clear: Check,
+  match: AlertTriangle,
+  review: Search,
+};
 
-function MetaItem({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: typeof Building2;
-  label: string;
-  value: string;
-}) {
+const statusStyle: Record<SourceHit["status"], string> = {
+  clear: "text-risk-low bg-risk-low/10",
+  match: "text-risk-high bg-risk-high/10",
+  review: "text-risk-medium bg-risk-medium/10",
+};
+
+export function DossierResultCard({ dossier }: { dossier: Dossier }) {
   return (
-    <div className="flex items-start gap-2">
-      <Icon className="mt-0.5 size-4 shrink-0 text-faint" aria-hidden />
-      <div className="flex flex-col">
-        <span className="text-xs text-muted-foreground">{label}</span>
-        <span className="text-sm font-semibold text-foreground">{value}</span>
-      </div>
-    </div>
-  );
-}
-
-function DossierResultCard({ result }: { result: ScreeningResult }) {
-  if (!result.found) {
-    return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-8 text-center">
-        <span className="inline-flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
-          <SearchX className="size-6" aria-hidden />
-        </span>
-        <h3 className="text-base font-semibold text-foreground">
-          Совпадений не найдено
-        </h3>
-        <p className="max-w-[360px] text-sm text-muted-foreground">
-          По запросу «{result.company}» нет данных в международных и санкционных
-          списках. Уточните название или ИИН/БИН компании.
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-5 rounded-xl border border-border bg-card p-6 text-left">
-      {/* heading */}
-      <div className="flex items-start justify-between gap-4">
+    <div className="flex flex-col gap-5">
+      {/* header */}
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h3 className="text-base font-bold text-foreground">{result.company}</h3>
-          <p className="text-xs text-muted-foreground">
-            Риск-скоринг: {result.riskScore}/100
+          <h3 className="text-lg font-bold text-foreground">{dossier.company}</h3>
+          <p className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+            <MapPin className="size-3.5" aria-hidden="true" />
+            {dossier.country} · проверено {dossier.checkedAt}
           </p>
         </div>
-        <RiskBadge level={result.riskLevel} />
+        <RiskBadge level={dossier.riskLevel} />
       </div>
 
-      {/* meta grid */}
-      <div className="grid grid-cols-2 gap-4">
-        <MetaItem icon={Building2} label="Юрисдикция" value={result.jurisdiction} />
-        <MetaItem icon={CalendarDays} label="Год регистрации" value={result.registered} />
+      {/* score bar */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between text-xs">
+          <span className="font-medium text-muted-foreground">Оценка риска</span>
+          <span className="font-bold text-foreground">{dossier.riskScore}/100</span>
+        </div>
+        <div
+          className="h-2 w-full overflow-hidden rounded-full bg-muted"
+          role="progressbar"
+          aria-valuenow={dossier.riskScore}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Оценка риска"
+        >
+          <div
+            className={cn(
+              "h-full rounded-full transition-all",
+              dossier.riskLevel === "low" && "bg-risk-low",
+              dossier.riskLevel === "medium" && "bg-risk-medium",
+              dossier.riskLevel === "high" && "bg-risk-high",
+            )}
+            style={{ width: `${dossier.riskScore}%` }}
+          />
+        </div>
       </div>
 
-      {/* AI summary */}
-      <p className="text-sm leading-relaxed text-foreground">{result.summary}</p>
+      <p className="text-sm text-pretty text-foreground">{dossier.summary}</p>
 
       {/* flags */}
-      {result.flags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {result.flags.map((flag) => (
-            <Badge key={flag} variant="outline" className="gap-1">
-              <Flag className="size-3" aria-hidden />
-              {flag}
-            </Badge>
-          ))}
-        </div>
-      )}
-
-      {/* sanction hits */}
-      {result.sanctionHits.length > 0 && (
-        <div className="flex flex-col gap-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-faint">
-            Совпадения в списках
-          </h4>
-          <ul className="flex flex-col gap-2">
-            {result.sanctionHits.map((hit) => (
-              <li
-                key={`${hit.list}-${hit.matchedName}`}
-                className="flex flex-col gap-0.5 rounded-lg bg-destructive/8 px-3 py-2"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-sm font-semibold text-destructive">
-                    {hit.list}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{hit.date}</span>
-                </div>
-                <span className="text-xs text-muted-foreground">
-                  {hit.program} · {hit.matchedName}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <Separator />
-
-      {/* sources */}
-      <div className="flex flex-col gap-2">
-        <h4 className="text-xs font-semibold uppercase tracking-wide text-faint">
-          Проверено источников: {result.sourcesChecked.length}
-        </h4>
-        <div className="flex flex-wrap gap-1.5">
-          {result.sourcesChecked.map((source) => (
-            <span
-              key={source}
-              className="rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground"
-            >
-              {source}
-            </span>
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-2">
+        {dossier.flags.map((flag) => (
+          <span
+            key={flag}
+            className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
+          >
+            {flag}
+          </span>
+        ))}
       </div>
 
-      <ButtonLink variant="outline" size="default" className="self-start" href="#contact">
-        <FileSearch aria-hidden />
+      {/* sources */}
+      <ul className="flex flex-col gap-2">
+        {dossier.sources.map((hit) => {
+          const Icon = statusIcon[hit.status];
+          return (
+            <li
+              key={hit.source}
+              className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5"
+            >
+              <span className={cn("grid size-7 shrink-0 place-items-center rounded-md", statusStyle[hit.status])}>
+                <Icon className="size-4" aria-hidden="true" />
+              </span>
+              <span className="flex min-w-0 flex-col">
+                <span className="truncate text-sm font-medium text-foreground">{hit.source}</span>
+                <span className="truncate text-xs text-muted-foreground">{hit.detail}</span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      <a href="#pricing" className={cn(buttonVariants({ size: "lg" }), "w-full")}>
+        <FileText className="size-4" aria-hidden="true" />
         Открыть полное досье
-      </ButtonLink>
+      </a>
     </div>
   );
 }
-
-export { DossierResultCard };
