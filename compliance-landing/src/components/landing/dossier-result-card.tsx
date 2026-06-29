@@ -130,10 +130,10 @@ function DossierResultCard({ result }: { result: ScreeningResult }) {
         </div>
       </div>
 
-      <Button variant="outline" size="default" className="self-start" render={<a href="#contact" />}>
+      <ButtonLink variant="outline" size="default" className="self-start" href="#contact">
         <FileSearch aria-hidden />
         Открыть полное досье
-      </Button>
+      </ButtonLink>
     </div>
   );
 }
