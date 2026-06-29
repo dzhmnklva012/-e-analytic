@@ -109,5 +109,14 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
     [after, nextId, replying, status],
   );
 
-  return { status, messages, replying, portrait, generate, send };
+  return {
+    status,
+    messages,
+    replying,
+    portrait,
+    generate,
+    send,
+    removeMessage,
+    regenerateAnswer,
+  };
 }
