@@ -24,12 +24,6 @@
       "runtimeExecutable": "powershell",
       "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", "$env:PATH='C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;'+$env:PATH; Set-Location 'C:\\Users\\Avrora\\Desktop\\Adata\\compliance-statistics'; npm.cmd run dev -- -p 3300"],
       "port": 3300
-    },
-    {
-      "name": "compliance-landing",
-      "runtimeExecutable": "powershell",
-      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", "$env:PATH='C:\\Users\\Avrora\\AppData\\Local\\node-portable\\node-v24.16.0-win-x64;'+$env:PATH; Set-Location 'C:\\Users\\Avrora\\Desktop\\Adata\\compliance-landing'; npm.cmd run dev -- -p 3400"],
-      "port": 3400
     }
   ]
 }
