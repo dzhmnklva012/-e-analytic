@@ -1,7 +1,7 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { ScreeningDemo } from "@/components/landing/screening-demo";
 
 const HERO_POINTS = [
