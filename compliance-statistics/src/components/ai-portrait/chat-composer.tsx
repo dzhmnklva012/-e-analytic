@@ -62,9 +62,9 @@ export function ChatComposer({ onSend, disabled, offline }: ChatComposerProps) {
     undefined;
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <div
-        className={`flex items-end gap-2 rounded-2xl border bg-card px-2 py-1.5 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/30 ${
+        className={`flex items-end gap-2 rounded-2xl border bg-card px-2 py-2 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/30 ${
           error || tooLong ? "border-destructive" : "border-border"
         }`}
       >
