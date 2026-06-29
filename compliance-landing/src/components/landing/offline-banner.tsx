@@ -1,20 +1,24 @@
-import { WifiOff } from "lucide-react";
+"use client";
 
-/** Shown when the browser goes offline; the screening demo is disabled. */
-function OfflineBanner() {
+import { WifiOff } from "lucide-react";
+import { useOnlineStatus } from "@/lib/hooks/use-online-status";
+
+/**
+ * Slim banner that appears only when the browser goes offline.
+ * Announced politely to assistive tech via role="status".
+ */
+export function OfflineBanner() {
+  const online = useOnlineStatus();
+
+  if (online) return null;
+
   return (
     <div
       role="status"
-      aria-live="polite"
-      className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/10 px-4 py-3 text-sm text-foreground"
+      className="sticky top-16 z-30 flex items-center justify-center gap-2 bg-warning px-4 py-2 text-xs font-semibold text-white"
     >
-      <WifiOff className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
-      <span>
-        <span className="font-semibold">Нет подключения к интернету.</span>{" "}
-        Проверка недоступна офлайн — восстановите соединение, чтобы продолжить.
-      </span>
+      <WifiOff className="size-4" aria-hidden="true" />
+      Нет подключения к интернету — проверки недоступны. Подключитесь и повторите.
     </div>
   );
 }
-
-export { OfflineBanner };
