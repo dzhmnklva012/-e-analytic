@@ -43,6 +43,7 @@ function MobileNav() {
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <DialogClose
+                  nativeButton={false}
                   render={<a href={link.href} />}
                   className="flex rounded-lg px-3 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
                 >
