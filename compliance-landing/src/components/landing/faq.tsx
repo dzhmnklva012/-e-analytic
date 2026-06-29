@@ -1,24 +1,25 @@
-"use client";
+import { Accordion } from "@/components/ui/accordion";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { Section } from "@/components/ui/section";
+import { faqs } from "@/lib/data";
 
-import { FAQS } from "@/lib/data";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionPanel,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+export function Faq() {
+  const items = faqs.map((f, i) => ({
+    id: `faq-${i}`,
+    question: f.question,
+    answer: f.answer,
+  }));
 
-function Faq() {
   return (
-    <Accordion className="mx-auto max-w-[760px]" defaultValue={[0]}>
-      {FAQS.map((item, index) => (
-        <AccordionItem key={item.question} value={index}>
-          <AccordionTrigger>{item.question}</AccordionTrigger>
-          <AccordionPanel>{item.answer}</AccordionPanel>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <Section id="faq">
+      <div className="mx-auto flex max-w-3xl flex-col gap-10">
+        <SectionHeading
+          eyebrow="Вопросы и ответы"
+          title="Частые вопросы"
+          description="Если не нашли ответ — напишите нам, и мы поможем."
+        />
+        <Accordion items={items} />
+      </div>
+    </Section>
   );
 }
-
-export { Faq };
