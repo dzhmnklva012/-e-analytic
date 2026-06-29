@@ -57,9 +57,9 @@ export function usePortraitChat({
     timers.current.push(t);
   }, []);
 
-  // Demo: the first generation attempt simulates a transient AI-service failure;
-  // retrying succeeds. In production this maps to catching an API/network error.
-  const genShouldFail = useRef(true);
+  // Demo: optionally force the first generation to fail (transient AI-service
+  // error); retrying succeeds. In production this maps to catching an API error.
+  const genShouldFail = useRef(simulateGenError);
 
   const generate = useCallback(() => {
     setReplying(false);
