@@ -46,12 +46,12 @@ function Hero() {
           </ul>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" render={<a href="#contact" />}>
+            <ButtonLink size="lg" href="#contact">
               Запросить демо
-            </Button>
-            <Button size="lg" variant="outline" render={<a href="#how" />}>
+            </ButtonLink>
+            <ButtonLink size="lg" variant="outline" href="#how">
               Как это работает
-            </Button>
+            </ButtonLink>
           </div>
         </div>
 
