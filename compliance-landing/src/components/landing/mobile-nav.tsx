@@ -60,9 +60,9 @@ function MobileNav() {
         </nav>
 
         <div className="mt-auto flex flex-col gap-3">
-          <Button variant="outline" size="lg" render={<a href="#" />}>
+          <ButtonLink variant="outline" size="lg" href="#">
             Войти
-          </Button>
+          </ButtonLink>
           <DialogClose
             render={<a href="#contact" />}
             className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
