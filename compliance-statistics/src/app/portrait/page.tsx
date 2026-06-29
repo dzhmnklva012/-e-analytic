@@ -79,7 +79,13 @@ export default async function PortraitPage({
           </nav>
 
           <div className="flex min-h-0 min-w-0 flex-1 p-3 sm:p-4">
-            <AiPortraitChat portrait={employeePortrait} className="flex-1 ring-0" />
+            <AiPortraitChat
+              portrait={employeePortrait}
+              className="flex-1 ring-0"
+              autoGenerate
+              simulateGenError={error === "portrait"}
+              simulateAnswerError={error === "answer"}
+            />
           </div>
         </div>
       </div>
