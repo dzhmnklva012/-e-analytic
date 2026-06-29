@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { OfflineBanner } from "@/components/landing/offline-banner";
 import { Hero } from "@/components/landing/hero";
 import { TrustStrip } from "@/components/landing/trust-strip";
+import { ScreeningDemo } from "@/components/landing/screening-demo";
 import { ModuleCard } from "@/components/landing/module-card";
 import { StepItem } from "@/components/landing/step-item";
 import { FeatureCard } from "@/components/landing/feature-card";
