@@ -19,7 +19,13 @@ const dossierTabs = [
   "Принадлежность",
 ];
 
-export default function PortraitPage() {
+export default async function PortraitPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  // Optional demo triggers: /portrait?error=portrait | /portrait?error=answer
+  const { error } = await searchParams;
   return (
     <div className="flex h-screen flex-col bg-background p-3 sm:p-6">
       <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-foreground/10">
