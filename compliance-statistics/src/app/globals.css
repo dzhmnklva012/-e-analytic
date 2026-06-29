@@ -45,12 +45,12 @@
   /* sidebar */
   --sidebar: #ffffff;
   --sidebar-foreground: #1b1a4e;
-  --sidebar-primary: #2d2bb5;
+  --sidebar-primary: #068dff;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ececfb;
-  --sidebar-accent-foreground: #2d2bb5;
+  --sidebar-accent: #e0efff;
+  --sidebar-accent-foreground: #068dff;
   --sidebar-border: #e7e9f4;
-  --sidebar-ring: #2d2bb5;
+  --sidebar-ring: #068dff;
 }
 
 .dark {
