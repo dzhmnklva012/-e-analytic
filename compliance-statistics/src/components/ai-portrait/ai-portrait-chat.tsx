@@ -91,6 +91,8 @@ export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
           onGenerate={generate}
           disabled={!online}
         />
+      ) : status === "error" ? (
+        <ErrorState onRetry={generate} disabled={!online} />
       ) : (
         <div
           ref={scrollRef}
