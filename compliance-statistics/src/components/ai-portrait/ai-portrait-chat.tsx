@@ -1,6 +1,6 @@
 "use client";
 
-import { RefreshCw, Sparkles } from "lucide-react";
+import { RefreshCw, Sparkles, TriangleAlert } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { usePortraitChat } from "@/hooks/use-portrait-chat";
@@ -10,6 +10,7 @@ import { ChatComposer } from "./chat-composer";
 import { ChatMessage } from "./chat-message";
 import { MessageActions } from "./message-actions";
 import { EmptyState } from "./empty-state";
+import { ErrorState } from "./error-state";
 import { OfflineBanner } from "./offline-banner";
 import { PortraitDocument } from "./portrait-document";
 import { PortraitSkeleton } from "./portrait-skeleton";
