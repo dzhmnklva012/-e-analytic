@@ -96,11 +96,33 @@ export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
             <>
               {messages.map((m) =>
                 m.kind === "portrait" ? (
-                  <ChatMessage key={m.id} role="assistant" wide>
+                  <ChatMessage
+                    key={m.id}
+                    role="assistant"
+                    wide
+                    actions={
+                      <MessageActions
+                        onCopy={() => copy(portraitText)}
+                        onRegenerate={generate}
+                      />
+                    }
+                  >
                     <PortraitDocument sections={portrait.sections} />
                   </ChatMessage>
                 ) : (
-                  <ChatMessage key={m.id} role={m.role}>
+                  <ChatMessage
+                    key={m.id}
+                    role={m.role}
+                    actions={
+                      <MessageActions
+                        onCopy={() => copy(m.text ?? "")}
+                        onRegenerate={
+                          m.role === "assistant" ? () => regenerateAnswer(m.id) : undefined
+                        }
+                        onDelete={() => removeMessage(m.id)}
+                      />
+                    }
+                  >
                     {m.text}
                   </ChatMessage>
                 ),
