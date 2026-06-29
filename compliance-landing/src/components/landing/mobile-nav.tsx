@@ -8,7 +8,7 @@ import { Logo } from "./logo";
 
 type NavLink = { href: string; label: string };
 
-export function MobileNav({ links }: { links: NavLink[] }) {
+export function MobileNav({ links, light = false }: { links: NavLink[]; light?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const panelRef = React.useRef<HTMLDivElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
