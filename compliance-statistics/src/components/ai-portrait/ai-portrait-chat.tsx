@@ -20,10 +20,20 @@ import { TypingIndicator } from "./typing-indicator";
 type AiPortraitChatProps = {
   portrait: Portrait;
   className?: string;
+  /** Generate the portrait automatically on open (show the AI loader). */
+  autoGenerate?: boolean;
+  simulateGenError?: boolean;
+  simulateAnswerError?: boolean;
 };
 
 /** Self-contained "Портрет ИИ" panel: AI-generated dossier + follow-up chat. */
-export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
+export function AiPortraitChat({
+  portrait,
+  className,
+  autoGenerate = true,
+  simulateGenError = false,
+  simulateAnswerError = false,
+}: AiPortraitChatProps) {
   const online = useOnlineStatus();
   const {
     status,
@@ -34,7 +44,7 @@ export function AiPortraitChat({ portrait, className }: AiPortraitChatProps) {
     removeMessage,
     regenerateAnswer,
     retryAnswer,
-  } = usePortraitChat({ portrait });
+  } = usePortraitChat({ portrait, autoGenerate, simulateGenError, simulateAnswerError });
 
   const copy = (text: string) => navigator.clipboard?.writeText(text);
   const portraitText = `Портрет ИИ — ${portrait.subjectName}`;
