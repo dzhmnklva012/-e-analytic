@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 
 import { NAV_LINKS } from "@/lib/data";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
