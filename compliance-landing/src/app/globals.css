@@ -229,6 +229,35 @@
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
 
+  /* ── sky / cloud theme (Convue-style, ADATA blue) ───────────────── */
+  .bg-sky {
+    background:
+      radial-gradient(140% 90% at 50% -10%, #0a5fd0 0%, #1f7aee 30%, #6fb0f5 58%, #c5e0fb 82%, #f4f5f6 100%);
+  }
+  /* soft white cloud blob */
+  .cloud {
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 70%);
+    filter: blur(2px);
+  }
+  /* nature/hills band — teal→green (ADATA chart/success tokens) */
+  .bg-nature {
+    background: linear-gradient(180deg, #f4f5f6 0%, #d6f0e8 45%, #a7dcc8 100%);
+  }
+  .bg-hills {
+    background: linear-gradient(180deg, #cdeee2 0%, #8fd0bb 55%, #5fb89c 100%);
+  }
+  @keyframes drift {
+    from {
+      transform: translateX(-3%);
+    }
+    to {
+      transform: translateX(3%);
+    }
+  }
+  .animate-drift {
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+
   /* gentle float + pulse for the network nodes */
   @keyframes node-float {
     0%,
