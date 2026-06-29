@@ -19,14 +19,14 @@
   --popover: #ffffff;
   --popover-foreground: #1b1a4e;
 
-  --primary: #2d2bb5; /* WebSales indigo */
+  --primary: #068dff; /* ADATA blue — buttons / accent */
   --primary-foreground: #ffffff;
-  --secondary: #ececfb; /* light indigo (selected/active) */
-  --secondary-foreground: #2d2bb5;
+  --secondary: #e0efff; /* light blue (selected/active) */
+  --secondary-foreground: #068dff;
   --muted: #f1f3fa; /* subtle fill (tiles, toggle track) */
   --muted-foreground: #8a90a6; /* secondary gray text */
-  --accent: #ececfb; /* hover */
-  --accent-foreground: #2d2bb5;
+  --accent: #e0efff; /* hover */
+  --accent-foreground: #068dff;
   --destructive: #e7484d;
   --success: #2e9e6b; /* valid / "не состоит" / действующее */
   --warning: #d98521; /* expired / истёкшее — needs attention */
