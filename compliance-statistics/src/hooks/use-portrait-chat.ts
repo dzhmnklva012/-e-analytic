@@ -49,11 +49,20 @@ export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
     timers.current.push(t);
   }, []);
 
+  // Demo: the first generation attempt simulates a transient AI-service failure;
+  // retrying succeeds. In production this maps to catching an API/network error.
+  const genShouldFail = useRef(true);
+
   const generate = useCallback(() => {
     setReplying(false);
     setMessages([]);
     setStatus("generating");
     after(1400, () => {
+      if (genShouldFail.current) {
+        genShouldFail.current = false;
+        setStatus("error");
+        return;
+      }
       setMessages([{ id: nextId(), role: "assistant", kind: "portrait" }]);
       setStatus("ready");
     });
