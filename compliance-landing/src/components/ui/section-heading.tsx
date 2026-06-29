@@ -1,56 +1,43 @@
-import * as React from "react";
-
 import { cn } from "@/lib/utils";
 
-interface SectionHeadingProps {
-  /** Matches the parent Section id so aria-labelledby resolves. */
-  id: string;
+type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
   className?: string;
-}
+  /** Heading level for correct document outline. */
+  as?: "h1" | "h2" | "h3";
+};
 
-function SectionHeading({
-  id,
+export function SectionHeading({
   eyebrow,
   title,
   description,
   align = "center",
   className,
+  as: Tag = "h2",
 }: SectionHeadingProps) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-3",
-        align === "center" && "mx-auto max-w-[720px] text-center",
+        "flex flex-col gap-4",
+        align === "center" && "items-center text-center",
+        align === "center" && "mx-auto max-w-2xl",
         className,
       )}
     >
       {eyebrow && (
-        <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+        <span className="inline-flex w-fit items-center rounded-full bg-secondary px-3 py-1 text-xs font-semibold tracking-wide text-secondary-foreground uppercase">
           {eyebrow}
         </span>
       )}
-      <h2
-        id={`${id}-title`}
-        className="text-2xl font-bold leading-tight text-foreground sm:text-3xl"
-      >
+      <Tag className="text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
         {title}
-      </h2>
+      </Tag>
       {description && (
-        <p
-          className={cn(
-            "text-base text-muted-foreground",
-            align === "center" && "mx-auto max-w-[640px]",
-          )}
-        >
-          {description}
-        </p>
+        <p className="text-base text-pretty text-muted-foreground">{description}</p>
       )}
     </div>
   );
 }
-
-export { SectionHeading };
