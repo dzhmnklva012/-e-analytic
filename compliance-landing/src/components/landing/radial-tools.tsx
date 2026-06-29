@@ -42,7 +42,7 @@ export function RadialTools() {
           {/* glow + concentric rings */}
           <div
             className="absolute inset-0 rounded-full"
-            style={{ background: "radial-gradient(closest-side, #e0efff, transparent 75%)" }}
+            style={{ background: "radial-gradient(closest-side, color-mix(in oklch, var(--primary) 16%, transparent), transparent 75%)" }}
             aria-hidden="true"
           />
           {[100, 76, 52, 28].map((size) => (
