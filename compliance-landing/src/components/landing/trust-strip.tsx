@@ -1,61 +1,36 @@
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-
-import { CURRENCIES, TRUSTED_BY } from "@/lib/data";
 import { Container } from "@/components/ui/container";
+import { trustStats, clients } from "@/lib/data";
 
-function TrustStrip() {
+export function TrustStrip() {
   return (
-    <section aria-label="Нам доверяют" className="border-b border-border bg-card py-8">
-      <Container className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-col gap-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-faint">
-            Нам доверяют банки и финансовые институты
+    <section aria-label="Показатели и клиенты" className="border-y border-border bg-card/50">
+      <Container className="flex flex-col gap-10 py-12">
+        <dl className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+          {trustStats.map((stat) => (
+            <div key={stat.label} className="flex flex-col items-center gap-1 text-center">
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="text-3xl font-bold text-primary sm:text-4xl">{stat.value}</dd>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
+        </dl>
+
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            Нам доверяют комплаенс-команды банков
           </p>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {TRUSTED_BY.map((name) => (
+          <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            {clients.map((client) => (
               <li
-                key={name}
-                className="text-sm font-bold tracking-tight text-muted-foreground"
+                key={client}
+                className="text-base font-bold tracking-tight text-faint grayscale transition-colors hover:text-muted-foreground"
               >
-                {name}
+                {client}
               </li>
             ))}
           </ul>
         </div>
-
-        <ul className="flex flex-wrap items-center gap-3">
-          {CURRENCIES.map((currency) => {
-            const up = currency.change >= 0;
-            return (
-              <li
-                key={currency.code}
-                className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2"
-              >
-                <span className="text-xs font-semibold text-muted-foreground">
-                  {currency.code}
-                </span>
-                <span className="text-sm font-bold text-foreground">
-                  {currency.value}
-                </span>
-                <span
-                  className={up ? "flex items-center text-success" : "flex items-center text-destructive"}
-                >
-                  {up ? (
-                    <ArrowUpRight className="size-3.5" aria-hidden />
-                  ) : (
-                    <ArrowDownRight className="size-3.5" aria-hidden />
-                  )}
-                  <span className="text-xs font-semibold">
-                    {Math.abs(currency.change).toFixed(2)}%
-                  </span>
-                </span>
-              </li>
-            );
-          })}
-        </ul>
       </Container>
     </section>
   );
 }
-
-export { TrustStrip };
