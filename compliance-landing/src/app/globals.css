@@ -106,6 +106,7 @@
   /* fonts */
   --font-sans: var(--font-sans);
   --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
 
   /* shadcn semantic colors */
   --color-background: var(--background);
