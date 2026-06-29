@@ -23,11 +23,19 @@ export type GenStatus = "empty" | "generating" | "ready" | "error";
 
 type Options = {
   portrait: Portrait;
-  /** Skip the empty state and generate immediately on mount. */
+  /** Skip the empty state and generate immediately on mount (show the loader). */
   autoGenerate?: boolean;
+  /** Demo only: force the first generation / first answer to fail. */
+  simulateGenError?: boolean;
+  simulateAnswerError?: boolean;
 };
 
-export function usePortraitChat({ portrait, autoGenerate = false }: Options) {
+export function usePortraitChat({
+  portrait,
+  autoGenerate = false,
+  simulateGenError = false,
+  simulateAnswerError = false,
+}: Options) {
   const [status, setStatus] = useState<GenStatus>(
     autoGenerate ? "generating" : "empty",
   );
