@@ -32,7 +32,7 @@ export function StatsTree() {
 
       {/* tree */}
       <div className="mt-14 flex flex-col items-center">
-        <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#0070eb] to-[#5b8def] text-white shadow-lg shadow-primary/30">
+        <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#5b8def] text-white shadow-lg shadow-primary/30">
           <ShieldCheck className="size-6" aria-hidden="true" />
         </span>
 
