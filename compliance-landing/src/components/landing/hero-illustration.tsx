@@ -191,7 +191,6 @@ type Slide = { name: string; icon: LucideIcon; Card: React.ComponentType };
 const slides: Slide[] = [
   { name: "Глобальная проверка", icon: Globe2, Card: CheckCard },
   { name: "Расследования", icon: FileSearch, Card: InvestigationCard },
-  { name: "Статистика", icon: BarChart3, Card: StatsCard },
   { name: "Горячая линия", icon: PhoneCall, Card: HotlineCard },
   { name: "Санкции", icon: ShieldAlert, Card: SanctionsCard },
 ];
