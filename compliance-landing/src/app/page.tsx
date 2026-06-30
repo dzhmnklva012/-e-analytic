@@ -3,7 +3,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SiteHeader } from "@/components/landing/site-header";
 import { OfflineBanner } from "@/components/landing/offline-banner";
 import { Hero } from "@/components/landing/hero";
-import { StatsTree } from "@/components/landing/stats-tree";
 import { AgentSolves } from "@/components/landing/agent-solves";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
