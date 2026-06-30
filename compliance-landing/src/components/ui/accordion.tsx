@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,8 +20,8 @@ type AccordionProps = {
 
 /**
  * Accessible accordion: each header is a <button> with aria-expanded and
- * aria-controls; the panel is a region labelled by its header. Keyboard
- * support comes free from native buttons (Enter/Space toggle, Tab moves).
+ * aria-controls; the panel is a region labelled by its header. The open item
+ * gets a light-blue highlight and an × to close; closed items show a + to open.
  */
 export function Accordion({ items, multiple = false, className }: AccordionProps) {
   const [open, setOpen] = React.useState<Set<string>>(new Set());
@@ -47,8 +47,11 @@ export function Accordion({ items, multiple = false, className }: AccordionProps
         return (
           <div
             key={item.id}
-            className="overflow-hidden rounded-lg border border-border bg-card transition-colors data-[open=true]:border-primary/40"
             data-open={isOpen}
+            className={cn(
+              "rounded-2xl border shadow-sm transition-colors",
+              isOpen ? "border-primary/30 bg-secondary/50" : "border-border bg-card",
+            )}
           >
             <h3>
               <button
@@ -57,16 +60,14 @@ export function Accordion({ items, multiple = false, className }: AccordionProps
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => toggle(item.id)}
-                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-foreground transition-colors hover:bg-muted/60 focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+                className="flex w-full items-center justify-between gap-4 rounded-2xl px-6 py-5 text-left text-base font-bold text-foreground transition-colors focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
               >
                 <span>{item.question}</span>
-                <ChevronDown
-                  className={cn(
-                    "size-5 shrink-0 text-muted-foreground transition-transform duration-200",
-                    isOpen && "rotate-180 text-primary",
-                  )}
-                  aria-hidden="true"
-                />
+                {isOpen ? (
+                  <X className="size-5 shrink-0 text-primary" strokeWidth={2.5} aria-hidden="true" />
+                ) : (
+                  <Plus className="size-5 shrink-0 text-primary" strokeWidth={2.5} aria-hidden="true" />
+                )}
               </button>
             </h3>
             <div
@@ -74,7 +75,7 @@ export function Accordion({ items, multiple = false, className }: AccordionProps
               role="region"
               aria-labelledby={headerId}
               hidden={!isOpen}
-              className="px-5 pb-4 text-sm text-pretty text-muted-foreground"
+              className="px-6 pb-5 text-sm text-pretty text-muted-foreground"
             >
               {item.answer}
             </div>
