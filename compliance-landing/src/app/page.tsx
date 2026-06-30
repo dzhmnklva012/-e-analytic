@@ -32,7 +32,7 @@ export default function Home() {
 
         <StatsTree />
 
-        <HowSteps />
+        <AgentSolves />
 
         {/* Modules */}
         <Section id="modules" className="bg-card/50">
