@@ -11,6 +11,8 @@ import {
   Check,
   Users,
   Download,
+  ShieldCheck,
+  Clock,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/section";
