@@ -1,55 +1,89 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
-import { HeroBento } from "./hero-bento";
+import { HeroPanel } from "./hero-panel";
+
+const stats = [
+  { value: "12 480", label: "Всего проверок" },
+  { value: "9 310", label: "Без риска" },
+  { value: "1 240 ч", label: "Сэкономлено" },
+  { value: "42 сек", label: "Средний скрининг" },
+];
+
+const trust = ["14 дней бесплатно", "Без карты", "Поддержка 24/7"];
 
 export function Hero() {
   return (
-    <section id="top" className="relative -mt-16 overflow-hidden">
-      {/* gradient mesh + fine grid */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[820px] bg-mesh" aria-hidden="true" />
+    <section id="top" className="relative overflow-hidden">
+      {/* subtle top wash */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[820px] bg-grid opacity-[0.35] [mask-image:radial-gradient(70%_55%_at_50%_0%,black,transparent)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
+        style={{ background: "radial-gradient(60% 60% at 50% -10%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)" }}
         aria-hidden="true"
       />
 
-      <Container className="relative z-10 flex flex-col items-center pt-28 pb-16 text-center sm:pt-32 sm:pb-20">
-        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs font-semibold text-foreground backdrop-blur-sm">
-          <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-          ИИ-агент международного поиска
-          <span className="ml-1 size-2 rounded-full bg-success" aria-hidden="true" />
-        </span>
+      <Container className="relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
+        {/* copy */}
+        <div className="flex flex-col items-start gap-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
+            <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
+            ИИ-проверка контрагентов
+            <span className="ml-1 size-2 rounded-full bg-success" aria-hidden="true" />
+          </span>
 
-        <h1 className="mt-6 max-w-4xl text-balance text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-          <span className="text-gradient">Комплаенс</span>, который видит риск раньше всех
-        </h1>
+          <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            Проверка контрагентов{" "}
+            <span className="text-primary">в реальном времени</span>
+          </h1>
 
-        <p className="mt-6 max-w-2xl text-base text-pretty text-muted-foreground sm:text-lg">
-          Введите название компании — ИИ-агент проверит её по международным базам и санкционным
-          спискам, оценит риск и соберёт полное досье. Быстрее, точнее и предсказуемее ручной
-          проверки.
-        </p>
+          <p className="max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
+            Введите название компании — ИИ-агент проверит её по международным базам и санкционным
+            спискам, оценит уровень риска и соберёт полное досье. Быстрее, точнее и предсказуемее
+            ручной проверки.
+          </p>
 
-        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a href="#pricing" className={cn(buttonVariants({ size: "lg" }), "h-12 rounded-full px-6 text-sm")}>
-            Получить бесплатный ИИ-аудит
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </a>
-          <a
-            href="#how"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-12 rounded-full px-6 text-sm",
-            )}
-          >
-            Как это работает
-          </a>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a href="#pricing" className={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-6 text-sm")}>
+              Запросить демо
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <a
+              href="#how"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "h-11 rounded-full px-6 text-sm",
+              )}
+            >
+              Как это работает
+            </a>
+          </div>
+
+          {/* trust row */}
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {trust.map((item) => (
+              <li key={item} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Check className="size-4 text-success" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* stats */}
+          <dl className="mt-2 grid w-full max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-0.5">
+                <dt className="sr-only">{stat.label}</dt>
+                <dd className="text-2xl font-bold tracking-tight text-primary">{stat.value}</dd>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        {/* bento product grid */}
-        <div className="mt-14 w-full max-w-5xl text-left sm:mt-16">
-          <HeroBento />
+        {/* dashboard panel */}
+        <div className="w-full">
+          <HeroPanel />
         </div>
       </Container>
     </section>
