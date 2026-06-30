@@ -264,20 +264,24 @@ function RiskVisual() {
         </span>
       </MiniCard>
 
-      <MiniCard className="justify-center">
+      <MiniCard className="justify-between">
         <span className="grid size-9 place-items-center rounded-xl bg-success/10 text-success">
           <ShieldCheck className="size-5" />
         </span>
-        <span className="text-lg font-bold text-foreground">0 совпадений</span>
-        <span className="text-[11px] text-muted-foreground">Санкционные списки</span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xl font-bold text-foreground">0</span>
+          <span className="text-[11px] text-muted-foreground">Санкц. совпадений</span>
+        </div>
       </MiniCard>
 
-      <MiniCard className="justify-center">
+      <MiniCard className="justify-between">
         <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
           <Clock className="size-5" />
         </span>
-        <span className="text-lg font-bold text-foreground">2.4 сек</span>
-        <span className="text-[11px] text-muted-foreground">Время оценки</span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xl font-bold text-foreground">2.4 сек</span>
+          <span className="text-[11px] text-muted-foreground">Время оценки</span>
+        </div>
       </MiniCard>
     </div>
   );
