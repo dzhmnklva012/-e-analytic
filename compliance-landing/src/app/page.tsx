@@ -53,21 +53,6 @@ export default function Home() {
 
         <FeaturesDashboard />
 
-        {/* Live demo */}
-        <Section id="demo">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <SectionHeading
-              align="left"
-              eyebrow="Живая демонстрация"
-              title="Проверьте контрагента прямо сейчас"
-              description="Введите название компании, и ИИ-агент за секунды проверит её по международным базам и санкционным спискам, оценит риск и соберёт досье."
-            />
-            <div className="mx-auto w-full max-w-xl">
-              <ScreeningDemo />
-            </div>
-          </div>
-        </Section>
-
         <RadialTools />
 
         {/* Pricing */}
