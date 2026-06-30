@@ -141,6 +141,7 @@ function ScreeningVisual() {
   return (
     <div className={grid} aria-hidden="true">
       <MiniCard className="col-span-2">
+        <span className="text-xs font-bold text-foreground">Скрининг контрагента</span>
         <div className="flex items-center gap-2 rounded-full bg-muted px-3 py-2">
           <Search className="size-4 text-muted-foreground" />
           <span className="truncate text-xs font-medium text-foreground">ТОО «Альфа Логистик»</span>
