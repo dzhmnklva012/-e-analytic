@@ -55,7 +55,7 @@ export function RadialTools() {
           ))}
 
           {/* central engine */}
-          <div className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#5b8def] text-white shadow-2xl shadow-primary/40 ring-8 ring-background animate-soft-pulse">
+          <div className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#60a5fa] text-white shadow-2xl shadow-primary/40 ring-8 ring-background animate-soft-pulse">
             <BrainCircuit className="size-7" aria-hidden="true" />
           </div>
 
