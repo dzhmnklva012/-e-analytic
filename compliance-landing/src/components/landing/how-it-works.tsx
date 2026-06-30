@@ -238,16 +238,24 @@ function RiskVisual() {
         </div>
       </MiniCard>
 
-      <MiniCard className="row-span-2 justify-center gap-4">
+      <MiniCard className="row-span-2">
         <span className="text-[11px] font-semibold text-muted-foreground">Факторы риска</span>
-        {factors.map((f) => (
-          <div key={f.label} className="flex flex-col gap-1">
-            <span className="text-[11px] text-foreground">{f.label}</span>
-            <span className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-              <span className={cn("block h-full rounded-full", f.tone)} style={{ width: `${f.w}%` }} />
-            </span>
-          </div>
-        ))}
+        <div className="flex flex-1 flex-col justify-center gap-3.5">
+          {factors.map((f) => (
+            <div key={f.label} className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-foreground">{f.label}</span>
+                <span className="font-semibold text-muted-foreground">{f.w}%</span>
+              </div>
+              <span className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                <span className={cn("block h-full rounded-full", f.tone)} style={{ width: `${f.w}%` }} />
+              </span>
+            </div>
+          ))}
+        </div>
+        <span className="inline-flex items-center gap-1.5 border-t border-border pt-3 text-[11px] font-medium text-success">
+          <Check className="size-3.5" strokeWidth={3} /> Итог: низкий риск
+        </span>
       </MiniCard>
 
       <MiniCard className="justify-center">
