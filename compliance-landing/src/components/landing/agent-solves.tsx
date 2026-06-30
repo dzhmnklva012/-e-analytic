@@ -198,9 +198,11 @@ export function AgentSolves() {
   return (
     <section id="how" className="scroll-mt-20 py-16 sm:py-20 lg:py-24">
       <Container className="flex flex-col gap-10 lg:gap-12">
-        <h2 className="text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
-          Как ИИ-агент решает задачи
-        </h2>
+        <Reveal>
+          <h2 className="text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
+            Как ИИ-агент решает задачи
+          </h2>
+        </Reveal>
 
         <div className="flex flex-col gap-6 lg:gap-8">
           <FeatureRow
