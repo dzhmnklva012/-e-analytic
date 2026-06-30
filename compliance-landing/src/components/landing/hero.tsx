@@ -29,7 +29,7 @@ export function Hero() {
           </span>
 
           <h1 className="text-5xl font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-7xl">
-            Проверка контрагентов{" "}
+            Комплаенс{" "}
             <span className="bg-gradient-to-r from-primary to-[#60a5fa] bg-clip-text text-transparent">
               в один клик
             </span>
