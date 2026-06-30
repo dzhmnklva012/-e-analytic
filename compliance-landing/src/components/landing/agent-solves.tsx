@@ -204,7 +204,7 @@ export function AgentSolves() {
       <Container className="flex flex-col gap-10 lg:gap-12">
         <Reveal>
           <h2 className="text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
-            Возможности сервиса
+            Как ИИ-агент решает задачи
           </h2>
         </Reveal>
 
