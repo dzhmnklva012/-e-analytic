@@ -180,14 +180,16 @@ function ScreeningVisual() {
         <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
           <Globe2 className="size-5" />
         </span>
-        <span className="h-2 w-2/3 rounded-full bg-muted" />
-        <span className="h-2 w-1/2 rounded-full bg-muted/70" />
+        <span className="text-xs font-semibold text-foreground">Международные базы</span>
+        <span className="text-[11px] text-muted-foreground">OFAC · EU · UN · PEP</span>
       </MiniCard>
 
       <MiniCard className="justify-center">
-        <span className="h-2 w-1/2 rounded-full bg-muted" />
-        <span className="h-2 w-full rounded-full bg-muted" />
-        <span className="h-2 w-5/6 rounded-full bg-muted/70" />
+        <span className="text-xs font-semibold text-foreground">Полное досье</span>
+        <span className="text-[11px] text-muted-foreground">Реквизиты, связи и история</span>
+        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success">
+          <Check className="size-3.5" strokeWidth={3} /> Собрано за 2.4 сек
+        </span>
       </MiniCard>
     </div>
   );
