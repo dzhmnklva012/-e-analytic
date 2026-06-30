@@ -48,6 +48,8 @@ export default function Home() {
 
         <AgentSolves />
 
+        <HowItWorks />
+
         <FeaturesDashboard />
 
         <RadialTools />
