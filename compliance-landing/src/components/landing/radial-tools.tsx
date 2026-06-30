@@ -18,11 +18,11 @@ type Tool = { icon: LucideIcon; x: number; y: number; color: string };
 
 // 8 integrations evenly placed on the outer ring
 const tools: Tool[] = [
-  { icon: Database, x: 90, y: 50, color: "text-[#0070eb]" },
+  { icon: Database, x: 90, y: 50, color: "text-[#3b82f6]" },
   { icon: Mail, x: 78, y: 78, color: "text-[#7c7ae0]" },
   { icon: Globe2, x: 50, y: 90, color: "text-[#2e9e6b]" },
   { icon: FileText, x: 22, y: 78, color: "text-[#d98521]" },
-  { icon: Building2, x: 10, y: 50, color: "text-[#0070eb]" },
+  { icon: Building2, x: 10, y: 50, color: "text-[#3b82f6]" },
   { icon: CreditCard, x: 22, y: 22, color: "text-[#7c7ae0]" },
   { icon: Scale, x: 50, y: 10, color: "text-[#2e9e6b]" },
   { icon: Bell, x: 78, y: 22, color: "text-[#d98521]" },
@@ -55,7 +55,7 @@ export function RadialTools() {
           ))}
 
           {/* central engine */}
-          <div className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-[#0070eb] to-[#5b8def] text-white shadow-2xl shadow-primary/40 ring-8 ring-background animate-soft-pulse">
+          <div className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#5b8def] text-white shadow-2xl shadow-primary/40 ring-8 ring-background animate-soft-pulse">
             <BrainCircuit className="size-7" aria-hidden="true" />
           </div>
 
