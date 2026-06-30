@@ -93,7 +93,7 @@ export function AiNetwork() {
           <span className="absolute size-44 animate-soft-pulse rounded-full bg-primary/15 blur-xl" />
           <span className="absolute size-32 rounded-full border border-primary/20" />
           <span className="absolute size-24 rounded-full border border-primary/30" />
-          <span className="relative grid size-24 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#5b8def] text-white shadow-2xl shadow-primary/40 ring-8 ring-card">
+          <span className="relative grid size-24 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#60a5fa] text-white shadow-2xl shadow-primary/40 ring-8 ring-card">
             <BrainCircuit className="size-10" aria-hidden="true" strokeWidth={1.75} />
           </span>
         </div>
