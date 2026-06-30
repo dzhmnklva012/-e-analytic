@@ -8,6 +8,8 @@ type RevealProps = {
   className?: string;
   /** Stagger delay in ms applied as transition-delay. */
   delay?: number;
+  /** Entrance direction: rise up (default), slide from a side, or scale in. */
+  dir?: "up" | "left" | "right" | "scale";
 };
 
 /**
