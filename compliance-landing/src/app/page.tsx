@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { OfflineBanner } from "@/components/landing/offline-banner";
 import { Hero } from "@/components/landing/hero";
 import { StatsTree } from "@/components/landing/stats-tree";
-import { HowSteps } from "@/components/landing/how-steps";
+import { AgentSolves } from "@/components/landing/agent-solves";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
 import { RadialTools } from "@/components/landing/radial-tools";
