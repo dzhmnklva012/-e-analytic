@@ -158,19 +158,33 @@ function ScreeningVisual() {
         </ul>
       </MiniCard>
 
-      <MiniCard className="row-span-2 items-center justify-center">
+      <MiniCard className="row-span-2 items-center justify-between">
+        <span className="text-[11px] font-semibold text-muted-foreground">Источники</span>
         <Rings />
-        <span className="text-[11px] font-medium text-muted-foreground">30+ баз данных</span>
+        <div className="flex w-full flex-col gap-2">
+          {[
+            { l: "Санкции", c: "bg-success" },
+            { l: "PEP", c: "bg-warning" },
+            { l: "Медиа", c: "bg-success" },
+          ].map((r) => (
+            <div key={r.l} className="flex items-center gap-2">
+              <span className={cn("size-2 shrink-0 rounded-full", r.c)} />
+              <span className="flex-1 text-[11px] text-foreground">{r.l}</span>
+              <span className="h-1.5 w-9 rounded-full bg-muted" />
+            </div>
+          ))}
+        </div>
       </MiniCard>
 
-      <MiniCard>
+      <MiniCard className="justify-center">
         <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
           <Globe2 className="size-5" />
         </span>
         <span className="h-2 w-2/3 rounded-full bg-muted" />
+        <span className="h-2 w-1/2 rounded-full bg-muted/70" />
       </MiniCard>
 
-      <MiniCard>
+      <MiniCard className="justify-center">
         <span className="h-2 w-1/2 rounded-full bg-muted" />
         <span className="h-2 w-full rounded-full bg-muted" />
         <span className="h-2 w-5/6 rounded-full bg-muted/70" />
