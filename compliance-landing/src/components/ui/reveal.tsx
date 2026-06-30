@@ -18,7 +18,7 @@ type RevealProps = {
  * in CSS (`.reveal` / `.is-visible`) and disabled for reduced-motion users,
  * so this just toggles the class.
  */
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
+export function Reveal({ children, className, delay = 0, dir = "up" }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
 
