@@ -219,9 +219,9 @@ export function HeroIllustration() {
 
         {/* slide (re-mounts → entrance replays) */}
         <div key={active} className="relative" aria-hidden="true">
-          {/* AI agent badge */}
+          {/* module badge */}
           <div className="animate-hero-badge absolute -right-2 top-4 z-20 grid size-12 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#7c7ae0] text-white shadow-lg shadow-primary/30">
-            <Sparkles className="size-5" />
+            <ChipIcon className="size-5" />
           </div>
 
           <div className="relative z-10 px-5 pt-9 pb-10 sm:px-7">
