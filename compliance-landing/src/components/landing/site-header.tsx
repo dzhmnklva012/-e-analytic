@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { buttonVariants } from "@/components/ui/button";
+import { SlidersHorizontal, ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 
 export const navLinks = [
   { href: "#modules", label: "Продукты и решения" },
-  { href: "#how", label: "Как это работает" },
   { href: "#pricing", label: "Тарифы" },
-  { href: "#faq", label: "Вопросы" },
+  { href: "#cta", label: "Контакты" },
 ];
 
 export function SiteHeader() {
@@ -32,42 +32,60 @@ export function SiteHeader() {
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
-        <a
-          href="#top"
-          className="rounded-md focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
-          aria-label="ADATA Compliance — на главную"
-        >
-          <Logo />
-        </a>
-
-        <nav aria-label="Основная навигация" className="hidden lg:block">
-          <ul className="flex items-center gap-1 rounded-full bg-muted px-1.5 py-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-card hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="flex items-center gap-2">
+        {/* left: logo + nav */}
+        <div className="flex items-center gap-8">
           <a
-            href="#"
-            className="hidden h-9 items-center rounded-full px-4 text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none sm:inline-flex"
+            href="#top"
+            className="rounded-md focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+            aria-label="ADATA — на главную"
           >
-            Войти
+            <Logo />
           </a>
-          <a
-            href="#pricing"
-            className={cn(buttonVariants({ size: "lg" }), "hidden h-9 rounded-full px-5 sm:inline-flex")}
+
+          <nav aria-label="Основная навигация" className="hidden lg:block">
+            <ul className="flex items-center">
+              {navLinks.map((link, i) => (
+                <li key={link.href} className="flex items-center">
+                  {i > 0 && <span className="mx-1 h-4 w-px bg-border" aria-hidden="true" />}
+                  <a
+                    href={link.href}
+                    className="rounded-md px-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* right: controls */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+
+          <button
+            type="button"
+            aria-label="Настройки"
+            className="hidden size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none sm:grid"
           >
-            Запросить демо
-          </a>
+            <SlidersHorizontal className="size-4.5" />
+          </button>
+
+          <button
+            type="button"
+            className="hidden h-9 items-center rounded-lg bg-muted px-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none sm:inline-flex"
+          >
+            Рус
+          </button>
+
+          <button
+            type="button"
+            className="hidden h-9 items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none md:inline-flex"
+          >
+            mail@gmail.com
+            <ChevronDown className="size-4 text-muted-foreground" aria-hidden="true" />
+          </button>
+
           <MobileNav links={navLinks} />
         </div>
       </Container>
