@@ -10,9 +10,9 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ADATA Compliance — ИИ-проверка контрагентов и санкционный скрининг",
+  title: "Adata Compliance — ИИ-проверка контрагентов и санкционный скрининг",
   description:
-    "ADATA Compliance — платформа AML/KYC due-diligence. Введите название компании, и ИИ-агент проверит её по международным базам и санкционным спискам, оценит уровень риска и покажет полное досье.",
+    "Adata Compliance — платформа AML/KYC due-diligence. Введите название компании, и ИИ-агент проверит её по международным базам и санкционным спискам, оценит уровень риска и покажет полное досье.",
 };
 
 export default function RootLayout({
