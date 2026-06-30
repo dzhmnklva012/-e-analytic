@@ -61,7 +61,7 @@ function FeatureRow({
           {visual}
         </div>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
