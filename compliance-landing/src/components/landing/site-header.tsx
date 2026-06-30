@@ -68,7 +68,7 @@ export function SiteHeader() {
             aria-label="Настройки"
             className="hidden size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none sm:grid"
           >
-            <SlidersHorizontal className="size-4.5" />
+            <SlidersHorizontal className="size-5" />
           </button>
 
           <button
