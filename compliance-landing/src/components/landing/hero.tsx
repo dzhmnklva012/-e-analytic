@@ -1,89 +1,76 @@
-import { ArrowRight, Sparkles, Check } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
+import { ArrowRight, Sparkles, ShieldAlert, Bot, FolderOpen, Database } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { cn } from "@/lib/utils";
-import { HeroPanel } from "./hero-panel";
+import { HeroIllustration } from "./hero-illustration";
 
-const stats = [
-  { value: "12 480", label: "Всего проверок" },
-  { value: "9 310", label: "Без риска" },
-  { value: "1 240 ч", label: "Сэкономлено" },
-  { value: "42 сек", label: "Средний скрининг" },
+const chips = [
+  { icon: ShieldAlert, label: "Санкционный скрининг" },
+  { icon: Bot, label: "ИИ-ассистент" },
+  { icon: FolderOpen, label: "Полное досье" },
+  { icon: Database, label: "30+ баз данных" },
 ];
-
-const trust = ["14 дней бесплатно", "Без карты", "Поддержка 24/7"];
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      {/* subtle top wash */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
-        style={{ background: "radial-gradient(60% 60% at 50% -10%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)" }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[560px]"
+        style={{ background: "radial-gradient(55% 60% at 60% -10%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)" }}
         aria-hidden="true"
       />
 
       <Container className="relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
         {/* copy */}
         <div className="flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
-            <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-            ИИ-проверка контрагентов
-            <span className="ml-1 size-2 rounded-full bg-success" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-bold">
+            <Sparkles className="size-4 text-[#7c7ae0]" aria-hidden="true" />
+            <span className="bg-gradient-to-r from-primary to-[#7c7ae0] bg-clip-text text-transparent">
+              Проверка контрагентов на базе ИИ
+            </span>
           </span>
 
-          <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="text-5xl font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-7xl">
             Проверка контрагентов{" "}
-            <span className="text-primary">в реальном времени</span>
+            <span className="bg-gradient-to-r from-primary to-[#60a5fa] bg-clip-text text-transparent">
+              в один клик
+            </span>
           </h1>
 
-          <p className="max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Введите название компании — ИИ-агент проверит её по международным базам и санкционным
-            спискам, оценит уровень риска и соберёт полное досье. Быстрее, точнее и предсказуемее
-            ручной проверки.
+          <p className="max-w-lg text-lg text-pretty text-muted-foreground">
+            Проверяйте, анализируйте риски и принимайте решения с помощью ИИ — всё в одной
+            платформе.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a href="#pricing" className={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-6 text-sm")}>
-              Запросить демо
+            <a
+              href="#pricing"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+            >
+              Начать проверку
               <ArrowRight className="size-4" aria-hidden="true" />
             </a>
             <a
               href="#how"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "h-11 rounded-full px-6 text-sm",
-              )}
+              className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-card px-7 text-base font-semibold text-foreground transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
             >
-              Как это работает
+              Узнать больше
             </a>
           </div>
 
-          {/* trust row */}
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            {trust.map((item) => (
-              <li key={item} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Check className="size-4 text-success" aria-hidden="true" />
-                {item}
+          <ul className="flex flex-wrap gap-3 pt-2">
+            {chips.map((chip) => (
+              <li key={chip.label}>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground">
+                  <chip.icon className="size-4 text-muted-foreground" aria-hidden="true" />
+                  {chip.label}
+                </span>
               </li>
             ))}
           </ul>
-
-          {/* stats */}
-          <dl className="mt-2 grid w-full max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col gap-0.5">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd className="text-2xl font-bold tracking-tight text-primary">{stat.value}</dd>
-                <p className="text-xs text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
-          </dl>
         </div>
 
-        {/* dashboard panel */}
+        {/* illustration */}
         <div className="w-full">
-          <HeroPanel />
+          <HeroIllustration />
         </div>
       </Container>
     </section>
