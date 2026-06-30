@@ -4,11 +4,12 @@ import * as React from "react";
 import { ArrowRight, CheckCircle2, AlertCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Local-only lead form (no network) with inline validation + success state. */
-export function CtaForm() {
+export function CtaForm({ onDark = false }: { onDark?: boolean }) {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [done, setDone] = React.useState(false);
@@ -28,7 +29,10 @@ export function CtaForm() {
     return (
       <p
         role="status"
-        className="inline-flex items-center gap-2 rounded-full bg-success/10 px-4 py-3 text-sm font-semibold text-success"
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-semibold",
+          onDark ? "bg-white/15 text-white" : "bg-success/10 text-success",
+        )}
       >
         <CheckCircle2 className="size-5" aria-hidden="true" />
         Спасибо! Мы свяжемся с вами на {email.trim()}.
@@ -57,16 +61,30 @@ export function CtaForm() {
             aria-label="Email"
             aria-invalid={error ? true : undefined}
             aria-describedby={error ? errorId : undefined}
-            className="h-11 rounded-full pl-9"
+            className={cn(
+              "h-11 rounded-full pl-9",
+              onDark && "border-transparent bg-white/95 text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/50",
+            )}
           />
         </div>
-        <Button type="submit" size="lg" className="h-11 rounded-full px-6">
+        <Button
+          type="submit"
+          size="lg"
+          className={cn("h-11 rounded-full px-6", onDark && "bg-white text-primary hover:bg-white/90")}
+        >
           Связаться с нами
           <ArrowRight className="size-4" aria-hidden="true" />
         </Button>
       </div>
       {error && (
-        <p id={errorId} role="alert" className="inline-flex items-center gap-1.5 text-xs font-medium text-destructive">
+        <p
+          id={errorId}
+          role="alert"
+          className={cn(
+            "inline-flex items-center gap-1.5 text-xs font-medium",
+            onDark ? "text-white" : "text-destructive",
+          )}
+        >
           <AlertCircle className="size-3.5" aria-hidden="true" />
           {error}
         </p>
