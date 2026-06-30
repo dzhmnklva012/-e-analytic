@@ -114,7 +114,7 @@ export function HowItWorks() {
 
 function MiniCard({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className={cn("flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm", className)}>
+    <div className={cn("flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm", className)}>
       {children}
     </div>
   );
