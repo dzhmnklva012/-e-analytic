@@ -63,7 +63,7 @@ export function SiteHeader() {
             Войти
           </a>
           <a
-            href="#demo"
+            href="#pricing"
             className={cn(buttonVariants({ size: "lg" }), "hidden h-9 rounded-full px-5 sm:inline-flex")}
           >
             Запросить демо
