@@ -58,7 +58,7 @@ export function HowSteps() {
                 <h3 className="text-lg font-bold text-foreground">{step.title}</h3>
                 <p className="flex-1 text-sm text-pretty text-muted-foreground">{step.description}</p>
                 <a
-                  href="#demo"
+                  href="#pricing"
                   className="inline-flex w-fit items-center gap-1.5 rounded-md text-sm font-semibold text-primary hover:underline focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
                 >
                   Подробнее
