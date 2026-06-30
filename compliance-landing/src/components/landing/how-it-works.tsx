@@ -119,7 +119,7 @@ function MiniCard({ className, children }: { className?: string; children: React
   );
 }
 
-const grid = "grid h-[26rem] grid-cols-3 grid-rows-2 gap-4";
+const grid = "grid h-[23rem] grid-cols-3 grid-rows-2 gap-3";
 
 function Rings() {
   const c1 = 2 * Math.PI * 42;
