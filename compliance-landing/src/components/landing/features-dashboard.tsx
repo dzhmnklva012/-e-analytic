@@ -58,7 +58,7 @@ export function FeaturesDashboard() {
             <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5">
               <span className="text-sm font-bold text-foreground">Безопасность</span>
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-                <span className="relative grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#60a5fa] text-white shadow-lg shadow-primary/30">
+                <span className="relative grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-[#068dff] to-[#60a5fa] text-white shadow-lg shadow-primary/30">
                   <Lock className="size-7" aria-hidden="true" />
                 </span>
                 <div className="flex flex-col gap-0.5">
