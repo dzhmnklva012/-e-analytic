@@ -24,7 +24,7 @@ export function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-bold">
             <Sparkles className="size-4 text-[#7c7ae0]" aria-hidden="true" />
             <span className="bg-gradient-to-r from-primary to-[#7c7ae0] bg-clip-text text-transparent">
-              Проверка контрагентов на базе ИИ
+              Управление комплаенсом на базе ИИ
             </span>
           </span>
 
