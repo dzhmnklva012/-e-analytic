@@ -36,7 +36,7 @@ function FeatureRow({
   reverse?: boolean;
 }) {
   return (
-    <div className="rounded-3xl bg-card p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 lg:p-10">
+    <Reveal className="rounded-3xl bg-card p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 lg:p-10">
       <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
         {/* copy */}
         <div className={cn("flex flex-col gap-5", reverse && "lg:order-2")}>
