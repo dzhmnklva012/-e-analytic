@@ -3,7 +3,7 @@ import { CtaForm } from "./cta-form";
 
 export function CtaBand() {
   return (
-    <Container className="py-16 sm:py-20">
+    <Container id="cta" className="scroll-mt-20 py-16 sm:py-20">
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
         <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
           Давайте начнём
