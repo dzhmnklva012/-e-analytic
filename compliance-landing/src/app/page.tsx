@@ -53,6 +53,8 @@ export default function Home() {
 
         <FeaturesDashboard />
 
+        <Efficiency />
+
         <RadialTools />
 
         {/* Pricing */}
