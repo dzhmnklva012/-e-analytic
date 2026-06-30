@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`dark ${openSans.variable}`}>
+    <html lang="ru" className={openSans.variable}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
