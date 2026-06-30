@@ -220,7 +220,7 @@ export function HeroIllustration() {
         {/* slide (re-mounts → entrance replays) */}
         <div key={active} className="relative" aria-hidden="true">
           {/* module badge */}
-          <div className="animate-hero-badge absolute -right-2 top-4 z-20 grid size-12 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#7c7ae0] text-white shadow-lg shadow-primary/30">
+          <div className="animate-hero-badge absolute -right-2 top-4 z-20 grid size-12 place-items-center rounded-full bg-gradient-to-br from-[#068dff] to-[#7c7ae0] text-white shadow-lg shadow-primary/30">
             <ChipIcon className="size-5" />
           </div>
 
