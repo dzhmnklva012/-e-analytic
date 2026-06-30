@@ -57,9 +57,13 @@ function FeatureRow({
         </div>
 
         {/* visual (decorative) */}
-        <div className={cn(reverse && "lg:order-1")} aria-hidden="true">
-          {visual}
-        </div>
+        <Reveal
+          dir={reverse ? "left" : "right"}
+          delay={160}
+          className={cn(reverse && "lg:order-1")}
+        >
+          <div aria-hidden="true">{visual}</div>
+        </Reveal>
       </div>
     </Reveal>
   );
