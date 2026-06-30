@@ -213,8 +213,14 @@ export function HeroIllustration() {
   return (
     <div className="mx-auto w-full max-w-xl">
       <div className="relative" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-        {/* tilted backdrop + faint stacked card */}
-        <div className="absolute inset-0 rotate-3 rounded-[2rem] bg-gradient-to-br from-[#eaf1ff] to-[#dde6ff]" aria-hidden="true" />
+        {/* tilted backdrop — light-blue in light, dark navy in dark */}
+        <div className="absolute inset-0 rotate-3 rounded-[2rem] bg-gradient-to-br from-[#eaf1ff] to-[#dde6ff] dark:from-[#0f1a2c] dark:to-[#0a1220] dark:ring-1 dark:ring-white/5" aria-hidden="true" />
+        {/* subtle dotted texture (dark only) */}
+        <div
+          className="absolute inset-0 rotate-3 rounded-[2rem] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] dark:[background-size:16px_16px]"
+          aria-hidden="true"
+        />
+        {/* faint stacked card for depth */}
         <div className="absolute inset-x-8 top-10 bottom-12 rounded-2xl bg-card/60 blur-[1px]" aria-hidden="true" />
 
         {/* slide (re-mounts → entrance replays) */}
