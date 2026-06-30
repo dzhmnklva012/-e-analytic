@@ -327,17 +327,24 @@ function CaseVisual() {
         </span>
       </MiniCard>
 
-      <MiniCard className="justify-center">
-        <Users className="size-5 text-primary" />
-        <span className="text-xs font-semibold text-foreground">3 лица · 2 обращения</span>
-        <span className="text-[11px] text-muted-foreground">Связано</span>
+      <MiniCard className="justify-between">
+        <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+          <Users className="size-5" />
+        </span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold text-foreground">3 лица · 2 обращения</span>
+          <span className="text-[11px] text-muted-foreground">Связано с делом</span>
+        </div>
       </MiniCard>
 
-      <MiniCard className="justify-center">
+      <MiniCard className="justify-between">
         <span className="grid size-9 place-items-center rounded-xl bg-success/10 text-success">
           <Check className="size-5" strokeWidth={2.5} />
         </span>
-        <span className="text-[11px] text-muted-foreground">Готово к отчёту</span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold text-foreground">Готово</span>
+          <span className="text-[11px] text-muted-foreground">К выгрузке отчёта</span>
+        </div>
       </MiniCard>
     </div>
   );
