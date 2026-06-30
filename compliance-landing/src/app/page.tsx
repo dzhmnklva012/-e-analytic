@@ -29,8 +29,6 @@ export default function Home() {
       <main id="main">
         <Hero />
 
-        <StatsTree />
-
         <AgentSolves />
 
         {/* Modules */}
