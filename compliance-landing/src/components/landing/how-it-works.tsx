@@ -178,20 +178,26 @@ function ScreeningVisual() {
         </div>
       </MiniCard>
 
-      <MiniCard className="justify-center">
+      <MiniCard className="justify-between">
         <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
           <Globe2 className="size-5" />
         </span>
-        <span className="text-xs font-semibold text-foreground">Международные базы</span>
-        <span className="text-[11px] text-muted-foreground">OFAC · EU · UN · PEP</span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold text-foreground">Международные базы</span>
+          <span className="text-[11px] text-muted-foreground">OFAC · EU · UN · PEP</span>
+        </div>
       </MiniCard>
 
-      <MiniCard className="justify-center">
-        <span className="text-xs font-semibold text-foreground">Полное досье</span>
-        <span className="text-[11px] text-muted-foreground">Реквизиты, связи и история</span>
-        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success">
-          <Check className="size-3.5" strokeWidth={3} /> Собрано за 2.4 сек
+      <MiniCard className="justify-between">
+        <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+          <FileText className="size-5" />
         </span>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold text-foreground">Полное досье</span>
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-success">
+            <Check className="size-3.5" strokeWidth={3} /> Собрано за 2.4 сек
+          </span>
+        </div>
       </MiniCard>
     </div>
   );
