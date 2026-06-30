@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /* ── shared row shell ─────────────────────────────────────────────────── */
