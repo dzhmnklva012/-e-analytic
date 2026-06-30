@@ -22,7 +22,7 @@
   --popover: #ffffff;
   --popover-foreground: #2c3e50;
 
-  --primary: #0070eb; /* ADATA blue — buttons / accent */
+  --primary: #3b82f6; /* Tailwind blue-500 — buttons / accent */
   --primary-foreground: #ffffff;
   --secondary: #e0efff; /* light blue (selected/active/tint) */
   --secondary-foreground: #0070eb;
