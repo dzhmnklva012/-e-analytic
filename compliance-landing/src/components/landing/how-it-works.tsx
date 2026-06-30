@@ -216,14 +216,25 @@ function RiskVisual() {
   ];
   return (
     <div className={grid} aria-hidden="true">
-      <MiniCard className="col-span-2 items-center justify-center">
-        <div className="relative grid place-items-center">
-          <RiskGauge />
-          <span className="absolute top-5 text-xl font-bold text-foreground">18</span>
+      <MiniCard className="col-span-2">
+        <span className="text-xs font-bold text-foreground">Уровень риска</span>
+        <div className="flex flex-1 items-center gap-5">
+          <div className="relative grid shrink-0 place-items-center">
+            <RiskGauge />
+            <span className="absolute top-4 text-2xl font-bold text-foreground">18</span>
+          </div>
+          <div className="flex flex-1 flex-col gap-2">
+            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-risk-low/10 px-3 py-1 text-xs font-semibold text-risk-low">
+              Низкий риск
+            </span>
+            <span className="text-xs text-pretty text-muted-foreground">
+              Совпадений в санкционных списках не найдено.
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-success">
+              <Check className="size-3.5" strokeWidth={3} /> Рекомендуется к работе
+            </span>
+          </div>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-risk-low/10 px-3 py-1 text-xs font-semibold text-risk-low">
-          Низкий риск
-        </span>
       </MiniCard>
 
       <MiniCard className="row-span-2 justify-center gap-4">
