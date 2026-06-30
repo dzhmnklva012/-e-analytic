@@ -1,47 +1,77 @@
-import { Fingerprint, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldAlert, Bot, FolderOpen, Database } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { HeroIllustration } from "./hero-illustration";
+
+const chips = [
+  { icon: ShieldAlert, label: "Санкционный скрининг" },
+  { icon: Bot, label: "ИИ-ассистент" },
+  { icon: FolderOpen, label: "Полное досье" },
+  { icon: Database, label: "30+ баз данных" },
+];
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      {/* subtle ambient wash */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[640px]"
-        style={{ background: "radial-gradient(55% 55% at 50% 0%, color-mix(in oklch, var(--primary) 9%, transparent), transparent 70%)" }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[560px]"
+        style={{ background: "radial-gradient(55% 60% at 60% -10%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)" }}
         aria-hidden="true"
       />
 
-      <Container className="relative flex flex-col items-center gap-8 py-24 text-center sm:py-28 lg:py-32">
-        <h1 className="flex max-w-5xl flex-wrap items-center justify-center gap-x-4 gap-y-2 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
-          <span className="text-muted-foreground/70">Будущее</span>
-          <span className="text-muted-foreground/70">комплаенса</span>
-          <span className="text-muted-foreground/70">—&nbsp;это</span>
-          <Fingerprint
-            className="size-[0.9em] text-primary drop-shadow-[0_0_12px_color-mix(in_oklch,var(--primary)_45%,transparent)]"
-            strokeWidth={2}
-            aria-hidden="true"
-          />
-          <span className="text-foreground">человек</span>
-          <span className="text-muted-foreground/70">+</span>
-          <Sparkles
-            className="size-[0.9em] text-primary drop-shadow-[0_0_14px_color-mix(in_oklch,var(--primary)_55%,transparent)]"
-            strokeWidth={2}
-            aria-hidden="true"
-          />
-          <span className="text-foreground">ИИ</span>
-        </h1>
+      <Container className="relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
+        {/* copy */}
+        <div className="flex flex-col items-start gap-6">
+          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-bold">
+            <Sparkles className="size-4 text-[#7c7ae0]" aria-hidden="true" />
+            <span className="bg-gradient-to-r from-primary to-[#7c7ae0] bg-clip-text text-transparent">
+              Управление комплаенсом на базе ИИ
+            </span>
+          </span>
 
-        <p className="max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-          Мы помогаем находить нужные проверки, отслеживать риски и закрывать пробелы — чтобы ваш
-          комплаенс уверенно работал в эпоху GenAI.
-        </p>
+          <h1 className="text-5xl font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-7xl">
+            Комплаенс{" "}
+            <span className="bg-gradient-to-r from-primary to-[#60a5fa] bg-clip-text text-transparent">
+              в один клик
+            </span>
+          </h1>
 
-        <a
-          href="#pricing"
-          className="inline-flex h-12 items-center justify-center rounded-2xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-[0_0_44px_color-mix(in_oklch,var(--primary)_38%,transparent)] transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
-        >
-          Начать проверку
-        </a>
+          <p className="max-w-lg text-lg text-pretty text-muted-foreground">
+            Проверяйте по санкционным спискам, оценивайте уровень риска и собирайте полное досье
+            с помощью ИИ — всё в одной платформе.
+          </p>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#pricing"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+            >
+              Начать проверку
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <a
+              href="#how"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-card px-7 text-base font-semibold text-foreground transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+            >
+              Узнать больше
+            </a>
+          </div>
+
+          <ul className="flex flex-wrap gap-3 pt-2">
+            {chips.map((chip) => (
+              <li key={chip.label}>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground">
+                  <chip.icon className="size-4 text-muted-foreground" aria-hidden="true" />
+                  {chip.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* illustration */}
+        <div className="w-full">
+          <HeroIllustration />
+        </div>
       </Container>
     </section>
   );
