@@ -29,8 +29,6 @@ export default function Home() {
       <main id="main">
         <Hero />
 
-        <AgentSolves />
-
         {/* Modules */}
         <Section id="modules" className="bg-card/50">
           <div className="flex flex-col gap-12">
@@ -46,6 +44,8 @@ export default function Home() {
             </div>
           </div>
         </Section>
+
+        <AgentSolves />
 
         <FeaturesDashboard />
 
