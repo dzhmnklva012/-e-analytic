@@ -79,7 +79,7 @@ export function HeroPanel() {
 
       {/* floating accuracy chip */}
       <div className="absolute -bottom-5 -left-5 hidden items-center gap-3 rounded-2xl border border-border bg-card p-3 pr-4 shadow-xl sm:flex">
-        <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#5b8def] text-white">
+        <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#60a5fa] text-white">
           <ShieldCheck className="size-5" aria-hidden="true" />
         </span>
         <span className="flex flex-col">
