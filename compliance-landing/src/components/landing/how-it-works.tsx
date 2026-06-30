@@ -1,7 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { Globe2, Gauge, FileText, ChevronDown } from "lucide-react";
+import {
+  Globe2,
+  Gauge,
+  FileText,
+  FileSearch,
+  ChevronDown,
+  Search,
+  Check,
+  Users,
+  Download,
+  ShieldCheck,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -86,9 +97,11 @@ export function HowItWorks() {
             })}
           </Reveal>
 
-          {/* dashboard visual collage */}
+          {/* stage-specific visual collage */}
           <Reveal dir="right">
-            <FeatureVisuals />
+            <div key={active} className="animate-hero-rise">
+              <FeatureVisuals active={active} />
+            </div>
           </Reveal>
         </div>
       </div>
@@ -96,88 +109,187 @@ export function HowItWorks() {
   );
 }
 
-/* ── decorative dashboard collage ─────────────────────────────────────── */
-
-const bars = [38, 60, 30, 78, 44, 52, 88, 34, 70];
+/* ── shared bits ──────────────────────────────────────────────────────── */
 
 function MiniCard({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <div className={cn("flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm", className)}>
-      <span className="h-2.5 w-10 rounded-full bg-muted" />
       {children}
     </div>
   );
 }
 
-function FeatureVisuals() {
+const grid = "grid h-[26rem] grid-cols-3 grid-rows-2 gap-4";
+
+function Rings() {
+  const c1 = 2 * Math.PI * 42;
+  const c2 = 2 * Math.PI * 28;
   return (
-    <div className="grid h-[26rem] grid-cols-3 grid-rows-2 gap-4" aria-hidden="true">
-      {/* bar chart */}
+    <svg viewBox="0 0 100 100" className="size-24 -rotate-90">
+      <circle cx="50" cy="50" r="42" fill="none" stroke="var(--muted)" strokeWidth="7" />
+      <circle cx="50" cy="50" r="42" fill="none" stroke="var(--primary)" strokeWidth="7" strokeLinecap="round" strokeDasharray={c1} strokeDashoffset={c1 * 0.3} />
+      <circle cx="50" cy="50" r="28" fill="none" stroke="var(--muted)" strokeWidth="7" />
+      <circle cx="50" cy="50" r="28" fill="none" stroke="color-mix(in oklch, var(--primary) 60%, white)" strokeWidth="7" strokeLinecap="round" strokeDasharray={c2} strokeDashoffset={c2 * 0.55} />
+    </svg>
+  );
+}
+
+/* ── stage 1: screening across databases ─────────────────────────────── */
+
+function ScreeningVisual() {
+  const sources = ["Санкционные списки", "PEP-реестр", "Негативные публикации"];
+  return (
+    <div className={grid} aria-hidden="true">
       <MiniCard className="col-span-2">
-        <div className="flex flex-1 items-end justify-between gap-1.5">
-          {bars.map((h, i) => (
-            <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
-              <div
-                className="w-2.5 rounded-full bg-gradient-to-t from-primary to-primary/50"
-                style={{ height: `${h}%` }}
-              />
-              <span className="h-1.5 w-4 rounded-full bg-muted" />
-            </div>
-          ))}
+        <div className="flex items-center gap-2 rounded-full bg-muted px-3 py-2">
+          <Search className="size-4 text-muted-foreground" />
+          <span className="truncate text-xs font-medium text-foreground">ТОО «Альфа Логистик»</span>
         </div>
-      </MiniCard>
-
-      {/* radial rings */}
-      <MiniCard className="row-span-2">
-        <div className="grid flex-1 place-items-center">
-          <svg viewBox="0 0 100 100" className="size-28 -rotate-90">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--muted)" strokeWidth="7" />
-            <circle
-              cx="50" cy="50" r="42" fill="none" stroke="var(--primary)" strokeWidth="7"
-              strokeLinecap="round" strokeDasharray={2 * Math.PI * 42} strokeDashoffset={2 * Math.PI * 42 * 0.32}
-            />
-            <circle cx="50" cy="50" r="28" fill="none" stroke="var(--muted)" strokeWidth="7" />
-            <circle
-              cx="50" cy="50" r="28" fill="none" stroke="color-mix(in oklch, var(--primary) 65%, white)" strokeWidth="7"
-              strokeLinecap="round" strokeDasharray={2 * Math.PI * 28} strokeDashoffset={2 * Math.PI * 28 * 0.55}
-            />
-          </svg>
-        </div>
-        <div className="flex flex-col gap-2">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-primary" />
-              <span className="h-2 flex-1 rounded-full bg-muted" style={{ maxWidth: `${80 - i * 18}%` }} />
-            </div>
-          ))}
-        </div>
-      </MiniCard>
-
-      {/* gauge */}
-      <MiniCard>
-        <div className="grid flex-1 place-items-center">
-          <svg viewBox="0 0 100 56" className="w-24">
-            <path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="var(--muted)" strokeWidth="8" strokeLinecap="round" />
-            <path d="M8 50 A42 42 0 0 1 78 18" fill="none" stroke="var(--primary)" strokeWidth="8" strokeLinecap="round" />
-          </svg>
-        </div>
-        <span className="h-2 w-2/3 self-center rounded-full bg-muted" />
-      </MiniCard>
-
-      {/* people list */}
-      <MiniCard>
-        <div className="flex flex-1 flex-col justify-center gap-2.5">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="flex items-center gap-2">
-              <span className="size-6 shrink-0 rounded-full bg-secondary" />
-              <span className="flex flex-1 flex-col gap-1">
-                <span className="h-1.5 w-2/3 rounded-full bg-muted" />
-                <span className="h-1.5 w-1/2 rounded-full bg-muted/70" />
+        <ul className="flex flex-1 flex-col justify-center gap-2.5">
+          {sources.map((s) => (
+            <li key={s} className="flex items-center gap-2.5">
+              <span className="grid size-5 place-items-center rounded-md bg-success/10">
+                <Check className="size-3 text-success" strokeWidth={3} />
               </span>
-            </div>
+              <span className="flex-1 text-xs text-foreground">{s}</span>
+              <span className="text-[11px] text-muted-foreground">чисто</span>
+            </li>
           ))}
-        </div>
+        </ul>
+      </MiniCard>
+
+      <MiniCard className="row-span-2 items-center justify-center">
+        <Rings />
+        <span className="text-[11px] font-medium text-muted-foreground">30+ баз данных</span>
+      </MiniCard>
+
+      <MiniCard>
+        <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+          <Globe2 className="size-5" />
+        </span>
+        <span className="h-2 w-2/3 rounded-full bg-muted" />
+      </MiniCard>
+
+      <MiniCard>
+        <span className="h-2 w-1/2 rounded-full bg-muted" />
+        <span className="h-2 w-full rounded-full bg-muted" />
+        <span className="h-2 w-5/6 rounded-full bg-muted/70" />
       </MiniCard>
     </div>
   );
+}
+
+/* ── stage 2: risk scoring ────────────────────────────────────────────── */
+
+function RiskGauge() {
+  return (
+    <svg viewBox="0 0 100 56" className="w-28">
+      <path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="var(--muted)" strokeWidth="8" strokeLinecap="round" />
+      <path d="M8 50 A42 42 0 0 1 34 13" fill="none" stroke="var(--risk-low)" strokeWidth="8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function RiskVisual() {
+  const factors = [
+    { label: "Санкции", w: 14, tone: "bg-risk-low" },
+    { label: "PEP", w: 30, tone: "bg-risk-medium" },
+    { label: "Медиа", w: 22, tone: "bg-risk-low" },
+    { label: "Финансы", w: 18, tone: "bg-risk-low" },
+  ];
+  return (
+    <div className={grid} aria-hidden="true">
+      <MiniCard className="col-span-2 items-center justify-center">
+        <div className="relative grid place-items-center">
+          <RiskGauge />
+          <span className="absolute top-5 text-xl font-bold text-foreground">18</span>
+        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-risk-low/10 px-3 py-1 text-xs font-semibold text-risk-low">
+          Низкий риск
+        </span>
+      </MiniCard>
+
+      <MiniCard className="row-span-2 justify-center">
+        <span className="text-[11px] font-semibold text-muted-foreground">Факторы риска</span>
+        {factors.map((f) => (
+          <div key={f.label} className="flex flex-col gap-1">
+            <span className="text-[11px] text-foreground">{f.label}</span>
+            <span className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+              <span className={cn("block h-full rounded-full", f.tone)} style={{ width: `${f.w}%` }} />
+            </span>
+          </div>
+        ))}
+      </MiniCard>
+
+      <MiniCard className="justify-center">
+        <span className="text-2xl font-bold text-foreground">18<span className="text-sm text-muted-foreground">/100</span></span>
+        <span className="text-[11px] text-muted-foreground">Оценка риска</span>
+      </MiniCard>
+
+      <MiniCard className="justify-center">
+        <span className="grid size-9 place-items-center rounded-xl bg-success/10 text-success">
+          <ShieldCheck className="size-5" />
+        </span>
+        <span className="text-[11px] text-muted-foreground">Рекомендация готова</span>
+      </MiniCard>
+    </div>
+  );
+}
+
+/* ── stage 3: case & report ───────────────────────────────────────────── */
+
+function CaseVisual() {
+  return (
+    <div className={grid} aria-hidden="true">
+      <MiniCard className="col-span-2">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-bold text-foreground">Дело №WK-2841</span>
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary">В работе</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="grid size-7 place-items-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground">АС</span>
+          <span className="text-xs text-muted-foreground">Ответственный · Смит А.</span>
+        </div>
+        <div className="mt-auto flex items-center gap-1.5 text-[10px] font-medium">
+          <span className="text-success">Создано</span>
+          <span className="h-px flex-1 bg-border" />
+          <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-primary">В работе</span>
+          <span className="h-px flex-1 bg-border" />
+          <span className="text-muted-foreground">Отчёт</span>
+        </div>
+      </MiniCard>
+
+      <MiniCard className="row-span-2">
+        <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+          <FileSearch className="size-5" />
+        </span>
+        <span className="h-2 w-3/4 rounded-full bg-muted" />
+        <span className="h-2 w-full rounded-full bg-muted" />
+        <span className="h-2 w-5/6 rounded-full bg-muted" />
+        <span className="h-2 w-2/3 rounded-full bg-muted/70" />
+        <span className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground">
+          <Download className="size-3.5" /> Скачать отчёт
+        </span>
+      </MiniCard>
+
+      <MiniCard className="justify-center">
+        <Users className="size-5 text-primary" />
+        <span className="text-xs font-semibold text-foreground">3 лица · 2 обращения</span>
+        <span className="text-[11px] text-muted-foreground">Связано</span>
+      </MiniCard>
+
+      <MiniCard className="justify-center">
+        <span className="grid size-9 place-items-center rounded-xl bg-success/10 text-success">
+          <Check className="size-5" strokeWidth={2.5} />
+        </span>
+        <span className="text-[11px] text-muted-foreground">Готово к отчёту</span>
+      </MiniCard>
+    </div>
+  );
+}
+
+function FeatureVisuals({ active }: { active: number }) {
+  if (active === 1) return <RiskVisual />;
+  if (active === 2) return <CaseVisual />;
+  return <ScreeningVisual />;
 }
