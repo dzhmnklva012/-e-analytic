@@ -46,10 +46,10 @@ export function SiteHeader() {
             <ul className="flex items-center">
               {navLinks.map((link, i) => (
                 <li key={link.href} className="flex items-center">
-                  {i > 0 && <span className="mx-1 h-4 w-px bg-border" aria-hidden="true" />}
+                  {i > 0 && <span className="h-4 w-px bg-border" aria-hidden="true" />}
                   <a
                     href={link.href}
-                    className="rounded-md px-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+                    className="rounded-md px-4 text-sm font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
                   >
                     {link.label}
                   </a>
