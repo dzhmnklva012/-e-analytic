@@ -125,37 +125,6 @@ function InvestigationCard() {
   );
 }
 
-function StatsCard() {
-  const tiles = [
-    { value: "1 240", label: "Проверки", tone: "text-primary" },
-    { value: "38", label: "Горячая линия", tone: "text-warning" },
-    { value: "12", label: "Конфликты", tone: "text-foreground" },
-    { value: "7", label: "Подарки", tone: "text-success" },
-  ];
-  const bars = [40, 64, 52, 80, 58, 72];
-  return (
-    <div className={cardClass}>
-      <div className="grid grid-cols-2 gap-2">
-        {tiles.map((t) => (
-          <div key={t.label} className="flex flex-col gap-0.5 rounded-xl bg-muted/50 p-3">
-            <span className={cn("text-xl font-bold", t.tone)}>{t.value}</span>
-            <span className="text-[11px] text-muted-foreground">{t.label}</span>
-          </div>
-        ))}
-      </div>
-      <div className="mt-auto flex items-end gap-1.5 border-t border-border pt-3">
-        {bars.map((h, i) => (
-          <span
-            key={i}
-            className={cn("flex-1 rounded-t-sm", i === 3 ? "bg-primary" : "bg-primary/20")}
-            style={{ height: `${h * 0.5}px` }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function HotlineCard() {
   const items = [
     { no: "WK-3920", topic: "Конфликт интересов", tone: "amber" as const, status: "Новое" },
