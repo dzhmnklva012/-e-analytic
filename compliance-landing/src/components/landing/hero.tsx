@@ -32,7 +32,7 @@ export function Hero() {
         </p>
 
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a href="#demo" className={cn(buttonVariants({ size: "lg" }), "h-12 rounded-full px-6 text-sm")}>
+          <a href="#pricing" className={cn(buttonVariants({ size: "lg" }), "h-12 rounded-full px-6 text-sm")}>
             Получить бесплатный ИИ-аудит
             <ArrowRight className="size-4" aria-hidden="true" />
           </a>
