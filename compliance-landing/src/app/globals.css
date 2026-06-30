@@ -239,7 +239,7 @@
     color: transparent;
   }
 
-  /* scroll-reveal: rise up + fade in on enter (reduced-motion users skip it) */
+  /* scroll-reveal: fade in + directional slide on enter (reduced-motion skips it) */
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
       opacity: 0;
@@ -248,6 +248,15 @@
         opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: opacity, transform;
+    }
+    .reveal[data-dir="left"] {
+      transform: translateX(-48px);
+    }
+    .reveal[data-dir="right"] {
+      transform: translateX(48px);
+    }
+    .reveal[data-dir="scale"] {
+      transform: scale(0.94);
     }
     .reveal.is-visible {
       opacity: 1;
