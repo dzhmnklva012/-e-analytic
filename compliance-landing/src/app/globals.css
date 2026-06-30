@@ -239,6 +239,22 @@
     color: transparent;
   }
 
+  /* scroll-reveal: rise up + fade in on enter (reduced-motion users skip it) */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition:
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* slow horizontal marquee for the services ticker */
   @keyframes marquee {
     from {
