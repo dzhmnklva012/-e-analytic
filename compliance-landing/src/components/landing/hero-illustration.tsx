@@ -2,10 +2,8 @@
 
 import * as React from "react";
 import {
-  Sparkles,
   Globe2,
   FileSearch,
-  BarChart3,
   PhoneCall,
   ShieldAlert,
   Building2,
