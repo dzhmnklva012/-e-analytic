@@ -43,8 +43,8 @@ export default function Home() {
               description="Глобальная проверка — флагман на базе ИИ-агента. Вокруг него — связанный набор модулей, превращающих сигналы в управляемые дела и решения."
             />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {modules.map((module) => (
-                <ModuleCard key={module.name} module={module} />
+              {modules.map((module, i) => (
+                <ModuleCard key={module.name} module={module} index={i} />
               ))}
             </div>
           </div>
