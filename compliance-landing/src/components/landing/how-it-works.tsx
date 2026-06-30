@@ -277,11 +277,15 @@ function CaseVisual() {
         <span className="grid size-9 place-items-center rounded-xl bg-secondary text-secondary-foreground">
           <FileSearch className="size-5" />
         </span>
-        <span className="h-2 w-3/4 rounded-full bg-muted" />
-        <span className="h-2 w-full rounded-full bg-muted" />
-        <span className="h-2 w-5/6 rounded-full bg-muted" />
-        <span className="h-2 w-2/3 rounded-full bg-muted/70" />
-        <span className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground">
+        <div className="flex flex-1 flex-col justify-center gap-2">
+          <span className="h-2 w-3/4 rounded-full bg-muted" />
+          <span className="h-2 w-full rounded-full bg-muted" />
+          <span className="h-2 w-5/6 rounded-full bg-muted" />
+          <span className="h-2 w-full rounded-full bg-muted" />
+          <span className="h-2 w-4/5 rounded-full bg-muted" />
+          <span className="h-2 w-2/3 rounded-full bg-muted/70" />
+        </div>
+        <span className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground">
           <Download className="size-3.5" /> Скачать отчёт
         </span>
       </MiniCard>
