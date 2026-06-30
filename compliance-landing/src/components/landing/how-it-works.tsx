@@ -223,7 +223,7 @@ function RiskVisual() {
         </span>
       </MiniCard>
 
-      <MiniCard className="row-span-2 justify-center">
+      <MiniCard className="row-span-2 justify-center gap-4">
         <span className="text-[11px] font-semibold text-muted-foreground">Факторы риска</span>
         {factors.map((f) => (
           <div key={f.label} className="flex flex-col gap-1">
