@@ -51,6 +51,7 @@ export function Reveal({ children, className, delay = 0, dir = "up" }: RevealPro
   return (
     <div
       ref={ref}
+      data-dir={dir}
       className={cn("reveal", visible && "is-visible", className)}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
