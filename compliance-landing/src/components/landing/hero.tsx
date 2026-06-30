@@ -36,8 +36,8 @@ export function Hero() {
           </h1>
 
           <p className="max-w-lg text-lg text-pretty text-muted-foreground">
-            Проверяйте, анализируйте риски и принимайте решения с помощью ИИ — всё в одной
-            платформе.
+            Проверяйте по санкционным спискам, оценивайте уровень риска и собирайте полное досье
+            с помощью ИИ — всё в одной платформе.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
