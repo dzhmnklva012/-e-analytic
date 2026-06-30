@@ -7,7 +7,6 @@ import { StatsTree } from "@/components/landing/stats-tree";
 import { HowSteps } from "@/components/landing/how-steps";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
-import { ScreeningDemo } from "@/components/landing/screening-demo";
 import { RadialTools } from "@/components/landing/radial-tools";
 import { PricingCard } from "@/components/landing/pricing-card";
 import { Faq } from "@/components/landing/faq";
