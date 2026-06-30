@@ -35,7 +35,7 @@ export default function Home() {
         <Section id="modules" className="bg-card/50">
           <div className="flex flex-col gap-12">
             <SectionHeading
-              eyebrow="Продукты и решения"
+              eyebrow="Возможности сервиса"
               title="11 модулей комплаенса в одной системе"
               description="Глобальная проверка — флагман на базе ИИ-агента. Вокруг него — связанный набор модулей, превращающих сигналы в управляемые дела и решения."
             />
