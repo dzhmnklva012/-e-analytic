@@ -147,7 +147,7 @@ function ScreeningVisual() {
           <Search className="size-4 text-muted-foreground" />
           <span className="truncate text-xs font-medium text-foreground">ТОО «Альфа Логистик»</span>
         </div>
-        <ul className="flex flex-1 flex-col justify-center gap-2.5">
+        <ul className="flex flex-1 flex-col justify-between gap-2.5 pt-1">
           {sources.map((s) => (
             <li key={s} className="flex items-center gap-2.5">
               <span className="grid size-5 place-items-center rounded-md bg-success/10">
