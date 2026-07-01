@@ -92,7 +92,7 @@ export function CapabilitiesBento() {
           >
             <div className="mt-auto flex flex-wrap gap-2">
               {["В работе", "3 лица", "2 обращения"].map((t) => (
-                <span key={t} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
+                <span key={t} className="rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
                   {t}
                 </span>
               ))}
