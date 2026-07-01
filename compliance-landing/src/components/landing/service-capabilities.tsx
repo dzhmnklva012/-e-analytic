@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { CapabilityOrb } from "./capability-orb";
 
 type Capability = {
   label: string;
