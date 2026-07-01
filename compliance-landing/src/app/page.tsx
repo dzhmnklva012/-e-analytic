@@ -50,6 +50,8 @@ export default function Home() {
           </div>
         </Section>
 
+        <ServiceCapabilities />
+
         <AgentSolves />
 
         <HowItWorks />
