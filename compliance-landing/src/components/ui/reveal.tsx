@@ -13,10 +13,10 @@ type RevealProps = {
 };
 
 /**
- * Reveals its children (rise up + fade in) the first time it scrolls into
- * view. Uses IntersectionObserver and reveals once. Motion itself is defined
- * in CSS (`.reveal` / `.is-visible`) and disabled for reduced-motion users,
- * so this just toggles the class.
+ * Reveals children (fade + directional slide) the first time they scroll into
+ * view. Hardened so content is never left permanently hidden: reveals
+ * immediately if already in view, and has a safety fallback if the observer
+ * never fires. Motion itself is CSS (disabled for reduced-motion users).
  */
 export function Reveal({ children, className, delay = 0, dir = "up" }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -26,26 +26,47 @@ export function Reveal({ children, className, delay = 0, dir = "up" }: RevealPro
     const el = ref.current;
     if (!el) return;
 
-    // If IntersectionObserver is unavailable, just show it.
     if (typeof IntersectionObserver === "undefined") {
       setVisible(true);
       return;
     }
 
+    const viewportH = () => window.innerHeight || document.documentElement.clientHeight;
+    const inView = () => {
+      const r = el.getBoundingClientRect();
+      return r.top < viewportH() * 0.95 && r.bottom > 0;
+    };
+
+    // Already visible on mount → reveal right away.
+    if (inView()) {
+      setVisible(true);
+      return;
+    }
+
+    const reveal = () => {
+      setVisible(true);
+      cleanup();
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.disconnect();
-          }
-        }
+        for (const entry of entries) if (entry.isIntersecting) reveal();
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
-
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // Backup: reveal on scroll in case the observer misses on some devices.
+    const onScroll = () => {
+      if (inView()) reveal();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    function cleanup() {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    }
+    return cleanup;
   }, []);
 
   return (
