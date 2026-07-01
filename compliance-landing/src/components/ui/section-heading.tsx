@@ -20,7 +20,7 @@ export function SectionHeading({
   as: Tag = "h2",
 }: SectionHeadingProps) {
   return (
-    <div
+    <Reveal
       className={cn(
         "flex flex-col gap-4",
         align === "center" && "items-center text-center",
