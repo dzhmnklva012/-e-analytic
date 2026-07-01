@@ -1,6 +1,7 @@
 import { Accordion } from "@/components/ui/accordion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Section } from "@/components/ui/section";
+import { Reveal } from "@/components/ui/reveal";
 import { faqs } from "@/lib/data";
 
 export function Faq() {
