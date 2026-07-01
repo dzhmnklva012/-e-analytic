@@ -73,7 +73,7 @@ export function RadialTools() {
               </span>
             );
           })}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );
