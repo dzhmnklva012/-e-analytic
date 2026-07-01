@@ -69,6 +69,7 @@ function FeatureRow({
         </Reveal>
       </div>
     </Reveal>
+    </Parallax>
   );
 }
 
