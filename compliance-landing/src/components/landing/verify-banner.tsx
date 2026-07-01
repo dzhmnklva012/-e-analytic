@@ -1,10 +1,11 @@
 import { CircleCheck, SearchCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 
 export function VerifyBanner() {
   return (
     <Container id="verify" className="scroll-mt-20 py-8 sm:py-10">
-      <div className="flex flex-col items-start gap-8 overflow-hidden rounded-3xl bg-secondary/40 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <Reveal className="flex flex-col items-start gap-8 overflow-hidden rounded-3xl bg-secondary/40 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
         {/* copy */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
