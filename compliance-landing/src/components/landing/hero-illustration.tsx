@@ -31,7 +31,7 @@ function Pill({ tone, children }: { tone: "blue" | "amber" | "green" | "red" | "
 }
 
 const cardClass =
-  "animate-hero-rise flex h-[19rem] flex-col gap-4 overflow-hidden rounded-2xl bg-card p-5 shadow-xl ring-1 ring-foreground/5";
+  "animate-hero-rise flex w-full flex-col gap-4 rounded-2xl bg-card p-5 shadow-xl ring-1 ring-foreground/5";
 
 /* ── module mock cards ────────────────────────────────────────────────── */
 
