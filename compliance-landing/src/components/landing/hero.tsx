@@ -11,10 +11,10 @@ const chips = [
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" className="dark relative overflow-hidden bg-[#070711] text-foreground">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[560px]"
-        style={{ background: "radial-gradient(55% 60% at 60% -10%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)" }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[640px]"
+        style={{ background: "radial-gradient(55% 65% at 62% -10%, color-mix(in oklch, var(--primary) 26%, transparent), transparent 70%)" }}
         aria-hidden="true"
       />
 
