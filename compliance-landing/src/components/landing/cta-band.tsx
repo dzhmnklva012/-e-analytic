@@ -28,7 +28,7 @@ export function CtaBand() {
           </p>
           <CtaForm onDark />
         </div>
-      </div>
+      </Reveal>
     </Container>
   );
 }
