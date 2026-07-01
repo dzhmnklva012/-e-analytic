@@ -50,7 +50,7 @@ export function VerifyBanner() {
             <SearchCheck className="size-8" strokeWidth={2} />
           </div>
         </div>
-      </div>
+      </Reveal>
     </Container>
   );
 }
