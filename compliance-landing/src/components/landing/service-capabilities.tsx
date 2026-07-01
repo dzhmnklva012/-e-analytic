@@ -77,46 +77,10 @@ export function ServiceCapabilities() {
             ))}
           </div>
 
-          {/* glowing sparkler → beam → orb visual */}
+          {/* scroll-linked sparkler → beam → orb visual */}
           <div className="hidden items-start justify-center lg:flex">
             <div className="lg:sticky lg:top-28">
-              <div className="relative flex h-[26rem] w-full max-w-sm flex-col items-center justify-center" aria-hidden="true">
-                {/* ambient glow */}
-                <div
-                  className="absolute inset-0 blur-3xl"
-                  style={{ background: "radial-gradient(45% 40% at 50% 30%, rgba(74,163,255,0.35), transparent 70%), radial-gradient(40% 40% at 50% 78%, rgba(167,139,250,0.4), transparent 70%)" }}
-                />
-
-                {/* sparkler burst */}
-                <div className="relative grid size-24 place-items-center">
-                  <span
-                    className="animate-spin-slow absolute inset-0"
-                    style={{
-                      background:
-                        "repeating-conic-gradient(from 0deg, rgba(255,255,255,0.55) 0deg 1deg, transparent 1deg 9deg)",
-                      maskImage: "radial-gradient(closest-side, transparent 24%, black 30%, transparent 72%)",
-                      WebkitMaskImage: "radial-gradient(closest-side, transparent 24%, black 30%, transparent 72%)",
-                      opacity: 0.7,
-                    }}
-                  />
-                  <span className="animate-soft-pulse size-6 rounded-full bg-white shadow-[0_0_28px_10px_rgba(160,190,255,0.7)]" />
-                </div>
-
-                {/* light beam */}
-                <span className="animate-beam my-2 h-28 w-px bg-gradient-to-b from-white/0 via-[#7fbcff] to-[#a78bfa] shadow-[0_0_10px_1px_rgba(127,188,255,0.7)]" />
-
-                {/* core orb + horizontal streak */}
-                <div className="relative grid place-items-center">
-                  <span
-                    className="animate-streak absolute top-1/2 left-1/2 h-[3px] w-72 rounded-full"
-                    style={{ background: "linear-gradient(90deg, transparent, rgba(167,139,250,0.9), transparent)", filter: "blur(1px)" }}
-                  />
-                  {[136, 96].map((s) => (
-                    <span key={s} className="absolute rounded-full border border-white/10" style={{ width: s, height: s }} />
-                  ))}
-                  <span className="animate-soft-pulse relative size-24 rounded-full bg-gradient-to-br from-[#068dff] to-[#7c7ae0] shadow-[0_0_70px_rgba(74,163,255,0.65)] ring-1 ring-white/20" />
-                </div>
-              </div>
+              <CapabilityOrb />
             </div>
           </div>
         </div>
