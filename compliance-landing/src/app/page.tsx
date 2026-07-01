@@ -41,7 +41,9 @@ export default function Home() {
             />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {modules.map((module, i) => (
-                <ModuleCard key={module.name} module={module} index={i} />
+                <Reveal key={module.name} className="h-full" delay={(i % 3) * 80}>
+                  <ModuleCard module={module} index={i} />
+                </Reveal>
               ))}
             </div>
           </div>
