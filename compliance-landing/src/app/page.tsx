@@ -78,8 +78,6 @@ export default function Home() {
         </Section>
 
         <Faq />
-
-        <CtaBand />
       </main>
 
       <SiteFooter />
