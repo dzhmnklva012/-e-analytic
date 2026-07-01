@@ -330,6 +330,45 @@
     animation: hero-shimmer 2.4s ease-in-out infinite;
   }
 
+  /* ── glowing orb / beam animation (EternaCloud-style) ────────────── */
+  @keyframes beam-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scaleY(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1.06);
+    }
+  }
+  .animate-beam {
+    animation: beam-pulse 3.2s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 22s linear infinite;
+  }
+  @keyframes streak {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: translate(-50%, -50%) scaleX(0.8);
+    }
+    50% {
+      opacity: 0.85;
+      transform: translate(-50%, -50%) scaleX(1.15);
+    }
+  }
+  .animate-streak {
+    animation: streak 3.2s ease-in-out infinite;
+  }
+
   /* slow horizontal marquee for the services ticker */
   @keyframes marquee {
     from {
