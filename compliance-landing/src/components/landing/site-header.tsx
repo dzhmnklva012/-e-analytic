@@ -69,7 +69,11 @@ export function SiteHeader() {
                   {i > 0 && <span className="h-4 w-px bg-border" aria-hidden="true" />}
                   <a
                     href={link.href}
-                    className="rounded-md px-4 text-sm font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
+                    aria-current={activeId === link.href.slice(1) ? "page" : undefined}
+                    className={cn(
+                      "rounded-md px-4 text-sm font-medium tracking-wide uppercase transition-colors hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none",
+                      activeId === link.href.slice(1) ? "text-primary" : "text-muted-foreground",
+                    )}
                   >
                     {link.label}
                   </a>
