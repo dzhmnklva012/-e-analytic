@@ -11,7 +11,6 @@ import { CapabilitiesBento } from "@/components/landing/capabilities-bento";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
-import { RadialTools } from "@/components/landing/radial-tools";
 import { VerifyBanner } from "@/components/landing/verify-banner";
 import { PricingCard } from "@/components/landing/pricing-card";
 import { Faq } from "@/components/landing/faq";
