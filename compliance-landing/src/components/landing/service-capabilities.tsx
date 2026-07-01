@@ -124,7 +124,7 @@ export function ServiceCapabilities() {
       </Container>
 
       {/* scroll-scrub track (pins on desktop) */}
-      <div className="relative pb-20 sm:pb-28 lg:h-[260vh] lg:pb-0">
+      <div className="relative pb-20 sm:pb-28 lg:h-[220vh] lg:pb-0">
         <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
           <Container className="relative w-full">
             <div className="grid items-center gap-10 pt-10 lg:grid-cols-2 lg:gap-16 lg:pt-0">
