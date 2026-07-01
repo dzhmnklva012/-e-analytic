@@ -94,7 +94,7 @@ export function ServiceCapabilities() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="capabilities" className="relative overflow-clip scroll-mt-20 bg-[#0a0b12]">
+    <section ref={sectionRef} id="capabilities" className="relative scroll-mt-20 bg-[#0a0b12]">
       {/* ambient glows */}
       <div
         className="pointer-events-none absolute inset-0"
