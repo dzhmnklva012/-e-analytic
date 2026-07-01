@@ -35,25 +35,8 @@ export function ServiceCapabilities() {
         </Reveal>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* capability cards */}
-          <div className="flex flex-col gap-5">
-            {capabilities.map((c, i) => (
-              <Reveal
-                key={c.label}
-                delay={i * 90}
-                className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8"
-              >
-                <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 uppercase">
-                  <span className="size-1.5 rounded-full bg-[#4aa3ff]" />
-                  {c.label}
-                </span>
-                <p className="mt-4 text-lg text-pretty sm:text-xl">
-                  <span className="font-bold text-white">{c.lead}</span>
-                  <span className="text-white/55">{c.rest}</span>
-                </p>
-              </Reveal>
-            ))}
-          </div>
+          {/* sticky-scroll capability steps */}
+          <CapabilityList />
 
           {/* scroll-linked sparkler → beam → orb visual */}
           <div className="hidden items-start justify-center lg:flex">
