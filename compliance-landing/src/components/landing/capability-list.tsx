@@ -68,7 +68,7 @@ export function CapabilityList() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6 lg:gap-[30vh] lg:py-[12vh]">
       {capabilities.map((c, i) => {
         const on = active === -1 || active === i;
         return (
@@ -80,8 +80,8 @@ export function CapabilityList() {
             className={cn(
               "rounded-3xl border p-6 backdrop-blur-sm transition-all duration-500 sm:p-8",
               on
-                ? "border-primary/40 bg-white/[0.07] shadow-[0_0_50px_-12px_rgba(74,163,255,0.5)]"
-                : "border-white/10 bg-white/[0.03] opacity-55",
+                ? "border-primary/40 bg-white/[0.07] shadow-[0_0_60px_-12px_rgba(74,163,255,0.55)] lg:scale-[1.03]"
+                : "border-white/10 bg-white/[0.03] opacity-40 lg:scale-95",
             )}
           >
             <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase">
