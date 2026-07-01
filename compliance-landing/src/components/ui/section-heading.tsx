@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/ui/reveal";
 
 type SectionHeadingProps = {
   eyebrow?: string;
