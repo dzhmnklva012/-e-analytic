@@ -39,6 +39,6 @@ export function SectionHeading({
       {description && (
         <p className="text-base text-pretty text-muted-foreground">{description}</p>
       )}
-    </div>
+    </Reveal>
   );
 }
