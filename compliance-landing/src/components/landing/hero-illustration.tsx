@@ -230,7 +230,7 @@ export function HeroIllustration() {
             <ChipIcon className="size-5" />
           </div>
 
-          <div className="relative z-10 px-5 pt-9 pb-10 sm:px-7">
+          <div className="relative z-10 flex min-h-[22rem] items-center px-5 pt-9 pb-9 sm:px-7">
             <ActiveCard />
           </div>
 
