@@ -39,7 +39,7 @@ export function RadialTools() {
           description="Интуитивный интерфейс, умная автоматизация и бесшовные интеграции — всё, чтобы ваша команда не тратила время впустую."
         />
 
-        <div className="relative mx-auto aspect-square w-full max-w-2xl">
+        <Reveal dir="scale" className="relative mx-auto aspect-square w-full max-w-2xl">
           {/* glow + concentric rings */}
           <div
             className="absolute inset-0 rounded-full"
