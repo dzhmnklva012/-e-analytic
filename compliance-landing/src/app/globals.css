@@ -453,9 +453,9 @@
     fill: none;
     stroke: var(--primary);
     stroke-linecap: round;
-    stroke-dasharray: 12 88;
+    stroke-dasharray: 20 80;
     stroke-dashoffset: 100;
-    filter: drop-shadow(0 0 3px color-mix(in oklch, var(--primary) 70%, transparent));
+    filter: drop-shadow(0 0 5px color-mix(in oklch, var(--primary) 85%, transparent));
   }
   @media (prefers-reduced-motion: no-preference) {
     .trace-flow {
