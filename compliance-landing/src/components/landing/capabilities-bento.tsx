@@ -32,7 +32,7 @@ function Cell({
     <Reveal
       delay={delay}
       className={cn(
-        "group flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:bg-white/[0.06] sm:p-7",
+        "group flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg sm:p-7",
         className,
       )}
     >
