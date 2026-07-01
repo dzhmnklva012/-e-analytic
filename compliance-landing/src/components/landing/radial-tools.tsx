@@ -12,6 +12,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 type Tool = { icon: LucideIcon; x: number; y: number; color: string };
