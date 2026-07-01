@@ -61,19 +61,18 @@ export function ServiceCapabilities() {
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const total = Math.max(rect.height - vh, 1);
       const p = Math.min(Math.max(-rect.top / total, 0), 1); // scroll progress 0→1
-      const focus = p * (N - 1); // which card index is centred
-      const activeIdx = Math.round(focus);
+      // discrete step: each card owns an equal slice of the scroll
+      const step = Math.min(N - 1, Math.max(0, Math.floor(p * N - 1e-6)));
 
       cardsRef.current.forEach((el, i) => {
         if (!el) return;
-        const rel = i - focus;
-        const y = rel * 165; // px offset from centre
-        const opacity = Math.max(0, 1 - Math.abs(rel) * 1.15); // fade out as it leaves centre
-        const scale = Math.max(0.84, 1 - Math.abs(rel) * 0.14);
-        el.style.transform = `translateY(calc(-50% + ${y.toFixed(1)}px)) scale(${scale.toFixed(3)})`;
-        el.style.opacity = opacity.toFixed(3);
-        el.style.zIndex = String(100 - Math.round(Math.abs(rel) * 10));
-        const on = i === activeIdx;
+        const rel = i - step; // <0 done, 0 active, >0 upcoming
+        const on = rel === 0;
+        const y = on ? 0 : rel < 0 ? -56 : 56; // prev slides up, next waits below
+        el.style.transform = `translateY(calc(-50% + ${y}px)) scale(${on ? 1 : 0.94})`;
+        el.style.opacity = on ? "1" : "0";
+        el.style.zIndex = on ? "20" : "10";
+        el.style.pointerEvents = on ? "auto" : "none";
         el.style.boxShadow = on ? "0 0 60px -12px rgba(74,163,255,0.55)" : "none";
         el.style.borderColor = on ? "rgba(74,163,255,0.4)" : "rgba(255,255,255,0.1)";
       });
