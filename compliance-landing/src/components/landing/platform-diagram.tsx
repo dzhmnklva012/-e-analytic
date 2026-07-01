@@ -9,6 +9,29 @@ const nodes = [
   { title: "Досье", desc: "Полные профили лиц и компаний" },
 ];
 
+const connectors = [
+  "M0 48 H40 C56 48 56 95 72 95",
+  "M0 142 H40 C56 142 56 95 72 95",
+];
+
+const traces = [
+  "M200 150 V70 H120",
+  "M250 150 V90 H340",
+  "M150 200 H60 V140",
+  "M250 200 H360 V260",
+  "M200 250 V330 H300",
+  "M150 250 V310 H80",
+];
+
+const traceDots: [number, number][] = [
+  [120, 70],
+  [340, 90],
+  [60, 140],
+  [360, 260],
+  [300, 330],
+  [80, 310],
+];
+
 export function PlatformDiagram() {
   return (
     <section id="platform" className="scroll-mt-20 py-20 sm:py-28">
