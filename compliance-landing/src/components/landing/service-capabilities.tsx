@@ -136,7 +136,7 @@ export function ServiceCapabilities() {
                     ref={(el) => {
                       cardsRef.current[i] = el;
                     }}
-                    className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-sm will-change-transform sm:p-8 lg:absolute lg:inset-x-0 lg:top-1/2"
+                    className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-sm will-change-transform transition-[transform,opacity,box-shadow] duration-500 ease-out sm:p-8 lg:absolute lg:inset-x-0 lg:top-1/2"
                   >
                     <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 uppercase">
                       <span className="size-1.5 rounded-full bg-[#4aa3ff]" />
