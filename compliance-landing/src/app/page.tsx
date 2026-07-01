@@ -12,7 +12,6 @@ import { RadialTools } from "@/components/landing/radial-tools";
 import { VerifyBanner } from "@/components/landing/verify-banner";
 import { PricingCard } from "@/components/landing/pricing-card";
 import { Faq } from "@/components/landing/faq";
-import { CtaBand } from "@/components/landing/cta-band";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { modules, plans } from "@/lib/data";
 
