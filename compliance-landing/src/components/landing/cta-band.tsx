@@ -1,10 +1,11 @@
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { CtaForm } from "./cta-form";
 
 export function CtaBand() {
   return (
     <Container id="cta" className="scroll-mt-20 py-16 sm:py-20">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0e8bff] to-[#0560c8] px-6 py-14 text-center shadow-xl shadow-primary/20 sm:px-12 sm:py-16">
+      <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0e8bff] to-[#0560c8] px-6 py-14 text-center shadow-xl shadow-primary/20 sm:px-12 sm:py-16">
         {/* soft glow + faint grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.45),transparent)]"
