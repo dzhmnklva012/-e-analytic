@@ -34,9 +34,20 @@ export function PlatformDiagram() {
 
           {/* connectors (desktop) */}
           <svg className="hidden h-48 w-20 lg:block" viewBox="0 0 80 190" fill="none" aria-hidden="true">
-            <path d="M0 48 H40 C56 48 56 95 72 95" stroke="var(--border)" strokeWidth="1.5" />
-            <path d="M0 142 H40 C56 142 56 95 72 95" stroke="var(--border)" strokeWidth="1.5" />
-            <circle cx="72" cy="95" r="3" fill="var(--primary)" />
+            {connectors.map((d) => (
+              <path key={d} d={d} stroke="var(--border)" strokeWidth="1.5" />
+            ))}
+            {connectors.map((d, i) => (
+              <path
+                key={`flow-${i}`}
+                d={d}
+                pathLength={100}
+                strokeWidth="2"
+                className="trace-flow"
+                style={{ animationDelay: `${i * 1.2}s` }}
+              />
+            ))}
+            <circle cx="72" cy="95" r="3.5" fill="var(--primary)" className="animate-soft-pulse" />
           </svg>
 
           {/* right: glowing AI chip */}
