@@ -50,7 +50,7 @@ function Cell({
 
 export function CapabilitiesBento() {
   return (
-    <section id="capabilities" className="relative scroll-mt-20 overflow-hidden bg-[#070711] py-20 sm:py-28">
+    <section id="capabilities" className="relative scroll-mt-20 overflow-hidden py-20 sm:py-28">
       <div
         className="pointer-events-none absolute inset-0"
         style={{ background: "radial-gradient(50% 40% at 50% 0%, color-mix(in oklch, var(--primary) 14%, transparent), transparent 70%)" }}
