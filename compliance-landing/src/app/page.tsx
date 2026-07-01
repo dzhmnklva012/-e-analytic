@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { OfflineBanner } from "@/components/landing/offline-banner";
 import { Hero } from "@/components/landing/hero";
 import { AgentSolves } from "@/components/landing/agent-solves";
+import { ServiceCapabilities } from "@/components/landing/service-capabilities";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
