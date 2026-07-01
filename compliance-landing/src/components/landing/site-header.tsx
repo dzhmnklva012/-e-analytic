@@ -11,7 +11,7 @@ import { MobileNav } from "./mobile-nav";
 export const navLinks = [
   { href: "#modules", label: "Продукты и решения" },
   { href: "#pricing", label: "Тарифы" },
-  { href: "#cta", label: "Контакты" },
+  { href: "#footer", label: "Контакты" },
 ];
 
 export function SiteHeader() {
