@@ -55,6 +55,8 @@ export default function Home() {
 
         <RadialTools />
 
+        <VerifyBanner />
+
         {/* Pricing */}
         <Section id="pricing" className="bg-card/50">
           <div className="flex flex-col gap-12">
