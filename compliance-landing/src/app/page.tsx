@@ -7,7 +7,7 @@ import { Hero } from "@/components/landing/hero";
 import { RiskChips } from "@/components/landing/risk-chips";
 import { PlatformDiagram } from "@/components/landing/platform-diagram";
 import { AgentSolves } from "@/components/landing/agent-solves";
-import { ServiceCapabilities } from "@/components/landing/service-capabilities";
+import { CapabilitiesBento } from "@/components/landing/capabilities-bento";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { ModuleCard } from "@/components/landing/module-card";
 import { FeaturesDashboard } from "@/components/landing/features-dashboard";
