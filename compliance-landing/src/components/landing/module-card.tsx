@@ -18,7 +18,7 @@ export function ModuleCard({ module, index = 0 }: { module: Module; index?: numb
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 rounded-2xl border bg-card p-6 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-foreground/5",
+        "flex h-full flex-col gap-4 rounded-2xl border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5",
         module.flagship ? "border-primary ring-1 ring-primary/30" : "border-border",
       )}
     >
