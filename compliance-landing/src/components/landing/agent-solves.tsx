@@ -18,6 +18,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { Parallax } from "@/components/ui/parallax";
 import { cn } from "@/lib/utils";
 
 /* ── shared row shell ─────────────────────────────────────────────────── */
