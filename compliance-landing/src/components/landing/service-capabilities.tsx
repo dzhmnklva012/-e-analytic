@@ -67,9 +67,9 @@ export function ServiceCapabilities() {
       cardsRef.current.forEach((el, i) => {
         if (!el) return;
         const rel = i - focus;
-        const y = rel * 150; // px offset from centre
-        const opacity = Math.max(0.12, 1 - Math.abs(rel) * 0.85);
-        const scale = Math.max(0.85, 1 - Math.abs(rel) * 0.13);
+        const y = rel * 165; // px offset from centre
+        const opacity = Math.max(0, 1 - Math.abs(rel) * 1.15); // fade out as it leaves centre
+        const scale = Math.max(0.84, 1 - Math.abs(rel) * 0.14);
         el.style.transform = `translateY(calc(-50% + ${y.toFixed(1)}px)) scale(${scale.toFixed(3)})`;
         el.style.opacity = opacity.toFixed(3);
         el.style.zIndex = String(100 - Math.round(Math.abs(rel) * 10));
