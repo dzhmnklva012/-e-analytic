@@ -1,30 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { CapabilityOrb } from "./capability-orb";
-
-type Capability = {
-  label: string;
-  lead: string;
-  rest: string;
-};
-
-const capabilities: Capability[] = [
-  {
-    label: "Глобальная проверка",
-    lead: "Проверяйте за секунды.",
-    rest: " ИИ-агент сверяет контрагента с международными базами и санкционными списками и собирает полное досье.",
-  },
-  {
-    label: "Расследования",
-    lead: "Ведите дела до конца.",
-    rest: " Свяжите лиц, обращения и доказательства, назначьте ответственного и выгрузите отчёт для аудита.",
-  },
-  {
-    label: "Аналитика и контроль",
-    lead: "Видьте картину целиком.",
-    rest: " Риски, горячая линия, конфликты и нагрузка — на живых дашбордах в реальном времени.",
-  },
-];
+import { CapabilityList } from "./capability-list";
 
 export function ServiceCapabilities() {
   return (
