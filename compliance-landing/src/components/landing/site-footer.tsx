@@ -32,7 +32,7 @@ const footerNav = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-card">
+    <footer id="footer" className="scroll-mt-20 border-t border-border bg-card">
       <Container className="flex flex-col gap-10 py-12">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div className="flex flex-col gap-4">
