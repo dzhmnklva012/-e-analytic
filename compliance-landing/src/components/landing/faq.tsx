@@ -19,7 +19,9 @@ export function Faq() {
           title="Частые вопросы"
           description="Если не нашли ответ — напишите нам, и мы поможем."
         />
-        <Accordion items={items} />
+        <Reveal>
+          <Accordion items={items} />
+        </Reveal>
       </div>
     </Section>
   );
