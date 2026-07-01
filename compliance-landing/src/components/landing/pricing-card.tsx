@@ -7,10 +7,10 @@ export function PricingCard({ plan }: { plan: Plan }) {
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-6 rounded-2xl border bg-card p-6",
+        "relative flex h-full flex-col gap-6 rounded-2xl border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10",
         plan.featured
           ? "border-primary ring-2 ring-primary/30 shadow-xl shadow-primary/5 lg:-mt-4 lg:mb-4"
-          : "border-border",
+          : "border-border hover:border-primary/40",
       )}
     >
       {plan.featured && (
