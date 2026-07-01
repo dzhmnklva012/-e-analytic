@@ -442,4 +442,24 @@
   .animate-soft-pulse {
     animation: soft-pulse 4s ease-in-out infinite;
   }
+
+  /* travelling light pulse along an SVG path (use pathLength="100") */
+  @keyframes trace-flow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .trace-flow {
+    fill: none;
+    stroke: var(--primary);
+    stroke-linecap: round;
+    stroke-dasharray: 12 88;
+    stroke-dashoffset: 100;
+    filter: drop-shadow(0 0 3px color-mix(in oklch, var(--primary) 70%, transparent));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .trace-flow {
+      animation: trace-flow 2.4s linear infinite;
+    }
+  }
 }
