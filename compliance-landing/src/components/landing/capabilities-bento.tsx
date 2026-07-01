@@ -72,7 +72,7 @@ export function CapabilitiesBento() {
             desc="ИИ-агент сверяет контрагента с международными базами и санкционными списками за секунды и собирает полное досье."
             className="lg:col-span-2 lg:row-span-2 lg:justify-between"
           >
-            <div className="mt-auto flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#0e1020]/60 p-4">
+            <div className="mt-auto flex items-center justify-between gap-4 rounded-2xl border border-border bg-muted p-4">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-foreground">94%</span>
                 <span className="text-xs text-muted-foreground">Точность скоринга</span>
