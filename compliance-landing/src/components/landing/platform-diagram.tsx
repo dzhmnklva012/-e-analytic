@@ -53,15 +53,22 @@ export function PlatformDiagram() {
           {/* right: glowing AI chip */}
           <div className="relative grid place-items-center py-6">
             {/* circuit traces */}
-            <svg className="pointer-events-none absolute size-[22rem] opacity-70" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-              {[
-                "M200 150 V70 H120", "M250 150 V90 H340", "M150 200 H60 V140",
-                "M250 200 H360 V260", "M200 250 V330 H300", "M150 250 V310 H80",
-              ].map((d, i) => (
-                <path key={i} d={d} stroke="var(--primary)" strokeOpacity="0.35" strokeWidth="1.5" />
+            <svg className="pointer-events-none absolute size-[22rem] opacity-80" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+              {traces.map((d, i) => (
+                <path key={`base-${i}`} d={d} stroke="var(--primary)" strokeOpacity="0.3" strokeWidth="1.5" />
               ))}
-              {[[120, 70], [340, 90], [60, 140], [360, 260], [300, 330], [80, 310]].map(([x, y], i) => (
-                <circle key={i} cx={x} cy={y} r="3" fill="var(--primary)" fillOpacity="0.7" />
+              {traces.map((d, i) => (
+                <path
+                  key={`flow-${i}`}
+                  d={d}
+                  pathLength={100}
+                  strokeWidth="2"
+                  className="trace-flow"
+                  style={{ animationDelay: `${i * 0.4}s` }}
+                />
+              ))}
+              {traceDots.map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r="3" fill="var(--primary)" fillOpacity="0.7" className="animate-soft-pulse" style={{ animationDelay: `${i * 0.4}s` }} />
               ))}
             </svg>
 
