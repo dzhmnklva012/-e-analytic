@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/container";
 
 export function VerifyBanner() {
   return (
-    <Container className="py-8 sm:py-10">
+    <Container id="verify" className="scroll-mt-20 py-8 sm:py-10">
       <div className="flex flex-col items-start gap-8 overflow-hidden rounded-3xl bg-secondary/40 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
         {/* copy */}
         <div className="flex flex-col gap-4">
