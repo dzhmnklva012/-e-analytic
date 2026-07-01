@@ -138,7 +138,6 @@ export function PlatformDiagram() {
             ))}
 
             {/* AI chip */}
-            <Chip className="absolute size-[200px]" style-left={640} />
             <div className="absolute" style={{ left: 640, top: 130, width: 200, height: 200 }}>
               <Chip className="relative size-full" />
             </div>
