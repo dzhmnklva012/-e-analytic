@@ -15,7 +15,7 @@
 :root {
   --radius: 1rem; /* 16px base; explicit 4px-grid scale in @theme inline */
 
-  --background: #f4f5f6; /* clean light page */
+  --background: #ffffff; /* clean white page */
   --foreground: #2c3e50; /* slate text/headings */
   --card: #ffffff;
   --card-foreground: #2c3e50;
