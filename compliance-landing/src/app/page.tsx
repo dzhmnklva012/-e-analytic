@@ -69,8 +69,10 @@ export default function Home() {
               description="Платите за объём проверок. Начните бесплатно и масштабируйтесь под команду."
             />
             <div className="grid items-start gap-6 lg:grid-cols-3">
-              {plans.map((plan) => (
-                <PricingCard key={plan.name} plan={plan} />
+              {plans.map((plan, i) => (
+                <Reveal key={plan.name} delay={i * 90}>
+                  <PricingCard plan={plan} />
+                </Reveal>
               ))}
             </div>
           </div>
