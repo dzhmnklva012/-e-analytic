@@ -216,6 +216,7 @@ export function AgentSolves() {
         <div className="flex flex-col gap-6 lg:gap-8">
           <FeatureRow
             icon={CloudUpload}
+            parallax={28}
             title={<>Загрузите базу знаний и данные</>}
             description="Импортируйте досье, документы, обращения и санкционные списки — ИИ мгновенно всё изучит и подготовит к проверкам."
             visual={<KnowledgeMock />}
@@ -223,12 +224,14 @@ export function AgentSolves() {
           <FeatureRow
             icon={SlidersHorizontal}
             reverse
+            parallax={48}
             title={<>Настройте поведение ИИ-агента</>}
             description="Задайте тон, пороги риска и правила эскалации. Агент работает по вашим политикам комплаенса — как ваш аналитик."
             visual={<BehaviorMock />}
           />
           <FeatureRow
             icon={Lightbulb}
+            parallax={36}
             title={<>Получайте точные результаты и досье</>}
             description="Подключите ИИ-агента к вашим системам и каналам. Точные оценки риска и готовые досье — везде, где работает команда."
             visual={<ChatMock />}
